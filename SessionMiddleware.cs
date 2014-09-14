@@ -9,7 +9,7 @@ namespace OwinSession
     using Owin;
     using AppFunc = System.Func<System.Collections.Generic.IDictionary<string, object>, System.Threading.Tasks.Task>; 
 
-    public class SessionMiddleware
+    public class SessionMiddleware 
     {
         private readonly char[] seperator = { ':' };
         private readonly string cookieName = "session";
@@ -31,48 +31,57 @@ namespace OwinSession
         
         public Task Invoke(IOwinContext context)
         {
-            string cookies = context.Request.Headers["cookie"];
-            string beforeValue = context.Request.Cookies[this.cookieName];
-            if (beforeValue != null) {
-                string session = extract(beforeValue);
-                context.Request.Environment[this.environmentKey] = session;
+            if (context.Request.Headers["cookie"] != null) {
+                string beforeValue = context.Request.Cookies[this.cookieName];
+                if (beforeValue != null) {
+                    string session = extract(beforeValue);
+                    context.Request.Environment[this.environmentKey] = session;
+                }
             }
-            return this.nextMiddleware.Invoke(context.Environment).ContinueWith(_ => convertToCookie(context.Response));
+            context.Response.OnSendingHeaders(state => {
+                var resp = (IOwinResponse)state;
+                convertToCookie(resp);
+            }, context.Response);
+            return this.nextMiddleware.Invoke(context.Environment);
         }
 
-    	private string signature(string value)
-    	{
-		    Rfc2898DeriveBytes rfc = new Rfc2898DeriveBytes(value, this.passphrase);
+        private string signature(string value)
+        {
+            Rfc2898DeriveBytes rfc = new Rfc2898DeriveBytes(value, this.passphrase);
             byte[] sha = rfc.GetBytes(8);
-		    string strSha = BitConverter.ToString(sha);
-				return strSha;
+            string strSha = BitConverter.ToString(sha);
+            return strSha;
            }
 
-		private string sign(string value)
-		{
-		    string strSha = this.signature(value);
-		    return strSha + this.seperator[0] + value;
-		}
-
-		private string extract(string signed)
+        private string sign(string value)
         {
-		    string[] split = signed.Split(this.seperator, 1);
-            string strSha = split[0];
-			string session = split[1];
-        	string chkSha = this.sign(session);
-		    if(chkSha != strSha) {
-		    	return null;
-		    }
-		    return session;
-		}
+            string strSha = this.signature(value);
+            return strSha + this.seperator[0] + value;
+        }
 
-		private void convertToCookie(IOwinResponse context)
-		{
-		        string value = context.Environment[this.environmentKey].ToString();
-		   		if(value != null) {
-				// sign the cookie
-					context.Cookies.Append(this.cookieName, this.sign(value));
-			    }
-		}
+        private string extract(string signed)
+        {
+            string[] split = signed.Split(this.seperator, 2);
+            string strSha = split[0];
+            string session = split[1];
+            string chkSha = this.signature(session);
+            if(chkSha != strSha) {
+                Console.WriteLine("Possible session tampering. Hashes dont match {0} and {1}", strSha, chkSha);
+                return null;
+            }
+            return session;
+        }
+
+        private void convertToCookie(IOwinResponse context)
+        {
+            if (context.Environment.ContainsKey(this.environmentKey) == false) {
+                return;
+            }
+            string value = context.Environment[this.environmentKey].ToString();
+            if(value != null) {
+                // sign the cookie
+                context.Cookies.Append(this.cookieName, this.sign(value));
+            }
+        }
     }
 }

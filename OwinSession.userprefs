@@ -1,27 +1,20 @@
-﻿<Properties>
+﻿<Properties GitUserInfo="UsingGIT">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="OwinSession.Unit/SessionMiddleWareTests.cs">
     <Files>
-      <File FileName="SessionMiddleware.cs" Line="18" Column="30" />
-      <File FileName="Properties/AssemblyInfo.cs" Line="14" Column="1" />
-      <File FileName="OwinSession.Unit/SessionMiddleWareTests.cs" Line="23" Column="2" />
+      <File FileName="SessionMiddleware.cs" Line="1" Column="1" />
+      <File FileName="ConsoleHost/Program.cs" Line="1" Column="1" />
+      <File FileName="OwinSession.Unit/packages.config" Line="1" Column="1" />
+      <File FileName="Properties/AssemblyInfo.cs" Line="1" Column="1" />
+      <File FileName="OwinSession.Unit/SessionMiddleWareTests.cs" Line="1" Column="1" />
     </Files>
-    <Pads>
-      <Pad Id="ProjectPad">
-        <State expanded="True">
-          <Node name="OwinSession" expanded="True">
-            <Node name="References" expanded="True" />
-            <Node name="Properties" expanded="True" />
-          </Node>
-          <Node name="OwinSession.Unit" expanded="True" selected="True">
-            <Node name="References" expanded="True" />
-          </Node>
-        </State>
-      </Pad>
-    </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
+    <BreakpointStore>
+      <Breakpoint file="/home/vagrant/Projects/OwinSession/SessionMiddleware.cs" line="72" column="1" />
+      <Breakpoint file="/home/vagrant/Projects/OwinSession/OwinSession.Unit/SessionMiddleWareTests.cs" line="70" column="13" />
+      <Breakpoint file="/home/vagrant/Projects/OwinSession/OwinSession.Unit/SessionMiddleWareTests.cs" line="53" column="1" />
+    </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>

@@ -12,6 +12,9 @@ namespace OwinSession.Unit
 
     public class SessionMiddlewareTests
     {
+        private string envKey = "test.session";
+        private string passphrase = "a passphrase......";
+
         [Test]
         public void CanConstruct()
         {
@@ -26,7 +29,7 @@ namespace OwinSession.Unit
         {
             TaskCompletionSource<bool> tcs = new TaskCompletionSource<bool>();
             tcs.SetResult(true);
-            e["test.session"] = "some session data";
+          //  e["test.session"] = "some session data";
             return tcs.Task;
         }
 
@@ -44,6 +47,30 @@ namespace OwinSession.Unit
             subject.Invoke(dict);
             Assert.AreEqual(beforeCount, dict.Count);
         }
+
+        public Task SetEnvKey(IDictionary<string, object> e)
+        {
+            e[this.envKey] = "a value";
+            var tcs = new TaskCompletionSource<bool>();
+            tcs.SetResult(true);
+            return tcs.Task;
+        }
+
+        [Test]
+        public void CookieGetsSet()
+        {
+            var next = new AppFunc(e => SetEnvKey(e));
+            var subject = new SessionMiddleware(next, envKey, passphrase);
+            var dict = new EnvDict();
+            var headers = new Dictionary<string, string[]>();
+            dict["owin.RequestHeaders"] = headers;
+            dict["owin.ResponseHeaders"] = headers;
+            var afterHeaders = dict["owin.ResponseHeaders"] as IDictionary<string, string[]> ;
+            Assert.IsNotNull(afterHeaders);
+            Assert.IsNotNull(afterHeaders["set-cookie"]);
+        }
+
+       
 
     }
 }
