@@ -17,6 +17,5 @@
   </metadata>
   <files>
 	<file src='README.md' target=""/>
-	<file src='bin/Release/OwinEventSource.dll' target="lib/OwinEventSource.dll" />
  </files>
 </package>
