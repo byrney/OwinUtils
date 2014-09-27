@@ -1,14 +1,9 @@
 ﻿<Properties GitUserInfo="UsingGIT">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="ConsoleHost/Program.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="OwinSession.sln">
     <Files>
-      <File FileName="OwinSession.Unit/SessionMiddleWareTests.cs" Line="21" Column="21" />
-      <File FileName="SessionMiddleware.cs" Line="29" Column="29" />
-      <File FileName="todo.md" Line="1" Column="1" />
-      <File FileName="EventSource.cs" Line="20" Column="20" />
-      <File FileName="IEventStream.cs" Line="1" Column="1" />
-      <File FileName="EventStream.cs" Line="1" Column="1" />
-      <File FileName="ConsoleHost/Program.cs" Line="21" Column="21" />
+      <File FileName="ConsoleHost/Program.cs" Line="51" Column="51" />
+      <File FileName="OwinSession.sln" Line="42" Column="42" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

@@ -3,10 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OwinUtils", "OwinUtils.csproj", "{5AEB6F49-2D13-4E9E-9717-708D4C4F6AA0}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OwinUtilsTests", "OwinSession.Unit\OwinUtilsTests.csproj", "{0FC97664-89C4-4032-A23F-0FE7AE4B358C}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleHost", "ConsoleHost\ConsoleHost.csproj", "{8FDA5CCE-468B-4F81-91FB-BEAD17127035}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OwinUtils", "OwinUtils\OwinUtils.csproj", "{5AEB6F49-2D13-4E9E-9717-708D4C4F6AA0}"
