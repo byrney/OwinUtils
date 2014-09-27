@@ -5,3 +5,5 @@ StyleCop.Cache
 packages/
 *.suo
 OwinSession.v12.suo
+.DS_Store
+test-results
