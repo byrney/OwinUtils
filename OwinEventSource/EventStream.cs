@@ -29,7 +29,7 @@
             return this.tcs.Task;
         }
 
-        private void Close(Exception e)
+        private bool Close(Exception e)
         {
             if (e == null || e.HResult == -2146232800) { // client closed the  connection
                 this.tcs.SetResult(true);
@@ -39,6 +39,7 @@
             if (this.closeCallback != null)
                 this.closeCallback.Invoke();
 //            this.responseWriter.Dispose();
+            return true; // exception handled
         }
 
         public void Close()
@@ -46,7 +47,7 @@
             this.Close(null);
         }
 
-        private async void WriteAndFlush(string message)
+        private async Task WriteAndFlush(string message)
         {
             await this.responseWriter.WriteAsync(message);
             await this.responseWriter.FlushAsync();
@@ -55,7 +56,7 @@
         public void WriteAsync(string message)
         {
             try {
-                this.WriteAndFlush(message);
+                this.WriteAndFlush(message).ContinueWith(t => t.Exception.Handle(Close));
             } catch (Exception e) {
                 this.Close(e);
             }

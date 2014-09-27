@@ -52,7 +52,9 @@ namespace ConsoleHost
                     eventStream.WriteAsync("message 1");
                     eventStream.Close();
                 }, null, 5000,  System.Threading.Timeout.Infinite);
-                return eventStream.Open(() => Console.WriteLine("Closed"));
+                var task =  eventStream.Open(() => Console.WriteLine("Closed"));
+                eventStream.WriteAsync("Started");
+                return task;
             });
         }
     }
