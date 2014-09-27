@@ -46,11 +46,16 @@
             this.Close(null);
         }
 
+        private async void WriteAndFlush(string message)
+        {
+            await this.responseWriter.WriteAsync(message);
+            await this.responseWriter.FlushAsync();
+        }
+
         public void WriteAsync(string message)
         {
             try {
-                this.responseWriter.Write(message);
-                this.responseWriter.Flush();
+                this.WriteAndFlush(message);
             } catch (Exception e) {
                 this.Close(e);
             }
