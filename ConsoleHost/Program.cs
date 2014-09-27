@@ -46,7 +46,7 @@ namespace ConsoleHost
             string envKey = "test.eventstream";
             app.Use<OwinEventSource.Middleware>(envKey);
             app.Run(context => {
-                var eventStream = context.Environment[envKey] as EventStream;
+                var eventStream = context.Environment[envKey] as IEventStream;
                 Console.WriteLine("Got eventstream");
                 var timer = new System.Threading.Timer(_ => {
                     eventStream.WriteAsync("message 1");

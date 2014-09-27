@@ -4,7 +4,7 @@
     using System.IO;
     using System.Threading.Tasks;
 
-    public class EventStream
+    class EventStream : IEventStream
     {
         private Stream responseStream;
         private StreamWriter responseWriter;
