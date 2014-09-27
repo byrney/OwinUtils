@@ -28,14 +28,14 @@ namespace OwinUtilsTests
         };
         public void Configuration(IAppBuilder app)
         {
-            app.Use<SessionMiddleware>(envKey, passPhrase);
+            app.Use<Session>(envKey, passPhrase);
             app.Run(appFunc);
         }
     }
 
 
     [TestFixture]
-    public class SessionMiddlewareTests
+    public class SessionTests
     {
         private string envKey = "test.session";
         private string passphrase = "a passphrase......";
@@ -74,7 +74,7 @@ namespace OwinUtilsTests
         {
             var request = new HttpRequestMessage(HttpMethod.Get, "http://xyz.com/");
             string inputValue = "some stuff";
-            var signed = SessionMiddleware.sign(inputValue, Startup.passPhrase);
+            var signed = Session.sign(inputValue, Startup.passPhrase);
             var encoded = Uri.EscapeDataString(signed);
             request.Headers.Add("Cookie", string.Format("session={0}", encoded));
             var response = client.SendAsync(request).Result;
@@ -107,7 +107,7 @@ namespace OwinUtilsTests
             string envKey = "test.session";
             string passphrase = "a passphrase......";
             var next = new AppFunc(e => new Task(null));
-            var subject = new SessionMiddleware(next, envKey, passphrase);
+            var subject = new Session(next, envKey, passphrase);
             Assert.NotNull(subject);
         }
 
