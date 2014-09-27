@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package >
+  <metadata>
+    <id>OwinEventSource</id>
+    <version>0.0.1</version>
+    <authors>Robert Byrne</authors>
+    <owners>TPWC Ltd</owners>
+    <projectUrl>https://github.com/byrney</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>An Owin Middleware component that allows you to hold on to a client connection and stream responses (e.g EventSource) back to the client later</description>
+    <releaseNotes>First Build</releaseNotes>
+    <copyright>Copyright TPWC Ltd 2014</copyright>
+    <tags></tags>
+    <dependencies>
+      <dependency id="Owin" version="1.0" />
+    </dependencies>
+  </metadata>
+  <files>
+	<file src='README.md' target=""/>
+	<file src='bin/Release/OwinEventSource.dll' target="lib/OwinEventSource.dll" />
+ </files>
+</package>
