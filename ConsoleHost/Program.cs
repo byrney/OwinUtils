@@ -44,7 +44,6 @@ namespace ConsoleHost
         public void Configuration(IAppBuilder app)
         {
             string envKey = "test.eventstream";
-         
             app.Use<OwinEventSource.Middleware>(envKey);
             app.Run(context => {
                 var eventStream = context.Environment[envKey] as EventStream;
