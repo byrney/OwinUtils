@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OwinSession.Unit", "OwinSes
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleHost", "ConsoleHost\ConsoleHost.csproj", "{8FDA5CCE-468B-4F81-91FB-BEAD17127035}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OwinEventSource", "OwinEventSource\OwinEventSource.csproj", "{577DF606-805D-49E7-B3DC-2CAD1D963851}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,6 +19,10 @@ Global
 		{0FC97664-89C4-4032-A23F-0FE7AE4B358C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0FC97664-89C4-4032-A23F-0FE7AE4B358C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0FC97664-89C4-4032-A23F-0FE7AE4B358C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{577DF606-805D-49E7-B3DC-2CAD1D963851}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{577DF606-805D-49E7-B3DC-2CAD1D963851}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{577DF606-805D-49E7-B3DC-2CAD1D963851}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{577DF606-805D-49E7-B3DC-2CAD1D963851}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5AEB6F49-2D13-4E9E-9717-708D4C4F6AA0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5AEB6F49-2D13-4E9E-9717-708D4C4F6AA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5AEB6F49-2D13-4E9E-9717-708D4C4F6AA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -27,7 +33,7 @@ Global
 		{8FDA5CCE-468B-4F81-91FB-BEAD17127035}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
-		StartupItem = OwinSession.Unit\OwinSession.Unit.csproj
+		StartupItem = ConsoleHost\ConsoleHost.csproj
 		Policies = $0
 		$0.TextStylePolicy = $1
 		$1.FileWidth = 120

@@ -1,6 +1,8 @@
 ﻿using System;
 using Microsoft.Owin.Hosting;
 using Owin;
+using OwinEventSource;
+
 
 namespace ConsoleHost
 {
@@ -8,15 +10,17 @@ namespace ConsoleHost
     {
         static void Main(string[] args)
         {
-            using (WebApp.Start<Startup>("http://localhost:12345"))
+            var url = "http://localhost:12345";
+            using (WebApp.Start<EventPipeline>(url))
             {
+                Console.WriteLine("Listening on {0}", url);
                 Console.ReadLine();
             }
         }
     }
 
-    // creates the pipeline  (of one)
-    public class Startup
+    // creates the pipeline  (of one) session middleware
+    public class SessionPipeline
     {
         public void Configuration(IAppBuilder app)
         {
@@ -31,4 +35,27 @@ namespace ConsoleHost
             });
         }
     }
+
+    // creates the pipeline  (of one) session middleware
+    public class EventPipeline
+    {
+
+
+        public void Configuration(IAppBuilder app)
+        {
+            string envKey = "test.eventstream";
+         
+            app.Use<OwinEventSource.Middleware>(envKey);
+            app.Run(context => {
+                var eventStream = context.Environment[envKey] as EventStream;
+                Console.WriteLine("Got eventstream");
+                var timer = new System.Threading.Timer(_ => {
+                    eventStream.WriteAsync("message 1");
+                    eventStream.Close();
+                }, null, 5000,  System.Threading.Timeout.Infinite);
+                return eventStream.Open(() => Console.WriteLine("Closed"));
+            });
+        }
+    }
+
 }
