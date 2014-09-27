@@ -3,8 +3,6 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>8.0.30703</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{8FDA5CCE-468B-4F81-91FB-BEAD17127035}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <RootNamespace>ConsoleHost</RootNamespace>
@@ -56,13 +54,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\OwinSession.csproj">
+    <ProjectReference Include="..\OwinUtils\OwinUtils.csproj">
       <Project>{5AEB6F49-2D13-4E9E-9717-708D4C4F6AA0}</Project>
-      <Name>OwinSession</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\OwinEventSource\OwinEventSource.csproj">
-      <Project>{577DF606-805D-49E7-B3DC-2CAD1D963851}</Project>
-      <Name>OwinEventSource</Name>
+      <Name>OwinUtils</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>

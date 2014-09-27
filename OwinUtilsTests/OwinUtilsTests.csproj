@@ -3,8 +3,6 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>8.0.30703</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{0FC97664-89C4-4032-A23F-0FE7AE4B358C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <RootNamespace>OwinSession.Unit</RootNamespace>
@@ -57,12 +55,12 @@
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
-    <ProjectReference Include="..\OwinSession.csproj">
-      <Project>{5AEB6F49-2D13-4E9E-9717-708D4C4F6AA0}</Project>
-      <Name>OwinSession</Name>
-    </ProjectReference>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <ProjectReference Include="..\OwinUtils\OwinUtils.csproj">
+      <Project>{5AEB6F49-2D13-4E9E-9717-708D4C4F6AA0}</Project>
+      <Name>OwinUtils</Name>
+    </ProjectReference>
   </ItemGroup>
 </Project>

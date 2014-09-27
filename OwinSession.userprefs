@@ -1,36 +1,24 @@
 ﻿<Properties GitUserInfo="UsingGIT">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="OwinEventSource/EventStream.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="ConsoleHost/Program.cs">
     <Files>
-      <File FileName="OwinSession.Unit/SessionMiddleWareTests.cs" Line="2" Column="2" />
-      <File FileName="SessionMiddleware.cs" Line="55" Column="55" />
+      <File FileName="OwinSession.Unit/SessionMiddleWareTests.cs" Line="21" Column="21" />
+      <File FileName="SessionMiddleware.cs" Line="29" Column="29" />
       <File FileName="todo.md" Line="1" Column="1" />
-      <File FileName="OwinEventSource/Middleware.cs" Line="34" Column="34" />
-      <File FileName="OwinEventSource/EventStream.cs" Line="1" Column="1" />
-      <File FileName="ConsoleHost/Program.cs" Line="1" Column="1" />
-      <File FileName="OwinEventSource/IEventStream.cs" Line="41" Column="41" />
+      <File FileName="EventSource.cs" Line="20" Column="20" />
+      <File FileName="IEventStream.cs" Line="1" Column="1" />
+      <File FileName="EventStream.cs" Line="1" Column="1" />
+      <File FileName="ConsoleHost/Program.cs" Line="21" Column="21" />
     </Files>
-    <Pads>
-      <Pad Id="ProjectPad">
-        <State expanded="True" selected="True">
-          <Node name="ConsoleHost" expanded="True" />
-          <Node name="OwinEventSource" expanded="True" />
-          <Node name="OwinSession" expanded="True" />
-          <Node name="OwinSession.Unit" expanded="True" />
-        </State>
-      </Pad>
-      <Pad Id="MonoDevelop.Debugger.WatchPad">
-        <State />
-      </Pad>
-      <Pad Id="MonoDevelop.NUnit.TestPad">
-        <State expanded="True" selected="True" />
-      </Pad>
-    </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
-      <Breakpoint file="/home/vagrant/Projects/OwinSession/ConsoleHost/Program.cs" line="48" column="1" />
+      <Breakpoint file="/home/vagrant/Projects/OwinSession/ConsoleHost/Program.cs" line="28" column="1" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <DisabledProjects>
+    <String>OwinUtils.csproj</String>
+    <String>OwinSession.Unit/OwinUtilsTests.csproj</String>
+  </DisabledProjects>
 </Properties>

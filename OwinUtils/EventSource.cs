@@ -1,4 +1,4 @@
-﻿namespace OwinEventSource
+﻿namespace OwinUtils
 {
     using System;
     using System.IO;
@@ -7,12 +7,12 @@
     using AppFunc = System.Func<System.Collections.Generic.IDictionary<string, object>, System.Threading.Tasks.Task>; 
     using HeaderDict = System.Collections.Generic.IDictionary<string, string[]>;
 
-    public class Middleware
+    public class EventSource
     {
         AppFunc downstream;
         string environmentKey;
 
-        public Middleware(AppFunc next, string environmentKey = "reponse.stream")
+        public EventSource(AppFunc next, string environmentKey = "reponse.stream")
         {
             if (next == null) {
                 throw new InvalidOperationException("Next middleware cannot be null");

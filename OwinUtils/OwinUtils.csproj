@@ -3,8 +3,6 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>8.0.30703</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{5AEB6F49-2D13-4E9E-9717-708D4C4F6AA0}</ProjectGuid>
     <OutputType>Library</OutputType>
     <RootNamespace>OwinSession</RootNamespace>
@@ -44,10 +42,14 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SessionMiddleware.cs" />
+    <Compile Include="IEventStream.cs" />
+    <Compile Include="EventSource.cs" />
+    <Compile Include="EventStream.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <None Include="packages.config" />
     <None Include="todo.md" />
+    <None Include="README.md" />
   </ItemGroup>
 </Project>

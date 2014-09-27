@@ -1,4 +1,4 @@
-namespace OwinSession
+namespace OwinUtils
 {
     using System;
     using System.Collections.Generic;

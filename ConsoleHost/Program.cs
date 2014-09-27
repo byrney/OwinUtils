@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.Owin.Hosting;
 using Owin;
-using OwinEventSource;
+using OwinUtils;
 
 
 namespace ConsoleHost
@@ -26,7 +26,7 @@ namespace ConsoleHost
         {
             string envKey = "test.session";
             string passPhrase = "a pass phrase that is long";
-            app.Use<OwinSession.SessionMiddleware>(envKey, passPhrase);
+            app.Use<SessionMiddleware>(envKey, passPhrase);
             app.Run(context => {
                 var inboundSession = context.Environment[envKey];
                 Console.WriteLine("Inbound session: {0}", inboundSession);
@@ -44,7 +44,7 @@ namespace ConsoleHost
         public void Configuration(IAppBuilder app)
         {
             string envKey = "test.eventstream";
-            app.Use<OwinEventSource.Middleware>(envKey);
+            app.Use<EventSource>(envKey);
             app.Run(context => {
                 var eventStream = context.Environment[envKey] as IEventStream;
                 Console.WriteLine("Got eventstream");

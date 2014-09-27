@@ -1,4 +1,4 @@
-﻿namespace OwinEventSource
+﻿namespace OwinUtils
 {
     using System;
     using System.IO;

@@ -1,4 +1,4 @@
-namespace OwinSession.Unit
+namespace OwinUtilsTests
 {
     using System;
     using System.Collections.Generic;
@@ -9,7 +9,7 @@ namespace OwinSession.Unit
     using NUnit.Framework;
     using Moq;
     using Owin;
-    using OwinSession;
+    using OwinUtils;
     using EnvDict = System.Collections.Generic.Dictionary<string, object>;
     using AppFunc = System.Func<System.Collections.Generic.IDictionary<string, object>, System.Threading.Tasks.Task>; 
 
@@ -28,7 +28,7 @@ namespace OwinSession.Unit
         };
         public void Configuration(IAppBuilder app)
         {
-            app.Use<OwinSession.SessionMiddleware>(envKey, passPhrase);
+            app.Use<SessionMiddleware>(envKey, passPhrase);
             app.Run(appFunc);
         }
     }
