@@ -1,9 +1,8 @@
 ﻿<Properties GitUserInfo="UsingGIT">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="OwinSession.sln">
+  <MonoDevelop.Ide.Workbench>
     <Files>
-      <File FileName="ConsoleHost/Program.cs" Line="51" Column="51" />
-      <File FileName="OwinSession.sln" Line="42" Column="42" />
+      <File FileName="OwinUtilsTests/SessionMiddleWareTests.cs" Line="54" Column="54" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

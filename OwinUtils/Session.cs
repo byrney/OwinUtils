@@ -9,7 +9,7 @@ namespace OwinUtils
     using Owin;
     using AppFunc = System.Func<System.Collections.Generic.IDictionary<string, object>, System.Threading.Tasks.Task>; 
 
-    public class SessionMiddleware 
+    public class Session 
     {
         private static readonly char[] seperator = { ':' };
         private readonly string cookieName = "session";
@@ -17,7 +17,7 @@ namespace OwinUtils
         private string environmentKey;
         private AppFunc nextMiddleware;
 
-        public SessionMiddleware(AppFunc next, string environmentKey, string passphrase)
+        public Session(AppFunc next, string environmentKey, string passphrase)
         {
             this.nextMiddleware = next;
             this.passphrase = passphraseToBytes(passphrase);

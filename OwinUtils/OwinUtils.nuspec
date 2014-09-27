@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package >
+	<metadata>
+		<id>OwinUtils</id>
+		<version>$version$</version>
+		<title>$title$</title>
+		<authors>$author$</authors>
+		<owners>$author$</owners>
+		<projectUrl>https://github.com/byrney</projectUrl>
+		<requireLicenseAcceptance>false</requireLicenseAcceptance>
+		<description>$description$</description>
+		<releaseNotes>First Build</releaseNotes>
+		<copyright>Copyright TPWC Ltd 2014</copyright>
+		<dependencies>
+			<dependency id="Owin" version="1.0" />
+		</dependencies>
+	</metadata>
+	<files>
+		<file src='README.md' target=""/>
+	</files>
+</package>

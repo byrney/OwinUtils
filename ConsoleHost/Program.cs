@@ -26,7 +26,7 @@ namespace ConsoleHost
         {
             string envKey = "test.session";
             string passPhrase = "a pass phrase that is long";
-            app.Use<SessionMiddleware>(envKey, passPhrase);
+            app.Use<Session>(envKey, passPhrase);
             app.Run(context => {
                 var inboundSession = context.Environment[envKey];
                 Console.WriteLine("Inbound session: {0}", inboundSession);
