@@ -2,20 +2,25 @@
 <package >
 	<metadata>
 		<id>OwinUtils</id>
-		<version>$version$</version>
-		<title>$title$</title>
-		<authors>$author$</authors>
-		<owners>$author$</owners>
+		<version>0.1.0</version>
+		<title>Utilities and Middleware components for Owin</title>
+		<authors>Robert Byrne</authors>
+		<owners>Robert Byrne</owners>
 		<projectUrl>https://github.com/byrney</projectUrl>
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>
-		<description>$description$</description>
+		<description>Utilities and Middleware(z) for developing Owin applications. 
+			EventSource: stream data back to a client (COMET, HTML5 EventSource etc)
+			Session: Implement a session cookie with signing to prevent tampering
+		</description>
 		<releaseNotes>First Build</releaseNotes>
 		<copyright>Copyright TPWC Ltd 2014</copyright>
 		<dependencies>
 			<dependency id="Owin" version="1.0" />
+			<dependency id="Microsoft.Owin" version="3.0.0" />
 		</dependencies>
 	</metadata>
 	<files>
-		<file src='README.md' target=""/>
+		<file src='../README.md' target=""/>
+		<file src='./bin/Release/OwinUtils.dll' target="lib/OwinUtils.dll" />
 	</files>
 </package>

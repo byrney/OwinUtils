@@ -5,9 +5,10 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{5AEB6F49-2D13-4E9E-9717-708D4C4F6AA0}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>OwinSession</RootNamespace>
-    <AssemblyName>OwinSession</AssemblyName>
+    <RootNamespace>OwinUtils</RootNamespace>
+    <AssemblyName>OwinUtils</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <ReleaseVersion>0.1.0</ReleaseVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -26,6 +27,11 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
+    <CustomCommands>
+      <CustomCommands>
+        <Command type="Custom" name="NugetPack" command="nuget pack OwinUtils.nuspec" workingdir="${ProjectDir}" externalConsole="True" />
+      </CustomCommands>
+    </CustomCommands>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Owin">
