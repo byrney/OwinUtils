@@ -39,21 +39,19 @@ namespace ConsoleHost
     // creates the pipeline  (of one) session middleware
     public class EventPipeline
     {
-
-
         public void Configuration(IAppBuilder app)
         {
             string envKey = "test.eventstream";
             app.Use<EventSource>(envKey);
             app.Run(context => {
                 var eventStream = context.Environment[envKey] as IEventStream;
+                var task =  eventStream.Open(() => Console.WriteLine("Closed"));
                 Console.WriteLine("Got eventstream");
                 var timer = new System.Threading.Timer(_ => {
-                    eventStream.WriteAsync("message 1");
+                    eventStream.WriteAsync("message 1\n");
                     eventStream.Close();
                 }, null, 5000,  System.Threading.Timeout.Infinite);
-                var task =  eventStream.Open(() => Console.WriteLine("Closed"));
-                eventStream.WriteAsync("Started");
+                eventStream.WriteAsync("Started\n");
                 return task;
             });
         }
