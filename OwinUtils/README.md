@@ -1,8 +1,25 @@
 
+OwinUtils
+=========
+
+Some midddleware to use with Owin.
+
+* OwinEventSource: stream events back to client (HTML5 Server Sent Events)
+* OwinSession: signed session cookies
+
+OwinSession
+===========
+
+When placed upstream this will convert inbound cookies to a value in the
+environment dictionary (checking that they are signed) and convert the
+corresponding environment key into a signed cookie.
+
+
 OwinEventSource
 ==============
 
-An Owin middleware that can be used to stream events back to the client (e.g HTML5 EventSource).
+An Owin middleware that can be used to stream events back to the 
+client (e.g HTML5 EventSource).
 
 Add the middleware into your Owin pipeline
      
@@ -13,8 +30,8 @@ Add the middleware into your Owin pipeline
             //....
         }
 
-In your application (or downstream middleware) get the EventStream object from the Owin Environment
-and return the Task from EventStream.Open()
+In your application (or downstream middleware) get the EventStream object 
+from the Owin Environment and return the Task from EventStream.Open()
 
 	public Task Invoke(EnvDict env)
 	{
@@ -24,7 +41,8 @@ and return the Task from EventStream.Open()
                 return eventStream.Open(() => Console.WriteLine("Closed"));
         }
 
-Store the event-stream in a member variable/closure and then write to it later on
+Store the event-stream in a member variable/closure and then write 
+to it later on
 
         public void Configuration(IAppBuilder app)
         {
