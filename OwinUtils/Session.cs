@@ -85,15 +85,15 @@ namespace OwinUtils
             return session;
         }
 
-        private void convertToCookie(IOwinResponse context)
+        private void convertToCookie(IOwinResponse response)
         {
-            if (context.Environment.ContainsKey(this.environmentKey) == false) {
+            if (response.Environment.ContainsKey(this.environmentKey) == false) {
                 return;
             }
-            string value = context.Environment[this.environmentKey].ToString();
+            string value = response.Environment[this.environmentKey].ToString();
             if(value != null) {
                 // sign the cookie
-                context.Cookies.Append(this.cookieName, sign(value, this.passphrase));
+                response.Cookies.Append(this.cookieName, sign(value, this.passphrase));
             }
         }
     }
