@@ -8,3 +8,4 @@ OwinSession.v12.suo
 .DS_Store
 test-results
 *.nupkg
+*.userprefs
