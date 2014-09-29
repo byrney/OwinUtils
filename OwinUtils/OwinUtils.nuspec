@@ -2,11 +2,12 @@
 <package >
 	<metadata>
 		<id>OwinUtils</id>
-		<version>0.1.0</version>
+		<version>0.1.1</version>
 		<title>Utilities and Middleware components for Owin</title>
 		<authors>Robert Byrne</authors>
 		<owners>Robert Byrne</owners>
 		<projectUrl>https://github.com/byrney</projectUrl>
+		<licenseUrl>https://github.com/byrney/OwinSession/blob/master/LICENSE.txt</licenseUrl>
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>
 		<description>Utilities and Middleware(z) for developing Owin applications. 
 			EventSource: stream data back to a client (COMET, HTML5 EventSource etc)
@@ -20,7 +21,7 @@
 		</dependencies>
 	</metadata>
 	<files>
-		<file src='../README.md' target=""/>
+		<file src='../README.md' target="" />
 		<file src='./bin/Release/OwinUtils.dll' target="lib/OwinUtils.dll" />
 	</files>
 </package>

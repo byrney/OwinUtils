@@ -7,6 +7,10 @@
     using AppFunc = System.Func<System.Collections.Generic.IDictionary<string, object>, System.Threading.Tasks.Task>; 
     using HeaderDict = System.Collections.Generic.IDictionary<string, string[]>;
 
+    /// <summary>
+    /// inserts an EvenStream object into the EnvDict using the key passed 
+    /// to the connstructor. See IEventStream for details on use.
+    /// </summary>
     public class EventSource
     {
         AppFunc downstream;

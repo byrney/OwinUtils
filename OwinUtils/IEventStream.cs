@@ -8,15 +8,23 @@ namespace OwinUtils
 
     public interface IEventStream
     {
-        // call this to capture the stream. onClose will be called when the stream
-        // is closed (either by client or server).
-        // The return Task should be returned from your Invoke() method to keep the stream open
-        // The Task will not complete until the stream is closed
+        /// <summary>
+        /// Call this to capture the stream. Return the Task returned by this method in your Invoke
+        /// to keep the stream open
+        /// </summary>
+        /// <param name="onClose">callback for when the stream is closed (either by client or server).</param>
         Task Open(Action onClose);
         // Explicitly closes the stream from the server-side
         // onClose callbacks will be called after the client is disconnected
+        /// <summary>
+        /// Explicitly closes the stream from the server-side. 
+        /// onClose callbacks will be called after the client is disconnected
+        /// </summary>
         void Close();
-        // write a message to the stream
+        /// <summary>
+        /// Write back to the client connection
+        /// </summary>
+        /// <param name="message">Text to send</param>
         void WriteAsync(string message);
     }
 }
