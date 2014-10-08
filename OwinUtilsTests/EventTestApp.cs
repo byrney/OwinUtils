@@ -18,6 +18,7 @@
         public string environmentKey = "response.events";
         public IEventStream stream = null;
         public IOwinContext context = null;
+        public int writeDelayMilliseconds = 200;
 
         public EventTestApp()
         {
@@ -53,7 +54,7 @@
             var es = (IEventStream) ctx.Environment[environmentKey];
             var task = es.Open(onClose);
          //   writeStreamResponse(es);
-            var timer = new System.Threading.Timer(writeStream, es, 500, System.Threading.Timeout.Infinite);
+            var timer = new System.Threading.Timer(writeStream, es, writeDelayMilliseconds, System.Threading.Timeout.Infinite);
             return task;
         }
 

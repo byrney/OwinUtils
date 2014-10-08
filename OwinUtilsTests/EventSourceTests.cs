@@ -61,11 +61,22 @@ namespace OwinUtilsTests
 
 
         [Test]
-        public void headersAreSetIfStreamIsOpened()
+        public void headersAreSetIfStreamIsClosed()
         {
             var app = new EventTestApp();
             var request = new HttpRequestMessage(HttpMethod.Get, "http://xyz.com/");
             var response = testServerGet(app.openClose, request, true);
+            Assert.IsTrue(response.IsSuccessStatusCode);
+            var ct = response.Content.Headers.ContentType.ToString();
+            Assert.AreEqual("text/eventstream", ct);
+        }
+
+        [Test]
+        public void headersAreSetIfStreamIsWritten()
+        {
+            var app = new EventTestApp();
+            var request = new HttpRequestMessage(HttpMethod.Get, "http://xyz.com/");
+            var response = testServerGet(app.openStreamAndWrite, request, true);
             Assert.IsTrue(response.IsSuccessStatusCode);
             var ct = response.Content.Headers.ContentType.ToString();
             Assert.AreEqual("text/eventstream", ct);
@@ -97,11 +108,10 @@ namespace OwinUtilsTests
             var request = new HttpRequestMessage(HttpMethod.Get, "http://xyz.com/");
             using (var server = TestServer.Create(app.openStream)) {
                 var client = server.HttpClient;
-                client.Timeout = new TimeSpan(0, 0, 0, 0, 100);
+                var writeDelay = app.writeDelayMilliseconds;
+                client.Timeout = new TimeSpan(0, 0, 0, 0, writeDelay/2);
                 var response = client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead)
-                    .ContinueWith(_ => 
-                        Assert.AreEqual(1, app.onCloseCalledCount)
-                               );
+                    .ContinueWith(_ => Assert.AreEqual(1, app.onCloseCalledCount));
             }
         }
 
