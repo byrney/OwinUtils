@@ -2,7 +2,7 @@
 <package >
 	<metadata>
 		<id>OwinUtils</id>
-		<version>0.1.1</version>
+		<version>0.1.4</version>
 		<title>Utilities and Middleware components for Owin</title>
 		<authors>Robert Byrne</authors>
 		<owners>Robert Byrne</owners>
@@ -19,9 +19,12 @@
 			<dependency id="Owin" version="1.0" />
 			<dependency id="Microsoft.Owin" version="3.0.0" />
 		</dependencies>
+		<references>
+			<reference file='OwinUtils.dll' />
+		</references>
 	</metadata>
 	<files>
-		<file src='../README.md' target="" />
-		<file src='./bin/Release/OwinUtils.dll' target="lib/OwinUtils.dll" />
+		<file src='../README.md' target="readme.txt" />
+		<file src='bin/Release/OwinUtils.dll' target="lib" />
 	</files>
 </package>

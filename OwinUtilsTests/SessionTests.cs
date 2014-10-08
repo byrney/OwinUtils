@@ -14,31 +14,12 @@ namespace OwinUtilsTests
 
 
     [TestFixture]
-    public class SessionTests
+    public class SessionTests : MiddlewareTestBase
     {
         private string envKey = "test.session";
         private string passphrase = "a passphrase......";
 
-        public static HttpResponseMessage testServerGet(Action<IAppBuilder> builder, HttpRequestMessage request)
-        {
-            using (var server = TestServer.Create(builder)) {
-                var client = server.HttpClient;
-                return client.SendAsync(request).Result;
-            }
-        }
 
-        static string extractCookie(HttpResponseMessage response, string cookieName)
-        {
-            var cookieHeader = response.Headers.GetValues("set-cookie");
-            foreach (string c in cookieHeader) {
-                var decoded = Uri.UnescapeDataString(c);
-                if (decoded.StartsWith(cookieName + "=")) {
-                    var split = decoded.Split(new char[] { ':', ';' });
-                    return split[1];
-                }
-            }
-            return null;
-        }
 
         [Test]
         public void responseBodyIsReturnedThroughMiddleware()

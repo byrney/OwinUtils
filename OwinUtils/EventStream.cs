@@ -31,6 +31,9 @@
 
         private bool Close(Exception e)
         {
+     //       if (this.tcs.Task.Status != TaskStatus.Running) {
+       //         return true;
+         //   }
             if (e == null || e.HResult == -2146232800) { // client closed the  connection
                 this.tcs.SetResult(true);
             } else {
@@ -47,19 +50,17 @@
             this.Close(null);
         }
 
-        private async Task WriteAndFlush(string message)
+        private Task WriteAndFlush(string message)
         {
-            await this.responseWriter.WriteAsync(message);
-            await this.responseWriter.FlushAsync();
+            var w = this.responseWriter;
+            return w.WriteAsync(message).ContinueWith(t => w.FlushAsync()
+                , TaskContinuationOptions.OnlyOnRanToCompletion);
         }
 
-        public void WriteAsync(string message)
+        public Task WriteAsync(string message)
         {
-            try {
-                this.WriteAndFlush(message).ContinueWith(t => t.Exception.Handle(Close));
-            } catch (Exception e) {
-                this.Close(e);
-            }
+              return this.WriteAndFlush(message).ContinueWith(t => t.Exception.Handle(Close)
+                , TaskContinuationOptions.OnlyOnFaulted);
         }
 
     }

@@ -25,7 +25,7 @@ namespace OwinUtils
         /// Write back to the client connection
         /// </summary>
         /// <param name="message">Text to send</param>
-        void WriteAsync(string message);
+        Task WriteAsync(string message);
     }
 }
 

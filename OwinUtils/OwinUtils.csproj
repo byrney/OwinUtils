@@ -52,7 +52,9 @@
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="todo.md" />
     <None Include="README.md" />
+    <None Include="..\todo.md">
+      <Link>todo.md</Link>
+    </None>
   </ItemGroup>
 </Project>

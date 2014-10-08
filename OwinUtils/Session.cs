@@ -9,6 +9,10 @@ namespace OwinUtils
     using Owin;
     using AppFunc = System.Func<System.Collections.Generic.IDictionary<string, object>, System.Threading.Tasks.Task>; 
 
+    /// <summary>
+    /// Owin Middleware which converts from a value in the EnvDict to a signed session cookie
+    /// and back again. Incorrectly signed cookies are ignored
+    /// </summary>
     public class Session 
     {
         private static readonly char[] seperator = { ':' };
