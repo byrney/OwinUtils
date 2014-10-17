@@ -20,9 +20,6 @@ static class DictionaryExtensions
 namespace ConsoleHost
 {
 
-
-
-
     class Program
     {
         public void EventConfiguration(IAppBuilder app)
@@ -55,6 +52,16 @@ namespace ConsoleHost
             });
         }
 
+        public static void ForwardedConfiguration(IAppBuilder app)
+        {
+            app.Use<Forwarded>("/root");
+            app.Run(context => {
+                var fub = new ForwardedUrlBuilder(context.Environment);
+                var url = fub.url(context.Request.Path.ToString());
+                return context.Response.WriteAsync(string.Format("Hello from: {0}\n", url));
+            });
+        }
+
         public static string GetHeaderOrNull(IDictionary<string, string[]> dictionary, string key)
         {
             string[] ret = null;
@@ -63,40 +70,15 @@ namespace ConsoleHost
             return ret == null ? null : ret[0];
         }
 
-        public static void ReverseProxy(IAppBuilder app)
+        interface IUrlBuilder
         {
-            app.Map("/siteroot", builder => {
-                builder.Run(context => {
-                    var headers =  (HeaderDict)context.Environment["owin.RequestHeaders"];
-                    var fdict = new Dictionary<string, object>();
-                    if(headers.ContainsKey("X-Forwarded-For")) {
-                        var scriptName = GetHeaderOrNull(headers, "X-Script-Name");
-                        var basePath = string.Format("{0}{1}", scriptName, context.Request.PathBase); 
-                        fdict.Add("RequestPathBase",basePath);
-                        fdict.Add("Host",      GetHeaderOrNull(headers, "X-Forwarded-Host"));
-                        fdict.Add("Server",    GetHeaderOrNull(headers, "X-Forwarded-Server"));
-                        fdict.Add("Scheme",    GetHeaderOrNull(headers, "X-Forwarded-Proto"));
-                        context.Environment.Add("forwarded", fdict);
-                    }else{
-                        fdict.Add("RequestPathBase", context.Request.PathBase);
-                        fdict.Add("Host", context.Request.Host);
-                        fdict.Add("Scheme", context.Request.Scheme);
-                    }
-                  
-                  
-
-                    return context.Response.WriteAsync(string.Format("Hello: {0}\n", "siteroot"));
-                });
-            });
-            app.Run(context => {
-                return context.Response.WriteAsync(string.Format("Hello: {0}\n", "/"));
-            });
+ 
         }
 
         static void Main(string[] args)
         {
             var url = "http://localhost:12345";
-            using (WebApp.Start(url, ReverseProxy))
+            using (WebApp.Start(url, ForwardedConfiguration))
             {
                 Console.WriteLine("Listening on {0}", url);
                 Console.ReadLine();

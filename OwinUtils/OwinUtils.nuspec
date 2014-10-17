@@ -2,7 +2,7 @@
 <package >
 	<metadata>
 		<id>OwinUtils</id>
-		<version>0.1.4</version>
+		<version>0.1.5</version>
 		<title>Utilities and Middleware components for Owin</title>
 		<authors>Robert Byrne</authors>
 		<owners>Robert Byrne</owners>

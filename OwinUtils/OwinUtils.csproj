@@ -48,6 +48,9 @@
     <Compile Include="EventSource.cs" />
     <Compile Include="EventStream.cs" />
     <Compile Include="Session.cs" />
+    <Compile Include="UrlBuilder.cs" />
+    <Compile Include="ForwardedUrlBuilder.cs" />
+    <Compile Include="Forwarded.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
