@@ -52,6 +52,11 @@ namespace ConsoleHost
             });
         }
 
+        public static void BranchedConfiguration(IAppBuilder app)
+        {
+       
+        }
+
         public static void ForwardedConfiguration(IAppBuilder app)
         {
             app.Use<Forwarded>("/root");
