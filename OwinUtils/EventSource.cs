@@ -37,7 +37,7 @@
         {
             //todo: this is probably too specific to SSE to go here
             var headers = (HeaderDict)env["owin.ResponseHeaders"];
-            headers["Content-Type"] = new string[] {"text/eventstream"};
+            headers["Content-Type"] = new string[] {"text/event-stream"};
             headers["Transfer-Encoding"] = new string[] {"chunked"};
             headers["cache-control"] = new string[]{"no-cache"};
         }

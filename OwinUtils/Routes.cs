@@ -2,40 +2,93 @@
 using Owin;
 using Microsoft.Owin;
 using System.Threading.Tasks;
-using AppFunc = System.Func<System.Collections.Generic.IDictionary<string, object>, System.Threading.Tasks.Task>; 
+using AppFunc = System.Func<System.Collections.Generic.IDictionary<string, object>, System.Threading.Tasks.Task>;
+using RouteFunc = System.Func<System.Collections.Generic.IDictionary<string, object>
+    , System.Collections.Generic.IDictionary<string, object>
+, System.Threading.Tasks.Task>; 
 
 namespace ConsoleHost
 {
-
     public class RouteTemplate
     {
-        class Segment 
+        class Token 
         {
-            enum SegmentType { literal, optional, required };
+            enum TokenType { literal, optional, required };
             public string name;
-            private SegmentType type;
-            public Segment(string seg)
+            private TokenType type;
+            public Token(string seg)
             {
-                // todo:
-                this.name = seg;
-                this.type = SegmentType.literal;
+                if (!String.IsNullOrEmpty(seg)) {
+                    Parse(seg);
+                }
+                else {
+                    this.type = TokenType.literal;
+                    this.name = "";
+                }
             }
+
+            private void Parse(string seg)
+            {
+                var first = seg[0];
+                switch (first) {
+                    case '[':
+                        this.type = TokenType.optional;
+                        this.name = seg.Trim('[', ']');
+                        break;
+                    case '<':
+                        this.type = TokenType.required;
+                        this.name = seg.Trim('<', '>');
+                        break;
+                    default:
+                        this.type = TokenType.literal;
+                        this.name = seg;
+                        break;
+                }
+            }
+
+            public bool extract(string segment, out string value)
+            {
+                value = null;
+                switch (this.type) {
+                    case TokenType.literal:
+                        return segment == name;
+                        break;
+                    case TokenType.optional:
+                        value = segment;
+                        return true;
+                        break;
+                    case TokenType.required:
+                        value = segment;
+                        return !String.IsNullOrEmpty(segment);
+                        break;
+                }
+                return false;
+            }
+
         }
 
-        private Segment[] segments;
+        private Token[] tokens;
         public RouteTemplate(string template)
         {
             var segs = template.Split('/');
-            this.segments = new Segment[segs.Length];
+            this.tokens = new Token[segs.Length];
             for (int i = 0; i < segs.Length; i++) {
-                this.segments[i] = new Segment(segs[i]);
+                this.tokens[i] = new Token(segs[i]);
             }
         }
 
         public bool match(PathString path)
         {
-            // todo:
-            return path.StartsWithSegments(new PathString("/" + segments[0].name));
+            var segs = path.Value.Split('/');
+            for (int i = 0; i < this.tokens.Length; i++) {
+                string value;
+                var seg = i < segs.Length ? segs[i] : null;
+                if (!tokens[i].extract(seg, out value)) {
+                    return false;
+                }
+            }
+            return true;
+        
         }
     }
 

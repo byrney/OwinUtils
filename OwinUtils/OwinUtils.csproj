@@ -47,6 +47,7 @@
     <Compile Include="IEventStream.cs" />
     <Compile Include="EventSource.cs" />
     <Compile Include="EventStream.cs" />
+    <Compile Include="Routes.cs" />
     <Compile Include="Session.cs" />
     <Compile Include="UrlBuilder.cs" />
     <Compile Include="ForwardedUrlBuilder.cs" />

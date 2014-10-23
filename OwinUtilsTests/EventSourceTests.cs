@@ -31,7 +31,7 @@ namespace OwinUtilsTests
         }
   
         [Test]
-        public void eventSOurceIsInEnvironmentDict()
+        public void eventSourceIsInEnvironmentDict()
         {
             var app = new EventTestApp();
             var request = new HttpRequestMessage(HttpMethod.Get, "http://xyz.com/");
@@ -68,7 +68,7 @@ namespace OwinUtilsTests
             var response = testServerGet(app.openClose, request, true);
             Assert.IsTrue(response.IsSuccessStatusCode);
             var ct = response.Content.Headers.ContentType.ToString();
-            Assert.AreEqual("text/eventstream", ct);
+            Assert.AreEqual("text/event-stream", ct);
         }
 
         [Test]
@@ -79,7 +79,7 @@ namespace OwinUtilsTests
             var response = testServerGet(app.openStreamAndWrite, request, true);
             Assert.IsTrue(response.IsSuccessStatusCode);
             var ct = response.Content.Headers.ContentType.ToString();
-            Assert.AreEqual("text/eventstream", ct);
+            Assert.AreEqual("text/event-stream", ct);
         }
 
         [Test]
