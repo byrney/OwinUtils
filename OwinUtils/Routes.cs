@@ -5,7 +5,8 @@ using System.Threading.Tasks;
 using AppFunc = System.Func<System.Collections.Generic.IDictionary<string, object>, System.Threading.Tasks.Task>;
 using RouteFunc = System.Func<System.Collections.Generic.IDictionary<string, object>
     , System.Collections.Generic.IDictionary<string, object>
-, System.Threading.Tasks.Task>; 
+, System.Threading.Tasks.Task>;
+using EnvDict = System.Collections.Generic.IDictionary<string, object>;
 
 namespace ConsoleHost
 {
@@ -46,19 +47,18 @@ namespace ConsoleHost
                 }
             }
 
-            public bool extract(string segment, out string value)
+            public bool extract(string segment, EnvDict paraDict)
             {
-                value = null;
                 switch (this.type) {
                     case TokenType.literal:
-                        return segment == name;
+                        return segment == this.name;
                         break;
                     case TokenType.optional:
-                        value = segment;
+                        paraDict[this.name] = segment;
                         return true;
                         break;
                     case TokenType.required:
-                        value = segment;
+                        paraDict[this.name] = segment;
                         return !String.IsNullOrEmpty(segment);
                         break;
                 }
@@ -77,13 +77,13 @@ namespace ConsoleHost
             }
         }
 
-        public bool match(PathString path)
+        public bool match(PathString path, EnvDict paramDict)
         {
             var segs = path.Value.Split('/');
             for (int i = 0; i < this.tokens.Length; i++) {
                 string value;
                 var seg = i < segs.Length ? segs[i] : null;
-                if (!tokens[i].extract(seg, out value)) {
+                if (!tokens[i].extract(seg, paramDict)) {
                     return false;
                 }
             }
@@ -97,7 +97,7 @@ namespace ConsoleHost
         public class Options {
             public OwinMiddleware branch { get; set;}
             public RouteTemplate template { get ; set; }
-            public AppFunc app { get ; set; }
+            public RouteFunc app { get ; set; }
         }
 
         private Options options;
@@ -109,9 +109,10 @@ namespace ConsoleHost
 
         public override Task Invoke(IOwinContext ctx)
         {
-            if (options.template.match(ctx.Request.Path)) {
+            var routeParams = new System.Collections.Generic.Dictionary<string, object>();
+            if (options.template.match(ctx.Request.Path, routeParams)) {
                 var env = ctx.Environment;
-                return options.app != null ? options.app.Invoke(env) : options.branch.Invoke(ctx);
+                return options.app != null ? options.app.Invoke(env, routeParams) : options.branch.Invoke(ctx);
             } else {
                 return Next.Invoke(ctx);
             }
@@ -128,7 +129,7 @@ namespace ConsoleHost
         }
 
         // converts the string to a Template and calls the corresponding overload
-        public static IAppBuilder Route(this IAppBuilder app, string template, AppFunc action)
+        public static IAppBuilder Route(this IAppBuilder app, string template, RouteFunc action)
         {
             var rt = new RouteTemplate(template);
             return Route(app, rt, action);
@@ -147,7 +148,7 @@ namespace ConsoleHost
         }
 
         // creates a route which calls runAction
-        public static IAppBuilder Route(this IAppBuilder app, RouteTemplate template, AppFunc runAction)
+        public static IAppBuilder Route(this IAppBuilder app, RouteTemplate template, RouteFunc runAction)
         {
             var options = new RouteMiddleware.Options();
             options.template = template;

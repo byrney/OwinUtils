@@ -55,23 +55,20 @@ namespace ConsoleHost
             });
         }
 
-        public static Task HelloMw(AppFunc next, EnvDict env)
-        {
-            return SayHello(env);
-        }
+
   
         public static Task SayHelloC(IOwinContext ctx)
         {
             return ctx.Response.WriteAsync("hello");
         }
 
-        public static Task SayHello(EnvDict env)
+        public static Task SayHello(EnvDict env, EnvDict routeParams)
         {
             var ctx = new OwinContext(env);
             return ctx.Response.WriteAsync("hello");
         }
 
-        public static Task SayGoodbye(EnvDict env)
+        public static Task SayGoodbye(EnvDict env, EnvDict routeParams)
         {
             var ctx = new OwinContext(env);
             return ctx.Response.WriteAsync("Goodbye");
@@ -79,8 +76,8 @@ namespace ConsoleHost
 
         public static void BranchedConfiguration(IAppBuilder app)
         {
-            app.Branch("hello", b => b.Run(SayHello));
-            app.Route("goodbye", SayGoodbye);
+         //   app.Branch("hello", b => b.Run(SayHello));
+           // app.Route("goodbye", SayGoodbye);
         }
         
         public static void ForwardedConfiguration(IAppBuilder app)

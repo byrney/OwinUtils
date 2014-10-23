@@ -19,21 +19,22 @@ namespace OwinUtilsTests
     public class RoutesTests : MiddlewareTestBase
     {
 
-        public static Task SayHello(EnvDict env)
+        public static Task SayHello(EnvDict env, EnvDict param)
         {
             var ctx = new OwinContext(env);
             return ctx.Response.WriteAsync("hello");
         }
 
-        public static Task SayGoodbye(EnvDict env)
+        public static Task SayGoodbye(EnvDict env, EnvDict param)
         {
             var ctx = new OwinContext(env);
             return ctx.Response.WriteAsync("Goodbye");
         }
-        public static Task SayBebe(EnvDict env)
+        public static Task SayBebe(EnvDict env, EnvDict param)
         {
             var ctx = new OwinContext(env);
-            return ctx.Response.WriteAsync("Bebe");
+            var v = param["bebe"] as string;
+            return ctx.Response.WriteAsync(v);
         }
 
         [Test]
@@ -41,14 +42,14 @@ namespace OwinUtilsTests
         {
             var ts = TestServer.Create(app => {
                 app.Route("/hola/<bebe>", SayBebe);
-                app.Branch("/hello", b => b.Run(SayHello));
+                app.Branch("/hello", b => b.Run(ctx => SayHello(ctx, null)));
                 app.Route("/goodbye", SayGoodbye);
             });
             var cl = ts.HttpClient;
             var resp = cl.GetAsync("http://example.com/hola/boo").Result;
             Assert.IsTrue(resp.IsSuccessStatusCode);
             var content = resp.Content.ReadAsStringAsync().Result;
-            Assert.AreEqual("Bebe", content);
+            Assert.AreEqual("boo", content);
         }
 
         [Test]
@@ -57,7 +58,7 @@ namespace OwinUtilsTests
             var ts = TestServer.Create(app =>
             {
                 app.Route("/hola/<bebe>", SayBebe);
-                app.Branch("/hello", b => b.Run(SayHello));
+                app.Branch("/hello", b => b.Run(ctx => SayHello(ctx, null)));
                 app.Route("/goodbye", SayGoodbye);
             });
             var cl = ts.HttpClient;
