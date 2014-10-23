@@ -35,7 +35,7 @@ namespace ConsoleHost
         public bool match(PathString path)
         {
             // todo:
-            return path.StartsWithSegments(new PathString(segments[0].name));
+            return path.StartsWithSegments(new PathString("/" + segments[0].name));
         }
     }
 
@@ -68,10 +68,10 @@ namespace ConsoleHost
     public static class RouteBuilder
     {
         // converts the string to a Template and calls the corresponding overload
-        public static IAppBuilder Route(this IAppBuilder app, string template, Action<IAppBuilder> action)
+        public static IAppBuilder Branch(this IAppBuilder app, string template, Action<IAppBuilder> action)
         {
             var rt = new RouteTemplate(template);
-            return Route(app, rt, action);
+            return Branch(app, rt, action);
         }
 
         // converts the string to a Template and calls the corresponding overload
@@ -82,7 +82,7 @@ namespace ConsoleHost
         }
 
         // creates a branch in the routing
-        public static IAppBuilder Route(this IAppBuilder app, RouteTemplate template, Action<IAppBuilder> branchAction)
+        public static IAppBuilder Branch(this IAppBuilder app, RouteTemplate template, Action<IAppBuilder> branchAction)
         {
             var options = new RouteMiddleware.Options();
             options.template = template;
@@ -103,6 +103,10 @@ namespace ConsoleHost
             return result;
         }
 
+        public static void Run(this IAppBuilder app, AppFunc runAction)
+        {
+            app.Run(ctx => runAction(ctx.Environment));
+        }
 
     }
 

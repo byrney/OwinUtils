@@ -4,7 +4,10 @@ using Owin;
 using OwinUtils;
 using System.Collections.Generic;
 using HeaderDict = System.Collections.Generic.IDictionary<string, string[]>;
-
+using EnvDict = System.Collections.Generic.IDictionary<string, object>;
+using AppFunc = System.Func<System.Collections.Generic.IDictionary<string, object>, System.Threading.Tasks.Task>; 
+using System.Threading.Tasks;
+using Microsoft.Owin;
 
 static class DictionaryExtensions
 {
@@ -52,11 +55,34 @@ namespace ConsoleHost
             });
         }
 
-        public static void BranchedConfiguration(IAppBuilder app)
+        public static Task HelloMw(AppFunc next, EnvDict env)
         {
-       
+            return SayHello(env);
+        }
+  
+        public static Task SayHelloC(IOwinContext ctx)
+        {
+            return ctx.Response.WriteAsync("hello");
         }
 
+        public static Task SayHello(EnvDict env)
+        {
+            var ctx = new OwinContext(env);
+            return ctx.Response.WriteAsync("hello");
+        }
+
+        public static Task SayGoodbye(EnvDict env)
+        {
+            var ctx = new OwinContext(env);
+            return ctx.Response.WriteAsync("Goodbye");
+        }
+
+        public static void BranchedConfiguration(IAppBuilder app)
+        {
+            app.Branch("hello", b => b.Run(SayHello));
+            app.Route("goodbye", SayGoodbye);
+        }
+        
         public static void ForwardedConfiguration(IAppBuilder app)
         {
             app.Use<Forwarded>("/root");
@@ -83,7 +109,7 @@ namespace ConsoleHost
         static void Main(string[] args)
         {
             var url = "http://localhost:12345";
-            using (WebApp.Start(url, ForwardedConfiguration))
+            using (WebApp.Start(url, BranchedConfiguration))
             {
                 Console.WriteLine("Listening on {0}", url);
                 Console.ReadLine();
