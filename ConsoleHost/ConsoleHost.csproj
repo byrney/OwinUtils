@@ -49,11 +49,11 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Routes.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="AppBuilderSource.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\OwinUtils\OwinUtils.csproj">

@@ -51,6 +51,9 @@
     <Compile Include="UrlBuilder.cs" />
     <Compile Include="ForwardedUrlBuilder.cs" />
     <Compile Include="Forwarded.cs" />
+    <Compile Include="Wrapper.cs" />
+    <Compile Include="Routes.cs" />
+    <Compile Include="AppBuilderRouteExtensions.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
