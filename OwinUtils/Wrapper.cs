@@ -23,7 +23,7 @@ namespace OwinUtils
 			extractMetadata (callee, methodName);
 		}
 
-		private void extractMetadataMatch(object callee, string methodName)
+		private void extractBestMatch(object callee, string methodName)
 		{
 			MethodInfo[] methods = callee.GetType().GetMethods();
 			foreach (var method in methods)
@@ -41,13 +41,23 @@ namespace OwinUtils
 			throw new ArgumentException ("cannot find invoke method on callee");
 		}
 
+        void validateParameters(ParameterInfo[] parameters, Type[] parameterTypes)
+        {
+            if(parameters.Length < 1) {
+                throw new ArgumentException("Method must have at least 1 parameter (envDict)");
+            }
+            var t1 = parameterTypes[0];
+  /*          if(parameterTypes[0] != "") {
+                throw new ArgumentException("First parameter of method must be envDict parameter (envDict)");
+            }*/
+        }
 
 		private void extractMetadata(object callee, string methodName)
 		{
 			MethodInfo method = callee.GetType().GetMethod(methodName);
 			ParameterInfo[] parameters = method.GetParameters();
 			Type[] parameterTypes = parameters.Select(p => p.ParameterType).ToArray();
-            //todo: check hat first arg is an EnvDict
+            validateParameters(parameters, parameterTypes);
 			this.parameterInfo = parameters;
 			this.parameterTypes = parameterTypes;
 			this.method = method;
@@ -66,7 +76,7 @@ namespace OwinUtils
             var type = param.ParameterType;
             object dictValue;
             if (routeParams.TryGetValue(name, out dictValue)) {
-                return dictValue;
+                return Convert.ChangeType(dictValue, type);
             } else {
                 if (param.HasDefaultValue == false) {
                     return null;

@@ -25,6 +25,15 @@ namespace OwinUtilsTests
             t.SetResult(StaticInvoke (env, name, address));
             return t.Task;
 		}
+        public Task InvokeMeInts(EnvDict env, int lhs, int rhs)
+        {
+            var t = new TaskCompletionSource<bool>();
+            env["result"] = lhs + rhs;
+            t.SetResult(true);
+            return t.Task;
+        }
+
+
 	}
 
 
@@ -51,6 +60,8 @@ namespace OwinUtilsTests
 			this.dict = new Dictionary<string, object> ();
 			dict ["address"] = address;
 			dict ["name"] = name;
+            dict["lhs"] = "2";
+            dict["rhs"] = "3";
 		}
 
 		[Test]
@@ -65,6 +76,7 @@ namespace OwinUtilsTests
 
     
 		delegate Task Del1(EnvDict env, string name, string address);
+        delegate Task DelInt(EnvDict env, int lhs, int rhs);
         /*
 		[Test]
 		public void TestDelegate ()
@@ -86,6 +98,17 @@ namespace OwinUtilsTests
             wrapper.InvokeRoute(env, this.dict).Wait();
             Assert.AreEqual(this.expected, (string)env["result"]);
 		}
+
+        [Test]
+        public void TestTypeConversion ()
+        {
+            var c = new Concatenate ();
+            DelInt f = c.InvokeMeInts;
+            EnvDict env = new Dictionary<string, object>();
+            var wrapper = new Wrapper (f);
+            wrapper.InvokeRoute(env, this.dict).Wait();
+            Assert.AreEqual(5, (int)env["result"]);
+        }
 
 	/*	
 		delegate string ParamDel(params object[] p);
