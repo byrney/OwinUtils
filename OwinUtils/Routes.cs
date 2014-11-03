@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Owin;
 using Microsoft.Owin;
 using System.Threading.Tasks;
@@ -81,20 +82,31 @@ namespace OwinUtils
             }
         }
 
-        public bool match(PathString path, RouteDict paramDict)
+        public class MatchData
         {
+            public string pathMatched;
+            public string pathRemaining;
+        }
+
+        public MatchData match(PathString path, RouteDict paramDict)
+        {
+            int numMatched = 0;
             var segs = path.Value.Split('/');
             for (int i = 0; i < this.tokens.Length; i++)
             {
                 string value;
                 var seg = i < segs.Length ? segs[i] : null;
-                if (!tokens[i].extract(seg, paramDict))
-                {
-                    return false;
+                if (tokens[i].extract(seg, paramDict)) {
+                    numMatched += 1;
+                }
+                else {
+                    return null;
                 }
             }
-            return true;
-
+            var ret = new MatchData();
+            ret.pathRemaining = "/" + String.Join("/", segs, numMatched, segs.Length - numMatched);
+            ret.pathMatched = String.Join("/", segs, 0, numMatched);
+            return ret;
         }
     }
 
@@ -114,19 +126,38 @@ namespace OwinUtils
             this.options = options;
         }
 
+       
         public override Task Invoke(IOwinContext ctx)
         {
             var routeParams = new System.Collections.Generic.Dictionary<string, object>();
-            if (options.template.match(ctx.Request.Path, routeParams))
+            string remainder;
+            var match = options.template.match(ctx.Request.Path, routeParams);
+            if (match != null)
             {
                 var env = ctx.Environment;
                 env[RouteParamsKey] = routeParams;  //todo: merge dicts
-                return options.app != null ? options.app.Invoke(env) : options.branch.Invoke(ctx);
+                var oldBase = ctx.Request.PathBase;
+                var oldPath = ctx.Request.Path;
+                ctx.Request.PathBase = new PathString(match.pathMatched);
+                ctx.Request.Path = new PathString(match.pathRemaining);
+                var restore = new Action<Task>(task => restorePaths(ctx, oldBase, oldPath));
+                if (options.app != null) {
+                    return options.app.Invoke(env).ContinueWith(restore, TaskContinuationOptions.ExecuteSynchronously);
+                }
+                else {
+                    return options.branch.Invoke(ctx).ContinueWith(restore, TaskContinuationOptions.ExecuteSynchronously);
+                }
             }
             else
             {
                 return Next.Invoke(ctx);
             }
+        }
+
+        private void restorePaths(IOwinContext ctx, PathString oldBase, PathString oldPath)
+        {
+            ctx.Request.PathBase = oldBase;
+            ctx.Request.Path = oldPath;
         }
 
     }

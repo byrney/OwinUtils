@@ -1,6 +1,8 @@
 ﻿
 
 using System;
+using System.Net;
+using Owin;
 
 namespace OwinUtilsTests
 {
@@ -45,6 +47,13 @@ namespace OwinUtilsTests
         {
             var ctx = new OwinContext(env);
             var res = lhs + rhs;
+            return ctx.Response.WriteAsync(res.ToString());
+        }
+
+        public static Task Square(EnvDict env, int value)
+        {
+            var ctx = new OwinContext(env);
+            var res = value * value;
             return ctx.Response.WriteAsync(res.ToString());
         }
 
@@ -129,6 +138,49 @@ namespace OwinUtilsTests
             var content = resp.Content.ReadAsStringAsync().Result;
             Assert.AreEqual("hello", content);
         }
+
+
+        delegate Task SqFunc(EnvDict env, int value);
+
+        [Test]
+        public void BranchesAdjustBasePath()
+        {
+            AddFunc add = AddIntegers;
+            var ts = TestServer.Create(app => {
+                app.Branch("/hello", b => {
+                    b.Route("/<lhs>/<rhs>", add, "Invoke");
+                });
+            });
+            var cl = ts.HttpClient;
+            var resp = cl.GetAsync("http://example.com/hello/9/10").Result;
+            Assert.IsTrue(resp.IsSuccessStatusCode);
+            var content = resp.Content.ReadAsStringAsync().Result;
+            Assert.AreEqual("19", content);
+        }
+
+        [Test]
+        public void SkipsUnmatchedRoute()
+        {
+            AddFunc add = AddIntegers;
+            SqFunc square = Square;
+            var ts = TestServer.Create(app =>
+            {
+                app.Branch("/hello", b => {
+                    b.Route("/<lhs>/<rhs>", add, "Invoke");
+                    b.Route("/<value>", square, "Invoke");
+                });
+                app.Branch("goodbye", b => {
+                    b.Route("/<value>", square, "Invoke");
+                });
+                    
+            });
+            var cl = ts.HttpClient;
+            var resp = cl.GetAsync("http://example.com/hello/3").Result;
+            Assert.AreEqual(HttpStatusCode.OK, resp.StatusCode);
+            var content = resp.Content.ReadAsStringAsync().Result;
+            Assert.AreEqual("9", content);
+        }
+
     }
 }
 
