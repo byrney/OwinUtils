@@ -53,6 +53,7 @@
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="AppBuilderSource.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\OwinUtils\OwinUtils.csproj">
