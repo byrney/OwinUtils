@@ -23,11 +23,11 @@ namespace OwinUtils
 			extractMetadata (callee, methodName);
 		}
 
+
 		private void extractBestMatch(object callee, string methodName)
 		{
 			MethodInfo[] methods = callee.GetType().GetMethods();
-			foreach (var method in methods)
-			{
+			foreach (var method in methods) {
 				if (method.Name != methodName) {
 					continue;
 				}
@@ -55,6 +55,9 @@ namespace OwinUtils
 		private void extractMetadata(object callee, string methodName)
 		{
 			MethodInfo method = callee.GetType().GetMethod(methodName);
+		    if (method == null) {
+		        throw new ArgumentException("Failed to find method on calle: ", methodName);
+		    }
 			ParameterInfo[] parameters = method.GetParameters();
 			Type[] parameterTypes = parameters.Select(p => p.ParameterType).ToArray();
             validateParameters(parameters, parameterTypes);

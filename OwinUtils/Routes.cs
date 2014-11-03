@@ -81,7 +81,7 @@ namespace OwinUtils
             }
         }
 
-        public bool match(PathString path, EnvDict paramDict)
+        public bool match(PathString path, RouteDict paramDict)
         {
             var segs = path.Value.Split('/');
             for (int i = 0; i < this.tokens.Length; i++)

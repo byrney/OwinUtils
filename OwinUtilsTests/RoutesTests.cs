@@ -1,5 +1,7 @@
 ﻿
 
+using System;
+
 namespace OwinUtilsTests
 {
     using Microsoft.Owin;
@@ -47,7 +49,7 @@ namespace OwinUtilsTests
         }
 
         [Test]
-        public void blah()
+        public void RouteDictIsPassedCorrectly()
         {
             var ts = TestServer.Create(app => {
                 app.Branch("/hello", b => b.Run(ctx => SayHello(ctx)));
@@ -61,11 +63,11 @@ namespace OwinUtilsTests
             Assert.AreEqual("boo", content);
         }
 
-        delegate Task UseParamsFunc(EnvDict env, string name);
+        delegate Task ConcatFunc(EnvDict env, string name);
         [Test]
         public void UseWrapper()
         {
-            UseParamsFunc del = UseParameters;
+            ConcatFunc del = UseParameters;
             var ts = TestServer.Create(app =>
             {
                 var template = new RouteTemplate("/hola/<name>");
@@ -83,7 +85,7 @@ namespace OwinUtilsTests
         delegate Task AddFunc(EnvDict env, int lhs, int rhs);
 
         [Test]
-        public void UseAdd()
+        public void UseAddViaDelegate()
         {
             AddFunc add = AddIntegers;
             var ts = TestServer.Create(app =>
@@ -98,15 +100,28 @@ namespace OwinUtilsTests
             Assert.AreEqual("11", content);
         }
 
+        [Test]
+        public void UseAddViaFunc()
+        {
+            var ts = TestServer.Create(app =>
+            {
+                app.Route("/add/[arg2]/[arg3]", new Func<EnvDict, int, int, Task>(AddIntegers), "Invoke");
+
+            });
+            var cl = ts.HttpClient;
+            var resp = cl.GetAsync("http://example.com/add/5/6").Result;
+            Assert.IsTrue(resp.IsSuccessStatusCode);
+            var content = resp.Content.ReadAsStringAsync().Result;
+            Assert.AreEqual("11", content);
+        }
 
         [Test]
-        public void blahblahblah()
+        public void HitsCorrectRoute()
         {
             var ts = TestServer.Create(app =>
             {
                 app.Route("/hola/<bebe>", UseRouteDict);
                 app.Branch("/hello", b => b.Run(ctx => SayHello(ctx)));
-                app.Route("/goodbye", SayGoodbye);
             });
             var cl = ts.HttpClient;
             var resp = cl.GetAsync("http://example.com/hello/banana").Result;
@@ -116,3 +131,5 @@ namespace OwinUtilsTests
         }
     }
 }
+
+
