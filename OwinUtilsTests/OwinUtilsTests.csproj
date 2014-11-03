@@ -59,6 +59,7 @@
     <Compile Include="MiddlewareTestBase.cs" />
     <Compile Include="EventSourceTests.cs" />
     <Compile Include="WrapperTests.cs" />
+    <Compile Include="HeaderExtractorTests.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
