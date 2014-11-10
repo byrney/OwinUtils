@@ -24,6 +24,12 @@ namespace OwinUtilsTests
             return ctx.Response.WriteAsync("hello");
         }
 
+        public static Task TakesAContext(IOwinContext ctx)
+        {
+            return ctx.Response.WriteAsync("hello");
+        }
+
+
         public static Task SayGoodbye(EnvDict env)
         {
             var ctx = new OwinContext(env);
@@ -81,7 +87,7 @@ namespace OwinUtilsTests
             {
                 var template = new RouteTemplate("/hola/<name>");
                 app.Route(template, del, "Invoke");
-                app.Branch("/hello", b => b.Run(ctx => SayHello(ctx)));
+                app.Branch("/hello", b => b.Run(SayHello));
                 app.Route("/goodbye", SayGoodbye);
             });
             var cl = ts.HttpClient;
@@ -90,6 +96,19 @@ namespace OwinUtilsTests
             var content = resp.Content.ReadAsStringAsync().Result;
             Assert.AreEqual("boo", content);
         }
+
+        [Test]
+        public void PassContext()
+        {
+            var ts = TestServer.Create(app => {
+                var t = new RoutesTests();
+                app.Route("", t, "TakesAContext");
+            });
+            var cl = ts.HttpClient;
+            var resp = cl.GetAsync("http://example.com/hola/boo").Result;
+            Assert.IsTrue(resp.IsSuccessStatusCode);
+        }
+
 
         delegate Task AddFunc(EnvDict env, int lhs, int rhs);
 
@@ -179,6 +198,25 @@ namespace OwinUtilsTests
             Assert.AreEqual(HttpStatusCode.OK, resp.StatusCode);
             var content = resp.Content.ReadAsStringAsync().Result;
             Assert.AreEqual("9", content);
+        }
+
+        [Test]
+        public void HttpMethodsAreMatched()
+        {
+            AddFunc add = AddIntegers;
+            SqFunc square = Square;
+           
+            var ts = TestServer.Create(app =>
+            {
+                    app.Route("", SayGoodbye, "POST");
+                    app.Route("", SayHello, "GET");
+             
+            });
+            var cl = ts.HttpClient;
+            var resp = cl.GetAsync("http://example.com/hello").Result;
+            Assert.AreEqual(HttpStatusCode.OK, resp.StatusCode);
+            var content = resp.Content.ReadAsStringAsync().Result;
+            Assert.AreEqual("hello", content);
         }
 
     }

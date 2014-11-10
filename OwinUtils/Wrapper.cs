@@ -1,5 +1,7 @@
 ﻿
 
+using Microsoft.Owin;
+
 namespace OwinUtils
 {
     using System;
@@ -41,22 +43,33 @@ namespace OwinUtils
 			throw new ArgumentException ("cannot find invoke method on callee");
 		}
 
-        void validateParameters(ParameterInfo[] parameters, Type[] types)
+        static void validateParameters(ParameterInfo[] parameters, Type[] types)
         {
             if(parameters.Length < 1) {
                 throw new ArgumentException("Method must have at least 1 parameter (envDict)");
             }
             var t1 = types[0];
-  /*          if(parameterTypes[0] != "") {
-                throw new ArgumentException("First parameter of method must be envDict parameter (envDict)");
-            }*/
+            var firstArgType = types[0];
+            if(firstArgType != typeof(EnvDict) && firstArgType != typeof(IOwinContext)) {
+                throw new ArgumentException("First parameter of method must be envDict/IOwinContext parameter (envDict)");
+            }
         }
+
+	    static MethodInfo extractMethodInfo(Type type, string methodName)
+	    {
+	        try {
+	            return type.GetMethod(methodName);
+	        }
+	        catch (Exception e) {
+	            return null;
+	        }
+	    }
 
 		private void extractMetadata(object callee, string methodName)
 		{
-			MethodInfo method = callee.GetType().GetMethod(methodName);
+			MethodInfo method = extractMethodInfo(callee.GetType(), methodName);
 		    if (method == null) {
-		        throw new ArgumentException("Failed to find method on calle: ", methodName);
+		        throw new ArgumentException("Failed to find method on calle: ", callee.GetType().ToString() + "." + methodName);
 		    }
 			ParameterInfo[] parameters = method.GetParameters();
 			Type[] parameterTypes = parameters.Select(p => p.ParameterType).ToArray();
@@ -88,18 +101,33 @@ namespace OwinUtils
             return null;
         }
 
+	    static object convertEnv(EnvDict env, Type type)
+	    {
+            if (typeof(IOwinContext) == type)
+            {
+                return new OwinContext(env);
+            }
+            else
+            {
+               return env;
+            }
+	    }
+
 		public Task InvokeRoute(EnvDict env, RouteDict routeParams)
 		{
-			object[] args = new object[this.parameterInfo.Length];
-			int argIndex = 0;
-			foreach (var param in this.parameterInfo) {
-                if (argIndex == 0) {
-                    args[argIndex] = env;
-                } else {
-                    args[argIndex] = tryArgFromDict(param, routeParams);
+		    var numArgs = this.parameterInfo.Length;
+			var args = new object[numArgs];
+		    for (int i = 0; i < numArgs; i++) 
+            {
+                if (i == 0)
+                {
+                    args[i] = convertEnv(env, this.parameterTypes[i]);
                 }
-				argIndex += 1;
-			}
+                else
+                {
+                    args[i] = tryArgFromDict(this.parameterInfo[i], routeParams);
+                }
+		    }
 			return (Task)this.method.Invoke (callee, args);
 		}
 

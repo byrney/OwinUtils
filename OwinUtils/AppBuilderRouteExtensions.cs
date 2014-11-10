@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net;
 using Owin;
 using Microsoft.Owin;
 using System.Threading.Tasks;
@@ -17,10 +18,10 @@ namespace OwinUtils
         }
 
         // converts the string to a Template and calls the corresponding overload
-        public static IAppBuilder Route(this IAppBuilder app, string template, AppFunc action)
+        public static IAppBuilder Route(this IAppBuilder app, string template, AppFunc action, string httpMethod = null)
         {
             var rt = new RouteTemplate(template);
-            return Route(app, rt, action);
+            return Route(app, rt, action, httpMethod);
         }
 
         // creates a branch in the routing
@@ -35,10 +36,13 @@ namespace OwinUtils
             return result;
         }
 
+    
+
         // creates a route which calls an AppFunc
-        public static IAppBuilder Route(this IAppBuilder app, RouteTemplate template, AppFunc runAction)
+        public static IAppBuilder Route(this IAppBuilder app, RouteTemplate template, AppFunc runAction, string httpMethod = null)
         {
             var options = new RouteMiddleware.Options();
+            options.httpMethod = httpMethod;
             options.template = template;
             options.app = runAction;
             IAppBuilder result = app.Use<RouteMiddleware>(options);
@@ -47,18 +51,18 @@ namespace OwinUtils
 
         // Creates a route which calls methodName on instance callee converting any
         // matching entries in env["routeParams"] to arguments of callee.methodName
-        public static IAppBuilder Route(this IAppBuilder app, RouteTemplate template, object callee, string methodName)
+        public static IAppBuilder Route(this IAppBuilder app, RouteTemplate template, object callee, string methodName, string httpMethod = null)
         {
             var wrapper = new Wrapper(callee, methodName);
-            return Route(app, template, wrapper.Invoke);
+            return Route(app, template, wrapper.Invoke, httpMethod);
         }
 
         // Creates a route which calls methodName on instance callee converting any
         // matching entries in env["routeParams"] to arguments of callee.methodName
-        public static IAppBuilder Route(this IAppBuilder app, string template, object callee, string methodName)
+        public static IAppBuilder Route(this IAppBuilder app, string template, object callee, string methodName, string httpMethod = null)
         {
             var rt = new RouteTemplate(template);
-            return Route(app, rt, callee, methodName);
+            return Route(app, rt, callee, methodName, httpMethod);
         }
 
         public static void Run(this IAppBuilder app, AppFunc runAction)

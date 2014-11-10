@@ -97,7 +97,7 @@ namespace OwinUtils
                 string value;
                 var seg = i < segs.Length ? segs[i] : null;
                 if (tokens[i].extract(seg, paramDict)) {
-                    numMatched += 1;
+                    numMatched += i < segs.Length ? 1 : 0;
                 }
                 else {
                     return null;
@@ -113,7 +113,9 @@ namespace OwinUtils
     public class RouteMiddleware : OwinMiddleware
     {
         public const string RouteParamsKey = "RouteParams";
-        public class Options {
+        public class Options
+        {
+            public string httpMethod = null;
             public OwinMiddleware branch { get; set;}
             public RouteTemplate template { get ; set; }
             public AppFunc app { get ; set; }
@@ -126,19 +128,28 @@ namespace OwinUtils
             this.options = options;
         }
 
-       
+        private RouteTemplate.MatchData MatchMethodAndTemplate(IOwinContext ctx, RouteDict routeParams)
+        {
+            var requestMethod = ctx.Request.Method;
+            if (options.httpMethod != null && options.httpMethod != requestMethod) {
+                return null;
+            }
+            return options.template.match(ctx.Request.Path, routeParams);
+        }
+
         public override Task Invoke(IOwinContext ctx)
         {
+            var requestMethod = ctx.Request.Method;
             var routeParams = new System.Collections.Generic.Dictionary<string, object>();
             string remainder;
-            var match = options.template.match(ctx.Request.Path, routeParams);
+            var match = MatchMethodAndTemplate(ctx, routeParams);
             if (match != null)
             {
                 var env = ctx.Environment;
                 env[RouteParamsKey] = routeParams;  //todo: merge dicts
                 var oldBase = ctx.Request.PathBase;
                 var oldPath = ctx.Request.Path;
-                ctx.Request.PathBase = new PathString(match.pathMatched);
+                ctx.Request.PathBase = new PathString(oldBase + match.pathMatched);
                 ctx.Request.Path = new PathString(match.pathRemaining);
                 var restore = new Action<Task>(task => restorePaths(ctx, oldBase, oldPath));
                 if (options.app != null) {
