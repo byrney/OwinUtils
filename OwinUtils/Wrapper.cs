@@ -25,6 +25,11 @@ namespace OwinUtils
 			extractMetadata (callee, methodName);
 		}
 
+        public Wrapper (Delegate callee)
+        {
+            this.callee = callee;
+            extractMetadata (callee, "Invoke");
+        }
 
 		private void extractBestMatch(object callee, string methodName)
 		{
