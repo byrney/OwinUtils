@@ -13,14 +13,14 @@ namespace OwinUtils
         // converts the string to a Template and calls the corresponding overload
         public static IAppBuilder Branch(this IAppBuilder app, string template, Action<IAppBuilder> action)
         {
-            var rt = new RouteTemplate(template);
+            var rt = new RouteTemplate(template, true);
             return Branch(app, rt, action);
         }
 
         // converts the string to a Template and calls the corresponding overload
         public static IAppBuilder Route(this IAppBuilder app, string template, AppFunc action, string httpMethod = null)
         {
-            var rt = new RouteTemplate(template);
+            var rt = new RouteTemplate(template, false);
             return Route(app, rt, action, httpMethod);
         }
 
@@ -61,8 +61,14 @@ namespace OwinUtils
         // matching entries in env["routeParams"] to arguments of callee.methodName
         public static IAppBuilder Route(this IAppBuilder app, string template, object callee, string methodName, string httpMethod = null)
         {
-            var rt = new RouteTemplate(template);
+            var rt = new RouteTemplate(template, false);
             return Route(app, rt, callee, methodName, httpMethod);
+        }
+
+        public static IAppBuilder Route(this IAppBuilder app, string template, Delegate callee, string httpMethod)
+        {
+            var rt = new RouteTemplate(template, false);
+            return Route(app, rt, callee, "Invoke", httpMethod);
         }
 
         public static void Run(this IAppBuilder app, AppFunc runAction)

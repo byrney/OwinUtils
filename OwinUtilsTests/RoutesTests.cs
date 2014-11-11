@@ -1,8 +1,5 @@
 ﻿
-
-using System;
-using System.Net;
-using Owin;
+using System.Threading.Tasks;
 
 namespace OwinUtilsTests
 {
@@ -10,7 +7,10 @@ namespace OwinUtilsTests
     using Microsoft.Owin.Testing;
     using NUnit.Framework;
     using OwinUtils;
-    using System.Threading.Tasks;
+    using System;
+    using System.Net;
+    using Task = System.Threading.Tasks.Task;
+    using AppFunc = System.Func<System.Collections.Generic.IDictionary<string, object>, Task>;
     using EnvDict = System.Collections.Generic.IDictionary<string, object>;
     using RouteDict = System.Collections.Generic.Dictionary<string, object>;
 
@@ -49,6 +49,13 @@ namespace OwinUtilsTests
             return ctx.Response.WriteAsync(bebe);
         }
 
+        public static Task SubIntegers(EnvDict env, int lhs, int rhs)
+        {
+            var ctx = new OwinContext(env);
+            var res = lhs - rhs;
+            return ctx.Response.WriteAsync(res.ToString());
+        }
+
         public static Task AddIntegers(EnvDict env, int lhs, int rhs)
         {
             var ctx = new OwinContext(env);
@@ -85,8 +92,8 @@ namespace OwinUtilsTests
             ConcatFunc del = UseParameters;
             var ts = TestServer.Create(app =>
             {
-                var template = new RouteTemplate("/hola/<name>");
-                app.Route(template, del, "Invoke");
+                
+                app.Route("/hola/<name>", del, "GET");
                 app.Branch("/hello", b => b.Run(SayHello));
                 app.Route("/goodbye", SayGoodbye);
             });
@@ -102,7 +109,7 @@ namespace OwinUtilsTests
         {
             var ts = TestServer.Create(app => {
                 var t = new RoutesTests();
-                app.Route("", t, "TakesAContext");
+                app.Route("/hola/boo", t, "TakesAContext");
             });
             var cl = ts.HttpClient;
             var resp = cl.GetAsync("http://example.com/hola/boo").Result;
@@ -118,7 +125,7 @@ namespace OwinUtilsTests
             AddFunc add = AddIntegers;
             var ts = TestServer.Create(app =>
             {
-                app.Route("/add/[lhs]/[rhs]", add, "Invoke");
+                app.Route("/add/[lhs]/[rhs]", add, "Invoke", "GET");
                 
             });
             var cl = ts.HttpClient;
@@ -133,7 +140,7 @@ namespace OwinUtilsTests
         {
             var ts = TestServer.Create(app =>
             {
-                app.Route("/add/[arg2]/[arg3]", new Func<EnvDict, int, int, Task>(AddIntegers), "Invoke");
+                app.Route("/add/[arg2]/[arg3]", new Func<EnvDict, int, int, Task>(AddIntegers), "GET");
 
             });
             var cl = ts.HttpClient;
@@ -167,7 +174,7 @@ namespace OwinUtilsTests
             AddFunc add = AddIntegers;
             var ts = TestServer.Create(app => {
                 app.Branch("/hello", b => {
-                    b.Route("/<lhs>/<rhs>", add, "Invoke");
+                    b.Route("/<lhs>/<rhs>", add, "GET");
                 });
             });
             var cl = ts.HttpClient;
@@ -177,6 +184,112 @@ namespace OwinUtilsTests
             Assert.AreEqual("19", content);
         }
 
+
+        [Test]
+        [TestCase("http://example.com/branch/route")]
+        [TestCase("http://example.com/branch")]
+        [TestCase("http://example.com/branch/")]
+        public void AbsoluteUrlsReconstructCorrectlyUnderRoutes(string requestedUrl)
+        {
+            AppFunc printAbsUrl = env => {
+                var c = new OwinContext(env);
+                return c.Response.WriteAsync(c.Request.Uri.AbsoluteUri);
+            };
+            var ts = TestServer.Create(app => 
+                app.Branch("/branch", b =>
+                    b.Route("/"     , printAbsUrl)
+                     .Route("/route", printAbsUrl)
+                     .Route(""      , printAbsUrl))
+            );
+            var cl = ts.HttpClient;
+            var resp = cl.GetAsync(requestedUrl).Result;
+            Assert.IsTrue(resp.IsSuccessStatusCode);
+            var content = resp.Content.ReadAsStringAsync().Result;
+            Assert.AreEqual(requestedUrl, content);
+        }
+
+        [Test]
+        [TestCase("http://example.com/branch/")]
+        public void RouteMatchesSingleSlashs(string requestedUrl)
+        {
+            AppFunc printOneFunc = env =>
+            {
+                var c = new OwinContext(env);
+                return c.Response.WriteAsync("ONE");
+            };
+
+            AppFunc printTwoFunc = env =>
+            {
+                var c = new OwinContext(env);
+                return c.Response.WriteAsync("TWO");
+            };
+
+            var ts = TestServer.Create(app =>
+                app.Branch("/branch", b =>
+                    b.Route("/", printOneFunc)
+                     .Route("/[var]", printTwoFunc))
+                );
+            var cl = ts.HttpClient;
+            var resp = cl.GetAsync(requestedUrl).Result;
+            Assert.IsTrue(resp.IsSuccessStatusCode);
+            var content = resp.Content.ReadAsStringAsync().Result;
+            Assert.AreEqual("ONE", content);
+        }
+
+        [Test]
+        [TestCase("http://example.com/branch/")]
+        [TestCase("http://example.com/branch")]
+        public void RouteMatchesOptVar(string requestedUrl)
+        {
+            Func<EnvDict, string, Task> printFunc = (env, value) => {
+                var c = new OwinContext(env);
+                return c.Response.WriteAsync(value);
+            };
+   
+            var ts = TestServer.Create(app => {
+                    app.Branch("/branch", b => {
+                        b.Route("/", (env) => printFunc(env, "ONE"));
+                        b.Route("", (env) => printFunc(env, "ONE"));
+                        b.Route("/[var]", (env) => printFunc(env, "TWO"));
+                    });
+
+            });
+            var cl = ts.HttpClient;
+            var resp = cl.GetAsync(requestedUrl).Result;
+            Assert.IsTrue(resp.IsSuccessStatusCode);
+            var content = resp.Content.ReadAsStringAsync().Result;
+            Assert.AreEqual("ONE", content);
+        }
+
+        [Test]
+        [TestCase("http://example.com/branch/")]
+        public void RouteMatchesOptVar2(string requestedUrl)
+        {
+            Func<EnvDict, string, Task> printFunc = (env, value) =>
+            {
+                var c = new OwinContext(env);
+                return c.Response.WriteAsync(value);
+            };
+
+            var ts = TestServer.Create(app =>
+            {
+                app.Branch("/branch/", b =>
+                {
+                    b.Route("/", (env) => printFunc(env, "TWO"));
+                    b.Route("", (env) => printFunc(env, "ONE"));
+                    b.Route("/[var]", (env) => printFunc(env, "TWO"));
+                });
+
+            });
+            var cl = ts.HttpClient;
+            var resp = cl.GetAsync(requestedUrl).Result;
+            Assert.IsTrue(resp.IsSuccessStatusCode);
+            var content = resp.Content.ReadAsStringAsync().Result;
+            Assert.AreEqual("ONE", content);
+        }
+
+
+
         [Test]
         public void SkipsUnmatchedRoute()
         {
@@ -185,11 +298,11 @@ namespace OwinUtilsTests
             var ts = TestServer.Create(app =>
             {
                 app.Branch("/hello", b => {
-                    b.Route("/<lhs>/<rhs>", add, "Invoke");
-                    b.Route("/<value>", square, "Invoke");
+                    b.Route("/<lhs>/<rhs>", add, "GET");
+                    b.Route("/<value>", square, "GET");
                 });
                 app.Branch("goodbye", b => {
-                    b.Route("/<value>", square, "Invoke");
+                    b.Route("/<value>", square, "GET");
                 });
                     
             });
@@ -208,8 +321,8 @@ namespace OwinUtilsTests
            
             var ts = TestServer.Create(app =>
             {
-                    app.Route("", SayGoodbye, "POST");
-                    app.Route("", SayHello, "GET");
+                    app.Route("/hello", SayGoodbye, "POST");
+                    app.Route("/hello", SayHello, "GET");
              
             });
             var cl = ts.HttpClient;

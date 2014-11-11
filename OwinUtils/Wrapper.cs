@@ -133,7 +133,11 @@ namespace OwinUtils
                     args[i] = tryArgFromDict(this.parameterInfo[i], routeParams);
                 }
 		    }
-			return (Task)this.method.Invoke (callee, args);
+            Task invokeTask = (Task)this.method.Invoke(callee, args);
+		    if (invokeTask.IsFaulted) {
+		        throw invokeTask.Exception.InnerException;
+		    }
+		    return invokeTask;
 		}
 
 	}

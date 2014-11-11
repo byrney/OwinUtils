@@ -53,6 +53,7 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RoutesTests.cs" />
+    <Compile Include="RouteTemplateTests.cs" />
     <Compile Include="SessionTests.cs" />
     <Compile Include="SessionTestApp.cs" />
     <Compile Include="EventTestApp.cs" />

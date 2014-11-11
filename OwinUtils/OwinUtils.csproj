@@ -50,6 +50,7 @@
     <Compile Include="Routes.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="RouteTemplate.cs" />
     <Compile Include="Session.cs" />
     <Compile Include="UrlBuilder.cs" />
     <Compile Include="ForwardedUrlBuilder.cs" />
