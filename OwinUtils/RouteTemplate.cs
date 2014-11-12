@@ -66,9 +66,11 @@ namespace OwinUtils
 
         private readonly Token[] tokens;
         private readonly bool partials;
+        private string template;
 
         public RouteTemplate(string template, bool partials)
         {
+            this.template = template;
             this.partials = partials;
             if (null == template)
             {
@@ -85,6 +87,12 @@ namespace OwinUtils
                     this.tokens[i] = new Token(segs[i]);
                 }
             }
+        }
+
+
+        public new string ToString()
+        {
+            return this.template;
         }
 
         public class MatchData

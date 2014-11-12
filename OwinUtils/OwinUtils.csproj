@@ -47,6 +47,7 @@
     <Compile Include="IEventStream.cs" />
     <Compile Include="EventSource.cs" />
     <Compile Include="EventStream.cs" />
+    <Compile Include="QueryExtractor.cs" />
     <Compile Include="Routes.cs">
       <SubType>Code</SubType>
     </Compile>

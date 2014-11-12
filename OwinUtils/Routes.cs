@@ -33,6 +33,26 @@ namespace OwinUtils
             return options.template.match(path, routeParams);
         }
 
+        public new string ToString()
+        {
+            return options.httpMethod ?? "ALL" + options.template.ToString();
+        }
+
+        static RouteDict MergeDictionaries(RouteDict secondary, RouteDict primary)
+        {
+            if (secondary == null) {
+                return primary;
+            }
+            if (primary == null) {
+                return secondary;
+            }
+            var result = new RouteDict(secondary);
+            foreach (var item in primary) {
+                result[item.Key] = item.Value;
+            }
+            return result;
+        }
+
         public override Task Invoke(IOwinContext ctx)
         {
             var requestMethod = ctx.Request.Method;
@@ -43,7 +63,9 @@ namespace OwinUtils
             if (match != null)
             {
                 var env = ctx.Environment;
-                env[RouteParamsKey] = routeParams;  //todo: merge dicts
+                object existing = null;
+                env.TryGetValue(RouteParamsKey, out existing);
+                env[RouteParamsKey] = MergeDictionaries((RouteDict)existing, routeParams);  //todo: merge dicts
                 var oldBase = ctx.Request.PathBase;
                 var oldPath = ctx.Request.Path;
                 ctx.Request.PathBase = new PathString(oldBase + match.pathMatched);
