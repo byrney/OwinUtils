@@ -50,7 +50,7 @@ namespace OwinUtilsTests
         {
             var startApp = new SessionTestApp();
             string inputValue = "some stuff";
-            var signed = Session.sign(inputValue, startApp.passPhrase);
+            var signed = SessionCookie.sign(inputValue, startApp.passPhrase);
             var encoded = Uri.EscapeDataString(signed);
             var request = new HttpRequestMessage(HttpMethod.Get, "http://xyz.com/");
             request.Headers.Add("Cookie", string.Format("session={0}", encoded));
@@ -78,7 +78,7 @@ namespace OwinUtilsTests
             string envKey = "test.session";
             string passphrase = "a passphrase......";
             var next = new AppFunc(e => new Task(null));
-            var subject = new Session(next, envKey, passphrase);
+            var subject = new SessionCookie(next, envKey, passphrase);
             Assert.NotNull(subject);
         }
     }

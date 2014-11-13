@@ -52,7 +52,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="RouteTemplate.cs" />
-    <Compile Include="Session.cs" />
+    <Compile Include="SessionCookie.cs" />
     <Compile Include="UrlBuilder.cs" />
     <Compile Include="ForwardedUrlBuilder.cs" />
     <Compile Include="Forwarded.cs" />

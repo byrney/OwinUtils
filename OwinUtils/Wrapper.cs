@@ -85,11 +85,7 @@ namespace OwinUtils
 			return;
 		}
 
-        public Task Invoke(EnvDict env)
-        {
-            RouteDict routeParams = (RouteDict)env[RouteMiddleware.RouteParamsKey];
-            return InvokeRoute(env, routeParams);
-        }
+ 
 
         object tryArgFromDict(ParameterInfo param, RouteDict routeParams)
         {
@@ -103,7 +99,7 @@ namespace OwinUtils
                     return null;
                 }
             }
-            return null;
+            return null;    
         }
 
 	    static object convertEnv(EnvDict env, Type type)
@@ -117,6 +113,12 @@ namespace OwinUtils
                return env;
             }
 	    }
+
+        public Task Invoke(EnvDict env)
+        {
+            RouteDict routeParams = RouteParams.GetDict(env);
+            return InvokeRoute(env, routeParams);
+        }
 
 		public Task InvokeRoute(EnvDict env, RouteDict routeParams)
 		{

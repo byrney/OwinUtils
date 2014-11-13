@@ -24,8 +24,8 @@ namespace OwinUtilsTests
                 AppFunc handler = env =>
                 {
                     var ctx = new OwinContext(env);
-                    var d = (RouteDict) env["RouteParams"];
-                    return ctx.Response.WriteAsync((string)d[key]);
+                    var v = RouteParams.GetParam<string>(env, key);
+                    return ctx.Response.WriteAsync(v);
                 };
                 builder.Run(handler);
             });
@@ -47,8 +47,8 @@ namespace OwinUtilsTests
                 AppFunc handler = env =>
                 {
                     var ctx = new OwinContext(env);
-                    var d = (RouteDict)env["RouteParams"];
-                    return ctx.Response.WriteAsync((string)d[key]);
+                    var v = RouteParams.GetParam<string>(env, key);
+                    return ctx.Response.WriteAsync(v);
                 };
                 builder.Run(handler);
             });

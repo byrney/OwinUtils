@@ -37,9 +37,8 @@ namespace OwinUtilsTests
         }
         public static Task UseRouteDict(EnvDict env)
         {
-            var param = (RouteDict)env[RouteMiddleware.RouteParamsKey];
             var ctx = new OwinContext(env);
-            var v = param["bebe"] as string;
+            var v = RouteParams.GetParam<string>(env, "bebe");
             return ctx.Response.WriteAsync(v);
         }
 

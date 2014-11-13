@@ -3,12 +3,73 @@ using System;
 using System.Threading.Tasks;
 using AppFunc = System.Func<System.Collections.Generic.IDictionary<string, object>, System.Threading.Tasks.Task>;
 using RouteDict = System.Collections.Generic.Dictionary<string, object>;
+using EnvDict = System.Collections.Generic.IDictionary<string, object>;
 
 namespace OwinUtils
 {
+
+    public class RouteParams
+    {
+        private const string routeKey = "RouteParams";
+
+        public static void Set(EnvDict env, string key, object v)
+        {
+            if (v == null) {
+                return;
+            }
+            var routeDict = InitDictionary(env);
+            routeDict[key] = v;
+        }
+
+        public static RouteDict Merge(EnvDict env, RouteDict toMerge)
+        {
+            if (toMerge == null) {
+                return null;
+            }
+            var existing = InitDictionary(env);
+            foreach (var item in toMerge)
+            {
+                existing[item.Key] = item.Value;
+            }
+            return existing;
+        }
+
+        public static RouteDict GetDict(EnvDict env)
+        {
+            object routeDict;
+            if (env.TryGetValue(routeKey, out routeDict)) {
+                return (RouteDict) routeDict;
+            }
+            return null;
+        }
+
+        public static T GetParam<T>(EnvDict env, string key)
+        {
+            object routeDict;
+            if (env.TryGetValue(routeKey, out routeDict)) {
+                var rd = (RouteDict) routeDict;
+                object v;
+                if (rd.TryGetValue(key, out v)) {
+                    return (T) v;
+                }
+            }
+            return default(T);
+        }
+
+        private static RouteDict InitDictionary(EnvDict env)
+        {
+            object routeDict;
+            if (!env.TryGetValue(routeKey, out routeDict)) {
+                routeDict = new System.Collections.Generic.Dictionary<string, object>();
+                env[routeKey] = routeDict;
+            }
+            return (RouteDict) routeDict;
+        }
+    }
+
     public class RouteMiddleware : OwinMiddleware
     {
-        public const string RouteParamsKey = "RouteParams";
+        
         public class Options
         {
             public string httpMethod = null;
@@ -60,27 +121,24 @@ namespace OwinUtils
             string remainder;
             var path = ctx.Request.Path.Value;
             var match = MatchMethodAndTemplate(ctx, path, routeParams);
-            if (match != null)
+            if (match == null)
             {
-                var env = ctx.Environment;
-                object existing = null;
-                env.TryGetValue(RouteParamsKey, out existing);
-                env[RouteParamsKey] = MergeDictionaries((RouteDict)existing, routeParams);  //todo: merge dicts
-                var oldBase = ctx.Request.PathBase;
-                var oldPath = ctx.Request.Path;
-                ctx.Request.PathBase = new PathString(oldBase + match.pathMatched);
-                ctx.Request.Path = new PathString(match.pathRemaining);
-                var restore = new Action<Task>(task => restorePaths(ctx, oldBase, oldPath));
-                if (options.app != null) {
-                    return options.app.Invoke(env).ContinueWith(restore, TaskContinuationOptions.ExecuteSynchronously);
-                }
-                else {
-                    return options.branch.Invoke(ctx).ContinueWith(restore, TaskContinuationOptions.ExecuteSynchronously);
-                }
+                return Next.Invoke(ctx);
+            }
+            var env = ctx.Environment;
+            RouteParams.Merge(env, routeParams);
+            var oldBase = ctx.Request.PathBase;
+            var oldPath = ctx.Request.Path;
+            ctx.Request.PathBase = new PathString(oldBase + match.pathMatched);
+            ctx.Request.Path = new PathString(match.pathRemaining);
+            var restore = new Action<Task>(task => restorePaths(ctx, oldBase, oldPath));
+            if (options.app != null)
+            {
+                return options.app.Invoke(env).ContinueWith(restore, TaskContinuationOptions.ExecuteSynchronously);
             }
             else
             {
-                return Next.Invoke(ctx);
+                return options.branch.Invoke(ctx).ContinueWith(restore, TaskContinuationOptions.ExecuteSynchronously);
             }
         }
 

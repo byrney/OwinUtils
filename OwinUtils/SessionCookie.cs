@@ -13,32 +13,31 @@ namespace OwinUtils
     /// Owin Middleware which converts from a value in the EnvDict to a signed session cookie
     /// and back again. Incorrectly signed cookies are ignored
     /// </summary>
-    public class Session 
+    public class SessionCookie 
     {
         private static readonly char[] seperator = { ':' };
         private readonly string cookieName = "session";
         private byte[] passphrase;
         private string environmentKey;
         private AppFunc nextMiddleware;
-        private Action<IOwinRequest, string> injectFunc;
-        private Func<IOwinResponse, string> extractFunc;
+        private Action<IOwinRequest, string> inboundFunc;
+        private Func<IOwinResponse, string> outboundFunc;
 
-        public Session(AppFunc next, string environmentKey, string passphrase)
+        public SessionCookie(AppFunc next, string environmentKey, string passphrase)
         {
             this.nextMiddleware = next;
             this.passphrase = passphraseToBytes(passphrase);
             this.environmentKey = environmentKey;
-            this.injectFunc = this.injectSessionToRequest;
-            this.extractFunc = this.extractSessionFromResponse;
+            this.inboundFunc = this.injectSessionToRequest;
+            this.outboundFunc = this.extractSessionFromResponse;
         }
 
-        public Session(AppFunc next, string passphrase, Action<IOwinRequest, string> injector, Func<IOwinResponse, string> extractor)
+        public SessionCookie(AppFunc next, string passphrase, Action<IOwinRequest, string> inbound, Func<IOwinResponse, string> outbound)
         {
             this.nextMiddleware = next;
             this.passphrase = passphraseToBytes(passphrase);
-            this.environmentKey = environmentKey;
-            this.injectFunc = this.injectSessionToRequest;
-            this.extractFunc = this.extractSessionFromResponse;
+            this.inboundFunc = inbound;
+            this.outboundFunc = outbound;
         }
 
 
@@ -73,7 +72,7 @@ namespace OwinUtils
                 string beforeValue = request.Cookies[this.cookieName];
                 if (beforeValue != null) {
                     string session = extract(beforeValue);
-                    injectFunc(request, session);
+                    inboundFunc(request, session);
                 }
             }
             context.Response.OnSendingHeaders(state => {
@@ -122,7 +121,7 @@ namespace OwinUtils
 
         private void convertToCookie(IOwinResponse response)
         {
-            var outboundSession = extractFunc(response);
+            var outboundSession = outboundFunc(response);
             if(outboundSession != null) {
                 // sign the cookie
                 response.Cookies.Append(this.cookieName, sign(outboundSession, this.passphrase));
