@@ -20,13 +20,27 @@ namespace OwinUtils
         private byte[] passphrase;
         private string environmentKey;
         private AppFunc nextMiddleware;
+        private Action<IOwinRequest, string> injectFunc;
+        private Func<IOwinResponse, string> extractFunc;
 
         public Session(AppFunc next, string environmentKey, string passphrase)
         {
             this.nextMiddleware = next;
             this.passphrase = passphraseToBytes(passphrase);
             this.environmentKey = environmentKey;
+            this.injectFunc = this.injectSessionToRequest;
+            this.extractFunc = this.extractSessionFromResponse;
         }
+
+        public Session(AppFunc next, string passphrase, Action<IOwinRequest, string> injector, Func<IOwinResponse, string> extractor)
+        {
+            this.nextMiddleware = next;
+            this.passphrase = passphraseToBytes(passphrase);
+            this.environmentKey = environmentKey;
+            this.injectFunc = this.injectSessionToRequest;
+            this.extractFunc = this.extractSessionFromResponse;
+        }
+
 
         static byte[] passphraseToBytes(string passphrase)
         {
@@ -37,14 +51,29 @@ namespace OwinUtils
         {
             return this.Invoke(new OwinContext(env));
         }
+
+        void injectSessionToRequest(IOwinRequest request, string session)
+        {
+            request.Environment[this.environmentKey] = session;
+        }
+
+        string extractSessionFromResponse(IOwinResponse response)
+        {
+            if(response.Environment.ContainsKey(this.environmentKey) == false) {
+                return null;
+            }
+            string outboundSession = response.Environment[this.environmentKey].ToString();
+            return outboundSession;
+        }
         
         public Task Invoke(IOwinContext context)
         {
+            var request = context.Request;
             if (context.Request.Headers["cookie"] != null) {
-                string beforeValue = context.Request.Cookies[this.cookieName];
+                string beforeValue = request.Cookies[this.cookieName];
                 if (beforeValue != null) {
                     string session = extract(beforeValue);
-                    context.Request.Environment[this.environmentKey] = session;
+                    injectFunc(request, session);
                 }
             }
             context.Response.OnSendingHeaders(state => {
@@ -89,15 +118,14 @@ namespace OwinUtils
             return session;
         }
 
+ 
+
         private void convertToCookie(IOwinResponse response)
         {
-            if (response.Environment.ContainsKey(this.environmentKey) == false) {
-                return;
-            }
-            string value = response.Environment[this.environmentKey].ToString();
-            if(value != null) {
+            var outboundSession = extractFunc(response);
+            if(outboundSession != null) {
                 // sign the cookie
-                response.Cookies.Append(this.cookieName, sign(value, this.passphrase));
+                response.Cookies.Append(this.cookieName, sign(outboundSession, this.passphrase));
             }
         }
     }
