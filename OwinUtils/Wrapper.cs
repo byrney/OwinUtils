@@ -10,6 +10,7 @@ namespace OwinUtils
     using System.Threading.Tasks;
     using EnvDict = System.Collections.Generic.IDictionary<string, object>;
     using RouteDict = System.Collections.Generic.Dictionary<string, object>;
+    using System.ComponentModel;
 
 
 	public class Wrapper
@@ -85,7 +86,11 @@ namespace OwinUtils
 			return;
 		}
 
- 
+        static object convertTypes(object input, Type type)
+        {
+            var cv = TypeDescriptor.GetConverter(type);
+            return cv.ConvertFrom(input);
+        }
 
         object tryArgFromDict(ParameterInfo param, RouteDict routeParams)
         {
@@ -93,7 +98,7 @@ namespace OwinUtils
             var type = param.ParameterType;
             object dictValue;
             if (routeParams.TryGetValue(name, out dictValue)) {
-                return Convert.ChangeType(dictValue, type);
+                return convertTypes(dictValue, type);
             } else {
                 if (param.HasDefaultValue == false) {
                     return null;
