@@ -99,21 +99,6 @@ namespace OwinUtils
             return options.httpMethod ?? "ALL" + options.template.ToString();
         }
 
-        static RouteDict MergeDictionaries(RouteDict secondary, RouteDict primary)
-        {
-            if (secondary == null) {
-                return primary;
-            }
-            if (primary == null) {
-                return secondary;
-            }
-            var result = new RouteDict(secondary);
-            foreach (var item in primary) {
-                result[item.Key] = item.Value;
-            }
-            return result;
-        }
-
         public override Task Invoke(IOwinContext ctx)
         {
             var requestMethod = ctx.Request.Method;
