@@ -14,7 +14,7 @@ namespace OwinUtilsTests
             string eventId = "123455";
             string someData = "some data";
             string expected = string.Format("event:{0}\nid:{1}\ndata:{2}", eventKey, eventId, someData);
-            var ev = new HttpEventSourceMessage(eventKey, eventId, someData);
+            var ev = new EventSourceMessage(eventKey, eventId, someData);
             string evs = ev.ToString();
             Assert.AreEqual(expected, evs);
         }
@@ -26,7 +26,7 @@ namespace OwinUtilsTests
             string eventId = "123455";
             string someData = "some\ninfo";
             string expected = string.Format("event:{0}\nid:{1}\ndata:some\ndata:info", eventKey, eventId);
-            var ev = new HttpEventSourceMessage(eventKey, eventId, someData);
+            var ev = new EventSourceMessage(eventKey, eventId, someData);
             string evs = ev.ToString();
             Assert.AreEqual(expected, evs);
         }
@@ -37,7 +37,7 @@ namespace OwinUtilsTests
             string eventKey = "key";
             string eventId = "123455";
             string someData = "some data";
-            var ev = new HttpEventSourceMessage(eventKey, eventId, someData);
+            var ev = new EventSourceMessage(eventKey, eventId, someData);
             string evs = ev.ToString();
             var parsed = DoParse(evs);
             Assert.AreEqual(ev.EventKey, parsed.EventKey);
@@ -51,7 +51,7 @@ namespace OwinUtilsTests
             string eventKey = "key";
             string eventId = "123455";
             string someData = "some\ninformation";
-            var ev = new HttpEventSourceMessage(eventKey, eventId, someData);
+            var ev = new EventSourceMessage(eventKey, eventId, someData);
             string evs = ev.ToString();
             var parsed = DoParse(evs);
             Assert.AreEqual(ev.EventKey, parsed.EventKey);
@@ -59,11 +59,11 @@ namespace OwinUtilsTests
             Assert.AreEqual(ev.Data, parsed.Data);
         }
 
-        private static HttpEventSourceMessage DoParse(string evs)
+        private static EventSourceMessage DoParse(string evs)
         {
             var ms = new MemoryStream(Encoding.UTF8.GetBytes(evs));
             var reader = new StreamReader(ms);
-            var parsed = HttpEventSourceMessage.Parse(reader);
+            var parsed = EventSourceMessage.Parse(reader);
             return parsed;
         }
     }

@@ -4,15 +4,15 @@ using System.Text;
 
 namespace OwinUtils
 {
-    public class HttpEventSourceMessage
+    public class EventSourceMessage
     {
         private const char _newline = '\n';
 
-        public HttpEventSourceMessage()
+        public EventSourceMessage()
         {
         }
 
-        public HttpEventSourceMessage(string eventKey, string eventId, string data)
+        public EventSourceMessage(string eventKey, string eventId, string data)
         {
             EventKey = eventKey;
             EventId = eventId;
@@ -52,9 +52,9 @@ namespace OwinUtils
             return result.ToString();
         }
 
-        public static HttpEventSourceMessage Parse(StreamReader reader)
+        public static EventSourceMessage Parse(StreamReader reader)
         {
-            HttpEventSourceMessage result = null; //new HttpEventSourceMessage();
+            EventSourceMessage result = null; //new HttpEventSourceMessage();
             var builder = new StringBuilder();
             string line;
             while ((line = reader.ReadLine()) != null)
@@ -73,7 +73,7 @@ namespace OwinUtils
                 }
                 else
                 {
-                    result = result ?? new HttpEventSourceMessage();
+                    result = result ?? new EventSourceMessage();
                     var segments = line.Split(colon, 2, StringSplitOptions.None);
                     switch (segments[0])
                     {
