@@ -88,6 +88,9 @@ namespace OwinUtils
 
         static object convertTypes(object input, Type type)
         {
+            if (input == null) {
+                return null;
+            }
             var cv = TypeDescriptor.GetConverter(type);
             return cv.ConvertFrom(input);
         }

@@ -22,7 +22,7 @@
 
         public SessionTestApp()
         {
-            Console.WriteLine("Startup"); 
+        //    Console.WriteLine("Startup"); 
         }
 
         public Task captureFunc(IOwinContext context)

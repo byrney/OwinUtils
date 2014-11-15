@@ -22,7 +22,7 @@
 
         public EventTestApp()
         {
-            Console.WriteLine("Startup"); 
+           // Console.WriteLine("Startup"); 
         }
 
         private Task writeContextResponse(IOwinContext context)
