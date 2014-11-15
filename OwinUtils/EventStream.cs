@@ -37,6 +37,7 @@
             if (e == null || e.HResult == -2146232800) { // client closed the  connection
                 this.tcs.SetResult(true);
             } else {
+                Console.WriteLine("Exception sending events: {0}", e);
                 this.tcs.SetException(e);
             }
             if (this.closeCallback != null)
@@ -44,7 +45,7 @@
 //            this.responseWriter.Dispose();
             return true; // exception handled
         }
-
+                
         public void Close()
         {
             this.Close(null);

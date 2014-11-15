@@ -43,6 +43,7 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="HttpEventSourceMessage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="IEventStream.cs" />
     <Compile Include="EventSource.cs" />
