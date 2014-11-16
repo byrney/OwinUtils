@@ -5,7 +5,7 @@ using OwinUtils;
 
 namespace OwinUtilsTests
 {
-    public class HttpEventSourceMessageTests
+    public class EventSourceMessageTests
     {
         [Test]
         public void ToStringBasicallyWorks()
