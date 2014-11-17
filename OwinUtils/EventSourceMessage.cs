@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace OwinUtils
 {
@@ -52,12 +53,21 @@ namespace OwinUtils
             return result.ToString();
         }
 
-        public static EventSourceMessage Parse(StreamReader reader)
+        public static string ReadStream(StreamReader reader, int timeout)
+        {
+            var start = reader.ReadLineAsync();
+            if (start.Wait(timeout)) {
+                return start.Result;
+            }
+            throw new TimeoutException();
+        }
+
+        public static EventSourceMessage Parse(StreamReader reader, int timeout = 100)
         {
             EventSourceMessage result = null; //new HttpEventSourceMessage();
             var builder = new StringBuilder();
             string line;
-            while ((line = reader.ReadLine()) != null)
+            while ((line = ReadStream(reader, timeout)) != null)
             {
                 if (line.Length == 0)
                 {
