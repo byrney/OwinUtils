@@ -54,14 +54,16 @@
         private Task WriteAndFlush(string message)
         {
             var w = this.responseWriter;
-            return w.WriteAsync(message).ContinueWith(t => w.FlushAsync()
-                , TaskContinuationOptions.OnlyOnRanToCompletion);
+            return w.WriteAsync(message).ContinueWith(t => {
+                w.FlushAsync();
+            }, TaskContinuationOptions.OnlyOnRanToCompletion);
         }
 
         public Task WriteAsync(string message)
         {
-              return this.WriteAndFlush(message).ContinueWith(t => t.Exception.Handle(Close)
-                , TaskContinuationOptions.OnlyOnFaulted);
+              return this.WriteAndFlush(message).ContinueWith(t => {
+                  t.Exception.Handle(Close);
+              }, TaskContinuationOptions.NotOnRanToCompletion);
         }
 
     }
