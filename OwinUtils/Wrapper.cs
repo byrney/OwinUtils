@@ -32,29 +32,11 @@ namespace OwinUtils
             extractMetadata (callee, "Invoke");
         }
 
-		private void extractBestMatch(object callee, string methodName)
-		{
-			MethodInfo[] methods = callee.GetType().GetMethods();
-			foreach (var method in methods) {
-				if (method.Name != methodName) {
-					continue;
-				}
-				ParameterInfo[] parameters = method.GetParameters();
-				Type[] parameterTypes = parameters.Select(p => p.ParameterType).ToArray();
-				this.parameterInfo = parameters;
-				this.parameterTypes = parameterTypes;
-				this.method = method;
-				return;
-			}
-			throw new ArgumentException ("cannot find invoke method on callee");
-		}
-
         static void validateParameters(ParameterInfo[] parameters, Type[] types)
         {
             if(parameters.Length < 1) {
                 throw new ArgumentException("Method must have at least 1 parameter (envDict)");
             }
-            var t1 = types[0];
             var firstArgType = types[0];
             if(firstArgType != typeof(EnvDict) && firstArgType != typeof(IOwinContext)) {
                 throw new ArgumentException("First parameter of method must be envDict/IOwinContext parameter (envDict)");
@@ -143,11 +125,17 @@ namespace OwinUtils
                     args[i] = tryArgFromDict(this.parameterInfo[i], routeParams);
                 }
 		    }
-            Task invokeTask = (Task)this.method.Invoke(callee, args);
-		    if (invokeTask.IsFaulted) {
-		        throw invokeTask.Exception.InnerException;
+		    try {
+		        Task invokeTask = (Task) this.method.Invoke(callee, args);
+		        if (invokeTask.IsFaulted) {
+		            throw invokeTask.Exception.InnerException;
+		        }
+                return invokeTask;
 		    }
-		    return invokeTask;
+		    catch (System.Reflection.TargetInvocationException en) {
+		        throw en.InnerException;
+		    }
+		   
 		}
 
 	}
