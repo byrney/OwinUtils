@@ -105,12 +105,12 @@ namespace OwinUtils
 
         public MatchData match(string path)
         {
-            var extractedVars = RouteParams.CreateDict();
             int matchedSegments = 0;
             var pathSegments = path == "" ? new string[0] : path.Split('/');
             if (pathSegments.Length > this.tokens.Length && this.partials == false) {
                 return null;
             }
+            var extractedVars = RouteParams.CreateDict();
             for (int token = 0; token < this.tokens.Length; token++)
             {
                 string value;

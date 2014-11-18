@@ -92,7 +92,7 @@ namespace OwinUtilsTests
             var ts = TestServer.Create(app =>
             {
                 
-                app.Route("/hola/<name>", del, "GET");
+                app.Route("GET", del, "/hola/<name>");
                 app.Branch("/hello", b => b.Run(SayHello));
                 app.Route("/goodbye", SayGoodbye);
             });
@@ -108,7 +108,7 @@ namespace OwinUtilsTests
         {
             var ts = TestServer.Create(app => {
                 var t = new RoutesTests();
-                app.Route("/hola/boo", t, "TakesAContext");
+                app.Route(null, t, "TakesAContext", "/hola/boo");
             });
             var cl = ts.HttpClient;
             var resp = cl.GetAsync("http://example.com/hola/boo").Result;
@@ -124,7 +124,7 @@ namespace OwinUtilsTests
             AddFunc add = AddIntegers;
             var ts = TestServer.Create(app =>
             {
-                app.Route("/add/[lhs]/[rhs]", add, "Invoke", "GET");
+                app.Route("GET", add, "Invoke", "/add/[lhs]/[rhs]");
                 
             });
             var cl = ts.HttpClient;
@@ -139,7 +139,7 @@ namespace OwinUtilsTests
         {
             var ts = TestServer.Create(app =>
             {
-                app.Route("/add/[arg2]/[arg3]", new Func<EnvDict, int, int, Task>(AddIntegers), "GET");
+                app.Route("GET", new Func<EnvDict, int, int, Task>(AddIntegers), "/add/[arg2]/[arg3]");
 
             });
             var cl = ts.HttpClient;
@@ -173,7 +173,7 @@ namespace OwinUtilsTests
             AddFunc add = AddIntegers;
             var ts = TestServer.Create(app => {
                 app.Branch("/hello", b => {
-                    b.Route("/<lhs>/<rhs>", add, "GET");
+                    b.Route("GET", add, "/<lhs>/<rhs>");
                 });
             });
             var cl = ts.HttpClient;
@@ -297,11 +297,11 @@ namespace OwinUtilsTests
             var ts = TestServer.Create(app =>
             {
                 app.Branch("/hello", b => {
-                    b.Route("/<lhs>/<rhs>", add, "GET");
-                    b.Route("/<value>", square, "GET");
+                    b.Route("GET", add, "/<lhs>/<rhs>");
+                    b.Route("GET", square, "/<value>");
                 });
                 app.Branch("goodbye", b => {
-                    b.Route("/<value>", square, "GET");
+                    b.Route("GET", square, "/<value>");
                 });
                     
             });

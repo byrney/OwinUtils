@@ -1,4 +1,5 @@
-﻿using Microsoft.Owin;
+﻿using System.Net;
+using Microsoft.Owin;
 using System;
 using System.Threading.Tasks;
 using AppFunc = System.Func<System.Collections.Generic.IDictionary<string, object>, System.Threading.Tasks.Task>;
@@ -77,9 +78,21 @@ namespace OwinUtils
         
         public class Options
         {
+            public Options(string httpMethod, RouteTemplate template, AppFunc app)
+                : this(httpMethod, new[] { template}, app)
+            {
+            }
+
+            public Options(string httpMethod, RouteTemplate[] templates, AppFunc app)
+            {
+                this.httpMethod = httpMethod;
+                this.templates = templates;
+                this.app = app;
+            }
+
             public string httpMethod = null;
             public OwinMiddleware branch { get; set;}
-            public RouteTemplate template { get ; set; }
+            public RouteTemplate[] templates { get ; set; }
             public AppFunc app { get ; set; }
         }
 
@@ -96,14 +109,18 @@ namespace OwinUtils
             if (options.httpMethod != null && options.httpMethod != requestMethod) {
                 return null;
             }
-            var template = options.template;
-            var match = template.match(path);
-            return match;
+            foreach (var template in options.templates) {
+                var match = template.match(path);
+                if (match != null) {
+                    return match;
+                }
+            }
+            return null;
         }
 
         public new string ToString()
         {
-            return options.httpMethod ?? "ALL" + options.template.ToString();
+            return options.httpMethod ?? "ALL" + options.templates[0].ToString();
         }
 
         public override Task Invoke(IOwinContext ctx)
