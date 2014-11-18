@@ -15,8 +15,7 @@ namespace OwinUtilsTests
         public void SlashMatchesSlash()
         {
             var rt = new RouteTemplate("/", false);
-            var rd = new RouteDict();
-            var md = rt.match("/", rd);
+            var md = rt.match("/");
             Assert.IsNotNull(md);
             Assert.AreEqual("", md.pathRemaining);
             Assert.AreEqual("/", md.pathMatched);
@@ -26,8 +25,7 @@ namespace OwinUtilsTests
         public void LiteralMatches()
         {
             var rt = new RouteTemplate("/branch", true);
-            var rd = new RouteDict();
-            var md = rt.match("/branch", rd);
+            var md = rt.match("/branch");
             Assert.IsNotNull(md);
             Assert.AreEqual("", md.pathRemaining);
             Assert.AreEqual("/branch", md.pathMatched);
@@ -38,7 +36,7 @@ namespace OwinUtilsTests
         {
             var rt = new RouteTemplate("/branch", false);
             var rd = new RouteDict();
-            var md = rt.match("/branch/[excess]", rd);
+            var md = rt.match("/branch/[excess]");
             Assert.IsNull(md);
         }
 
@@ -47,17 +45,15 @@ namespace OwinUtilsTests
         {
             var rt = new RouteTemplate("/branch", false);
             var rd = new RouteDict();
-            var md = rt.match("/branch/excess", rd);
+            var md = rt.match("/branch/excess");
             Assert.IsNull(md);
         }
-
 
         [Test]
         public void PartialMatches()
         {
             var rt = new RouteTemplate("/branch", true);
-            var rd = new RouteDict();
-            var md = rt.match("/branch/value", rd);
+            var md = rt.match("/branch/value");
             Assert.IsNotNull(md);
             Assert.AreEqual("/value", md.pathRemaining);
             Assert.AreEqual("/branch", md.pathMatched);
@@ -67,8 +63,7 @@ namespace OwinUtilsTests
         public void EmptyOnlyMatchesEmpty()
         {
             var rt = new RouteTemplate("", false);
-            var rd = new RouteDict();
-            var md = rt.match("/branch", rd);
+            var md = rt.match("/branch");
             Assert.IsNull(md);
         }
 
@@ -76,8 +71,7 @@ namespace OwinUtilsTests
         public void TrailingSlashesArePreserved()
         {
             var rt = new RouteTemplate("/branch", true);
-            var rd = new RouteDict();
-            var md = rt.match("/branch/", rd);
+            var md = rt.match("/branch/");
             Assert.IsNotNull(md);
             Assert.AreEqual("/", md.pathRemaining);
             Assert.AreEqual("/branch", md.pathMatched);
@@ -89,12 +83,12 @@ namespace OwinUtilsTests
         public void VarsAreExtractedWithTrailingSlash(string template)
         {
             var rt = new RouteTemplate(template, true);
-            var rd = new RouteDict();
-            var md = rt.match("/branch/abcdefg/", rd);
+            var md = rt.match("/branch/abcdefg/");
             Assert.IsNotNull(md);
             Assert.AreEqual("/", md.pathRemaining);
             Assert.AreEqual("/branch/abcdefg", md.pathMatched);
-            Assert.AreEqual("abcdefg", rd["value"]);
+            Assert.IsNotNull(md.extracted);
+            Assert.AreEqual("abcdefg", md.extracted["value"]);
         }
 
         [Test]
@@ -103,12 +97,12 @@ namespace OwinUtilsTests
         public void RequiredVarsAreExtracted(string template)
         {
             var rt = new RouteTemplate(template, false);
-            var rd = new RouteDict();
-            var md = rt.match("/branch/abcdefg", rd);
+            var md = rt.match("/branch/abcdefg");
             Assert.IsNotNull(md);
             Assert.AreEqual("", md.pathRemaining);
             Assert.AreEqual("/branch/abcdefg", md.pathMatched);
-            Assert.AreEqual("abcdefg", rd["value"]);
+            Assert.IsNotNull(md.extracted);
+            Assert.AreEqual("abcdefg", md.extracted["value"]);
         }
 
   

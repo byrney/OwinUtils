@@ -56,11 +56,16 @@ namespace OwinUtils
             return default(T);
         }
 
+        public static RouteDict CreateDict()
+        {
+            return new System.Collections.Generic.Dictionary<string, object>();
+        }
+
         private static RouteDict InitDictionary(EnvDict env)
         {
             object routeDict;
             if (!env.TryGetValue(routeKey, out routeDict)) {
-                routeDict = new System.Collections.Generic.Dictionary<string, object>();
+                routeDict = CreateDict();
                 env[routeKey] = routeDict;
             }
             return (RouteDict) routeDict;
@@ -85,13 +90,15 @@ namespace OwinUtils
             this.options = options;
         }
 
-        private RouteTemplate.MatchData MatchMethodAndTemplate(IOwinContext ctx, string path , RouteDict routeParams)
+        private RouteTemplate.MatchData MatchMethodAndTemplate(IOwinContext ctx, string path)
         {
             var requestMethod = ctx.Request.Method;
             if (options.httpMethod != null && options.httpMethod != requestMethod) {
                 return null;
             }
-            return options.template.match(path, routeParams);
+            var template = options.template;
+            var match = template.match(path);
+            return match;
         }
 
         public new string ToString()
@@ -105,13 +112,13 @@ namespace OwinUtils
             var routeParams = new System.Collections.Generic.Dictionary<string, object>();
             string remainder;
             var path = ctx.Request.Path.Value;
-            var match = MatchMethodAndTemplate(ctx, path, routeParams);
+            var match = MatchMethodAndTemplate(ctx, path);
             if (match == null)
             {
                 return Next.Invoke(ctx);
             }
             var env = ctx.Environment;
-            RouteParams.Merge(env, routeParams);
+            RouteParams.Merge(env, match.extracted);
             var oldBase = ctx.Request.PathBase;
             var oldPath = ctx.Request.Path;
             ctx.Request.PathBase = new PathString(oldBase + match.pathMatched);

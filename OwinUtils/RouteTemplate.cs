@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.Owin;
+using RouteDict = System.Collections.Generic.Dictionary<string, object>;
 
 namespace OwinUtils
 {
@@ -99,11 +100,12 @@ namespace OwinUtils
         {
             public string pathMatched = "";
             public string pathRemaining = "";
+            public RouteDict extracted = null;
         }
 
-        public MatchData match(string path, Dictionary<string, object> paramDict)
+        public MatchData match(string path)
         {
-     
+            var extractedVars = RouteParams.CreateDict();
             int matchedSegments = 0;
             var pathSegments = path == "" ? new string[0] : path.Split('/');
             if (pathSegments.Length > this.tokens.Length && this.partials == false) {
@@ -113,7 +115,7 @@ namespace OwinUtils
             {
                 string value;
                 var pathSeg = token < pathSegments.Length ? pathSegments[token] : null;
-                if (tokens[token].extract(pathSeg, paramDict)) {
+                if (tokens[token].extract(pathSeg, extractedVars)) {
                     matchedSegments += token < pathSegments.Length ? 1 : 0;
                 }
                 else {
@@ -121,6 +123,7 @@ namespace OwinUtils
                 }
             }
             var ret = new MatchData();
+            ret.extracted = extractedVars;
             var remainingSegments = pathSegments.Length - matchedSegments;
             if (remainingSegments > 0) { // must start with a slash
                 ret.pathRemaining = "/" + String.Join("/", pathSegments, matchedSegments, remainingSegments);
