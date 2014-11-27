@@ -22,8 +22,7 @@ namespace OwinUtils
 
         private static void OnNewLine(StringBuilder builder, string format, params object[] data)
         {
-            if (builder.Length != 0)
-            {
+            if(builder.Length != 0) {
                 builder.Append(_newline);
             }
             builder.AppendFormat(format, data);
@@ -32,22 +31,18 @@ namespace OwinUtils
         public override string ToString()
         {
             var result = new StringBuilder();
-            if (null != EventKey)
-            {
+            if(null != EventKey) {
                 OnNewLine(result, "event:{0}", EventKey);
             }
-            if (null != EventId)
-            {
+            if(null != EventId) {
                 OnNewLine(result, "id:{0}", EventId);
             }
-            if(null != Data)
-            {
+            if(null != Data) {
                 var r = new StringReader(Data);
                 string d;
                 int lines = 0;
-                while ((d = r.ReadLine()) != null)
-                {
-                   OnNewLine(result, "data:{0}", d);
+                while((d = r.ReadLine()) != null) {
+                    OnNewLine(result, "data:{0}", d);
                 }
             }
             return result.ToString();
@@ -67,26 +62,18 @@ namespace OwinUtils
             EventSourceMessage result = null; //new HttpEventSourceMessage();
             var builder = new StringBuilder();
             string line;
-            while ((line = ReadStream(reader, timeout)) != null)
-            {
-                if (line.Length == 0)
-                {
-                    if (result != null)
-                    {
+            while ((line = ReadStream(reader, timeout)) != null) {
+                if (line.Length == 0) {
+                    if (result != null) {
                         result.Data = builder.ToString();
                         return result; //  empty line marks end of this event
-                    }
-                    else
-                    {
+                    } else {
                         continue;
                     }
-                }
-                else
-                {
+                } else {
                     result = result ?? new EventSourceMessage();
                     var segments = line.Split(colon, 2, StringSplitOptions.None);
-                    switch (segments[0])
-                    {
+                    switch(segments[0]) {
                         case "event":
                             result.EventKey = segments[1];
                             break;
@@ -101,18 +88,20 @@ namespace OwinUtils
                     }
                 }
             }
-            if (result != null)
+            if(result != null)
                 result.Data = builder.ToString();
             return result;
         }
 
-        private static char[] colon = new[] {':'};
+        private static char[] colon = new[] { ':' };
+
         public string Data { get; set; }
 
         public string EventId { get; set; }
 
         public string EventKey { get; set; }
     }
+
     [Serializable]
     internal class ParseException : Exception
     {
