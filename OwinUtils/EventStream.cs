@@ -14,7 +14,7 @@
 
         public EventStream (Stream responseStream, Action onOpen)
         {
-            this.responseStream = responseStream;
+            this.responseStream = Stream.Synchronized(responseStream);
             this.openCallback = onOpen;
         }
 
@@ -29,12 +29,16 @@
             return this.tcs.Task;
         }
 
+        private bool IsSocketClosed(Exception e)
+        {
+            return e.HResult == -2146232800 || e.HResult == -2146233087;
+        }
+
+
         private bool Close(Exception e)
         {
-     //       if (this.tcs.Task.Status != TaskStatus.Running) {
-       //         return true;
-         //   }
-            if (e == null || e.HResult == -2146232800) { // client closed the  connection
+ 
+            if (e == null || IsSocketClosed(e)) { // client closed the  connection
                 this.tcs.SetResult(true);
             } else {
                 Console.WriteLine("Exception sending events: {0}", e);
@@ -42,7 +46,7 @@
             }
             if (this.closeCallback != null)
                 this.closeCallback.Invoke();
-//            this.responseWriter.Dispose();
+            this.responseWriter.Dispose();
             return true; // exception handled
         }
                 
@@ -55,15 +59,19 @@
         {
             var w = this.responseWriter;
             return w.WriteAsync(message).ContinueWith(t => {
-                w.FlushAsync();
-            }, TaskContinuationOptions.OnlyOnRanToCompletion);
+                    w.Flush();
+            }, TaskContinuationOptions.NotOnFaulted);
         }
 
         public Task WriteAsync(string message)
         {
-              return this.WriteAndFlush(message).ContinueWith(t => {
+            var task = this.tcs.Task;
+            if(task.IsCompleted || task.IsFaulted) {
+                return Task<bool>.FromResult(false);
+            }
+            return this.WriteAndFlush(message).ContinueWith(t => {
                   t.Exception.Handle(Close);
-              }, TaskContinuationOptions.NotOnRanToCompletion);
+            }, TaskContinuationOptions.OnlyOnFaulted);
         }
 
     }

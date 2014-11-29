@@ -25,18 +25,31 @@ namespace ConsoleHost
 
     class Program
     {
-        public void EventConfiguration(IAppBuilder app)
+        public static void EventConfiguration(IAppBuilder app)
         {
+            string block = "abcdefghijklmnopqrstuvwxyz";
+            string message = string.Format("{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}", block);
             string envKey = "test.eventstream";
             app.Use<EventSource>(envKey);
             app.Run(context => {
                 var eventStream = context.Environment[envKey] as IEventStream;
-                var task =  eventStream.Open(() => Console.WriteLine("Closed"));
-                Console.WriteLine("Got eventstream");
                 var timer = new System.Threading.Timer(_ => {
-                    eventStream.WriteAsync("message 1\n");
-                    eventStream.Close();
-                }, null, 5000,  System.Threading.Timeout.Infinite);
+                    var ts = DateTime.UtcNow.ToString("O");
+                    eventStream.WriteAsync(ts + message + "\n");
+                    //        eventStream.Close();
+                }, null, 1,  100);
+                var timer2 = new System.Threading.Timer(_ => {
+                    var ts = DateTime.UtcNow.ToString("O");
+                    eventStream.WriteAsync(ts + "\n");
+                    //        eventStream.Close();
+                }, null, 1,  100);
+                var task =  eventStream.Open(() => {
+                    Console.WriteLine("Closed");
+                    timer.Dispose();
+                    timer2.Dispose();
+                });
+                Console.WriteLine("Got eventstream");
+  
                 eventStream.WriteAsync("Started\n");
                 return task;
             });
@@ -106,7 +119,7 @@ namespace ConsoleHost
         static void Main(string[] args)
         {
             var url = "http://localhost:12345";
-            using (WebApp.Start(url, BranchedConfiguration))
+            using (WebApp.Start(url, EventConfiguration))
             {
                 Console.WriteLine("Listening on {0}", url);
                 Console.ReadLine();
