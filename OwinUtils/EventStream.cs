@@ -46,7 +46,7 @@
             }
             if (this.closeCallback != null)
                 this.closeCallback.Invoke();
-            this.responseWriter.Dispose();
+        //    this.responseWriter.Dispose();
             return true; // exception handled
         }
                 
@@ -59,7 +59,10 @@
         {
             var w = this.responseWriter;
             return w.WriteAsync(message).ContinueWith(t => {
-                    w.Flush();
+                w.FlushAsync().ContinueWith(tf =>
+                {
+                    tf.Exception.Handle(Close);
+                }, TaskContinuationOptions.OnlyOnFaulted);
             }, TaskContinuationOptions.NotOnFaulted);
         }
 
