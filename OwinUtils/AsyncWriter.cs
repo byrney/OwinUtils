@@ -52,10 +52,10 @@ namespace OwinUtils
         {
             lock(currentLock) {
                 if(currentWrite == null || currentWrite.IsCompleted) {
-                    return writer.FlushAsync();
+                    return writer.FlushAsync().ContinueWith(OnError, OnFaulted);
                 } else {
-                    return currentWrite.ContinueWith(_ => writer.Flush())
-                        //.ContinueWith(OnError, TaskContinuationOptions.OnlyOnFaulted)
+                    return currentWrite.ContinueWith(_ => writer.FlushAsync())
+                        .ContinueWith(OnError, OnFaulted)
                         ;
                 }
             }
