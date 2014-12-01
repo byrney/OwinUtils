@@ -116,10 +116,16 @@ namespace ConsoleHost
 
         }
 
+        static void CombinedConfig(IAppBuilder builder)
+        {
+            builder.Map("/events", EventConfiguration);
+            builder.Map("/session", SessionConfiguration);
+        }
+
         static void Main(string[] args)
         {
             var url = "http://localhost:12345";
-            using (WebApp.Start(url, EventConfiguration))
+            using (WebApp.Start(url, CombinedConfig))
             {
                 Console.WriteLine("Listening on {0}", url);
                 Console.ReadLine();
