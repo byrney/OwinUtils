@@ -25,6 +25,11 @@ namespace OwinUtils
             t.Exception.Handle(errorHandler);
         }
 
+        private  const TaskContinuationOptions OnFaulted =
+            TaskContinuationOptions.OnlyOnFaulted | TaskContinuationOptions.ExecuteSynchronously;
+        private const TaskContinuationOptions OnSuccess =
+            TaskContinuationOptions.NotOnFaulted | TaskContinuationOptions.ExecuteSynchronously;
+
         public Task FlushIfNoWritesPending(Task ignored)
         {
             lock (currentLock) {
@@ -33,10 +38,10 @@ namespace OwinUtils
                 }
                 if(currentWrite.IsCompleted) {
                     currentWrite = writer.FlushAsync()
-                        .ContinueWith(OnError, TaskContinuationOptions.OnlyOnFaulted)
+                        .ContinueWith(OnError, OnFaulted)
                         ;
                 } else {
-                    currentWrite.ContinueWith(FlushFunc);
+                    currentWrite.ContinueWith(FlushFunc, OnSuccess);
                 }
                 return currentWrite;
             
@@ -59,8 +64,8 @@ namespace OwinUtils
         public Task WriteAndFlushAsync(string message)
         {
             Func<Task, Task> WriteFunc = t => writer.WriteAsync(message)
-                .ContinueWith(OnError, TaskContinuationOptions.OnlyOnFaulted)
-                .ContinueWith(FlushFunc, TaskContinuationOptions.NotOnFaulted);
+                .ContinueWith(OnError, OnFaulted)
+                .ContinueWith(FlushFunc, OnSuccess);
             lock (currentLock) {
                 if(currentWrite == null || currentWrite.IsCompleted) {
                     currentWrite = WriteFunc(null);
