@@ -61,6 +61,7 @@
     <Compile Include="WrapperTests.cs" />
     <Compile Include="HeaderExtractorTests.cs" />
     <Compile Include="TypeConverterTests.cs" />
+    <Compile Include="AsyncWriterTests.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

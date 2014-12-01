@@ -61,6 +61,7 @@
     <Compile Include="AppBuilderRouteExtensions.cs" />
     <Compile Include="HeaderExtractor.cs" />
     <Compile Include="ConstructorTypeConverter.cs" />
+    <Compile Include="AsyncWriter.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
