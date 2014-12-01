@@ -94,7 +94,6 @@ namespace OwinUtils
         }
 
         private static char[] colon = new[] { ':' };
-
         public string Data { get; set; }
 
         public string EventId { get; set; }
@@ -107,7 +106,6 @@ namespace OwinUtils
     {
         public ParseException(string unexpectedFormat)
         {
-            
         }
     }
 }

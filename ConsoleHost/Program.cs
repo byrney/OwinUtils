@@ -5,7 +5,7 @@ using OwinUtils;
 using System.Collections.Generic;
 using HeaderDict = System.Collections.Generic.IDictionary<string, string[]>;
 using EnvDict = System.Collections.Generic.IDictionary<string, object>;
-using AppFunc = System.Func<System.Collections.Generic.IDictionary<string, object>, System.Threading.Tasks.Task>; 
+using AppFunc = System.Func<System.Collections.Generic.IDictionary<string, object>, System.Threading.Tasks.Task>;
 using System.Threading.Tasks;
 using Microsoft.Owin;
 
@@ -37,19 +37,19 @@ namespace ConsoleHost
                     var ts = DateTime.UtcNow.ToString("O");
                     eventStream.WriteAsync(ts + message + "\n");
                     //        eventStream.Close();
-                }, null, 1,  100);
+                }, null, 1,  50);
                 var timer2 = new System.Threading.Timer(_ => {
                     var ts = DateTime.UtcNow.ToString("O");
                     eventStream.WriteAsync(ts + "\n");
                     //        eventStream.Close();
-                }, null, 1,  100);
+                }, null, 1,  25);
                 var task =  eventStream.Open(() => {
                     Console.WriteLine("Closed");
                     timer.Dispose();
                     timer2.Dispose();
                 });
                 Console.WriteLine("Got eventstream");
-  
+
                 eventStream.WriteAsync("Started\n");
                 return task;
             });
@@ -69,7 +69,7 @@ namespace ConsoleHost
         }
 
 
-  
+
         public static Task SayHelloC(IOwinContext ctx)
         {
             return ctx.Response.WriteAsync("hello");
@@ -92,7 +92,7 @@ namespace ConsoleHost
          //   app.Branch("hello", b => b.Run(SayHello));
            // app.Route("goodbye", SayGoodbye);
         }
-        
+
         public static void ForwardedConfiguration(IAppBuilder app)
         {
             app.Use<Forwarded>("/root");
@@ -113,7 +113,7 @@ namespace ConsoleHost
 
         interface IUrlBuilder
         {
- 
+
         }
 
         static void Main(string[] args)

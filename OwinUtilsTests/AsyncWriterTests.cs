@@ -13,14 +13,10 @@ namespace OwinUtilsTests
         {
             Func<Exception, bool> error = e => false;
             var ms = new MemoryStream();
-            var sw = new StreamWriter(ms);
-            var aw = new AsyncWriter(sw, error);
-
+            var aw = new AsyncWriter(ms, error);
             var aMessage = "A message";
             var expected = Encoding.UTF8.GetBytes(aMessage);
             aw.WriteAndFlushAsync(aMessage);
-           // sw.Write(aMessage);
-           // sw.Flush();
             aw.Flush().Wait();
             var result = Encoding.UTF8.GetString(ms.ToArray());
             Assert.AreEqual(aMessage, result);
@@ -31,9 +27,7 @@ namespace OwinUtilsTests
         {
             Func<Exception, bool> error = e => false;
             var ms = new MemoryStream();
-            var sw = new StreamWriter(ms);
-            var aw = new AsyncWriter(sw, error);
-
+            var aw = new AsyncWriter(ms, error);
             var message1 = "A message";
             var message2 = "Another message";
             var expected = Encoding.UTF8.GetBytes(message1);
@@ -55,8 +49,7 @@ namespace OwinUtilsTests
             };
             var buffer = new byte[30];
             var ms = new MemoryStream(buffer, true);
-            var sw = new StreamWriter(ms);
-            var aw = new AsyncWriter(sw, error);
+            var aw = new AsyncWriter(ms, error);
             var message1 = "0123456789ABCDEF";
             var message2 = "01234567890123456789";
             var expected = Encoding.UTF8.GetBytes(message1);

@@ -12,9 +12,9 @@ namespace OwinUtils
         Func<Task, Task> FlushFunc;
         Func<Exception, bool> errorHandler;
 
-        public AsyncWriter(StreamWriter sw, Func<Exception, bool> errorHandler)
+        public AsyncWriter(Stream dest, Func<Exception, bool> errorHandler)
         {
-            this.writer = sw;
+            this.writer = new StreamWriter(dest);
             this.currentWrite = null;
             this.FlushFunc = FlushIfNoWritesPending;
             this.errorHandler = errorHandler;
@@ -44,7 +44,7 @@ namespace OwinUtils
                     currentWrite.ContinueWith(FlushFunc, OnSuccess);
                 }
                 return currentWrite;
-            
+
             }
         }
 
@@ -63,21 +63,17 @@ namespace OwinUtils
 
         public Task WriteAndFlushAsync(string message)
         {
-            Func<Task, Task> WriteFunc = t => writer.WriteAsync(message)
-                .ContinueWith(OnError, OnFaulted)
-                .ContinueWith(FlushFunc, OnSuccess);
+            Func<Task, Task> WriteFunc = t => writer.WriteAsync(message);
             lock (currentLock) {
                 if(currentWrite == null || currentWrite.IsCompleted) {
                     currentWrite = WriteFunc(null);
                 } else {
-                    currentWrite = currentWrite.ContinueWith(WriteFunc);
+                    currentWrite = currentWrite.ContinueWith(WriteFunc, OnSuccess);
                 }
+                currentWrite.ContinueWith(OnError, OnFaulted).ContinueWith(FlushFunc, OnSuccess);
                 return currentWrite;
             }
         }
-
-            
-
 
     }
 }

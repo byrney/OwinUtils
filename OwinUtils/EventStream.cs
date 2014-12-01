@@ -7,14 +7,14 @@
     class EventStream : IEventStream
     {
         private Stream responseStream;
-        private StreamWriter responseWriter;
+        private AsyncWriter responseWriter;
         private TaskCompletionSource<bool> tcs;
         private Action closeCallback;
         private Action openCallback;
 
         public EventStream (Stream responseStream, Action onOpen)
         {
-            this.responseStream = Stream.Synchronized(responseStream);
+            this.responseStream = responseStream;
             this.openCallback = onOpen;
         }
 
@@ -22,7 +22,7 @@
         {
             this.closeCallback = onClose;
             this.tcs = new TaskCompletionSource<bool>();
-            this.responseWriter = new StreamWriter(this.responseStream);
+            this.responseWriter = new AsyncWriter(this.responseStream, Close);
             if(this.openCallback != null) {
                 this.openCallback.Invoke();
             }
@@ -34,10 +34,8 @@
             return e.HResult == -2146232800 || e.HResult == -2146233087;
         }
 
-
         private bool Close(Exception e)
         {
- 
             if (e == null || IsSocketClosed(e)) { // client closed the  connection
                 this.tcs.SetResult(true);
             } else {
@@ -49,32 +47,16 @@
         //    this.responseWriter.Dispose();
             return true; // exception handled
         }
-                
+
         public void Close()
         {
             this.Close(null);
         }
 
-        private Task WriteAndFlush(string message)
-        {
-            var w = this.responseWriter;
-            return w.WriteAsync(message).ContinueWith(t => {
-                w.FlushAsync().ContinueWith(tf =>
-                {
-                    tf.Exception.Handle(Close);
-                }, TaskContinuationOptions.OnlyOnFaulted);
-            }, TaskContinuationOptions.NotOnFaulted);
-        }
-
         public Task WriteAsync(string message)
         {
-            var task = this.tcs.Task;
-            if(task.IsCompleted || task.IsFaulted) {
-                return Task<bool>.FromResult(false);
-            }
-            return this.WriteAndFlush(message).ContinueWith(t => {
-                  t.Exception.Handle(Close);
-            }, TaskContinuationOptions.OnlyOnFaulted);
+            var w = this.responseWriter;
+            return w.WriteAndFlushAsync(message);
         }
 
     }
