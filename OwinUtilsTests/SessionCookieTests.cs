@@ -14,7 +14,7 @@ namespace OwinUtilsTests
 
 
     [TestFixture]
-    public class SessionTests : MiddlewareTestBase
+    public class SessionCookieTests : MiddlewareTestBase
     {
         private string envKey = "test.session";
         private string passphrase = "a passphrase......";
@@ -24,7 +24,7 @@ namespace OwinUtilsTests
         [Test]
         public void responseBodyIsReturnedThroughMiddleware()
         {
-            var app = new SessionTestApp();
+            var app = new SessionCookieTestApp();
             app.inboundSession = "before";
             var request = new HttpRequestMessage(HttpMethod.Get, "http://xyz.com/");
             request.Headers.Add("Cookie", "session=random_value");
@@ -36,7 +36,7 @@ namespace OwinUtilsTests
         [Test]
         public void unsignedInputCookiesAreIgnored()
         {
-            var app = new SessionTestApp();
+            var app = new SessionCookieTestApp();
             app.inboundSession = "before";
             var request = new HttpRequestMessage(HttpMethod.Get, "http://xyz.com/");
             request.Headers.Add("Cookie", "session=random_value");
@@ -48,7 +48,7 @@ namespace OwinUtilsTests
         [Test]
         public void signedInputCookiesAreAvailableDownstream()
         {
-            var startApp = new SessionTestApp();
+            var startApp = new SessionCookieTestApp();
             string inputValue = "some stuff";
             var signed = SessionCookie.sign(inputValue, startApp.passPhrase);
             var encoded = Uri.EscapeDataString(signed);
@@ -62,7 +62,7 @@ namespace OwinUtilsTests
         [Test]
         public void downstreamEnvBecomesOutputCookie()
         {
-            var startApp = new SessionTestApp();
+            var startApp = new SessionCookieTestApp();
             var request = new HttpRequestMessage(HttpMethod.Get, "http://xyz.com/");
             var response = testServerGet(startApp.SetOutbound, request);
             Assert.IsTrue(response.IsSuccessStatusCode);

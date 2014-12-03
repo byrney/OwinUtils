@@ -93,15 +93,7 @@ namespace ConsoleHost
            // app.Route("goodbye", SayGoodbye);
         }
 
-        public static void ForwardedConfiguration(IAppBuilder app)
-        {
-            app.Use<Forwarded>("/root");
-            app.Run(context => {
-                var fub = new ForwardedUrlBuilder(context.Environment);
-                var url = fub.url(context.Request.Path.ToString());
-                return context.Response.WriteAsync(string.Format("Hello from: {0}\n", url));
-            });
-        }
+   
 
         public static string GetHeaderOrNull(IDictionary<string, string[]> dictionary, string key)
         {

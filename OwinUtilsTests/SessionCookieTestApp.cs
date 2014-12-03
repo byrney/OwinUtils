@@ -11,7 +11,7 @@
     using AppFunc = System.Func<System.Collections.Generic.IDictionary<string, object>, System.Threading.Tasks.Task>;
 
 
-    public class SessionTestApp
+    public class SessionCookieTestApp
     {
         public string envKey = "test.session";
         public string passPhrase = "a pass phrase that is long";
@@ -20,7 +20,7 @@
 
         public object inboundSession = "default";
 
-        public SessionTestApp()
+        public SessionCookieTestApp()
         {
         //    Console.WriteLine("Startup"); 
         }

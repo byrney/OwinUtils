@@ -52,23 +52,23 @@ namespace OwinUtils
         {
             lock(currentLock) {
                 if(currentWrite == null || currentWrite.IsCompleted) {
-                    return writer.FlushAsync().ContinueWith(OnError, OnFaulted);
+                    currentWrite = writer.FlushAsync();
                 } else {
-                    return currentWrite.ContinueWith(_ => writer.FlushAsync())
-                        .ContinueWith(OnError, OnFaulted)
-                        ;
+                    currentWrite.ContinueWith(_ => writer.Flush());
                 }
+                currentWrite.ContinueWith(OnError, OnFaulted);
+                return currentWrite;
             }
         }
 
         public Task WriteAndFlushAsync(string message)
         {
-            Func<Task, Task> WriteFunc = t => writer.WriteAsync(message);
+            Func<Task, Task> writeFunc = t => writer.WriteAsync(message);
             lock (currentLock) {
                 if(currentWrite == null || currentWrite.IsCompleted) {
-                    currentWrite = WriteFunc(null);
+                    currentWrite = writeFunc(null);
                 } else {
-                    currentWrite = currentWrite.ContinueWith(WriteFunc, OnSuccess);
+                    currentWrite = currentWrite.ContinueWith(writeFunc, OnSuccess);
                 }
                 currentWrite.ContinueWith(OnError, OnFaulted).ContinueWith(FlushFunc, OnSuccess);
                 return currentWrite;

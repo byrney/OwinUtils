@@ -11,13 +11,13 @@ using EnvDict = System.Collections.Generic.IDictionary<string, object>;
 
 namespace OwinUtilsTests
 {
-    class CookieExtratorTests
+    class RouteCookieTests
     {
         private string _extractedUrl;
         private string _extractedCookie;
         private string _defaultCookieValue;
 
-        public CookieExtratorTests()
+        public RouteCookieTests()
         {
             _extractedUrl = null;
             _extractedCookie = null;
@@ -55,14 +55,14 @@ namespace OwinUtilsTests
         }
 
         [Test]
-        public void DefaultsArePassedWhenCookieIsEmpty()
+        public void NonMatchingCookiesAreIgnored()
         {
             // given: a server that updates member variables
-            // with the values passed and a default value
             _defaultCookieValue = "creamy dreamy";
             var ts = CreateTestServer();
 
-            // WHen: A request from the client is sent with no matching cookies
+            // WHen: A request from the client is sent with cookies
+            // that don't match the cookie name
             string expectedFromUrl = "peaches";
             string expectedFromCookie = "apples";
             var cl = ts.HttpClient;
@@ -71,9 +71,9 @@ namespace OwinUtilsTests
             request.Headers.Add("Cookie", string.Format("noMatch={0}", expectedFromCookie));
             var resp = cl.SendAsync(request).Result;
 
-            // Then: the variables will match the default
+            // Then: The route variable for the cookie is null
             Assert.IsTrue(resp.IsSuccessStatusCode);
-            Assert.AreEqual(_defaultCookieValue, _extractedCookie);
+            Assert.IsNull(_extractedCookie);   
         }
 
         private TestServer CreateTestServer()
@@ -85,7 +85,7 @@ namespace OwinUtilsTests
                 return ctx.Response.WriteAsync("Some bananas");
             };
             var ts = Microsoft.Owin.Testing.TestServer.Create(app => {
-                app.Use<CookieExtractor>("fromCookie", _defaultCookieValue);
+                app.Use<RouteCookie>("fromCookie", "fromCookie", "outCookie");
                 app.RouteGet(t1, "/root/<fromUrl>");
             });
             return ts;

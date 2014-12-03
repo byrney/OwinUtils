@@ -12,7 +12,7 @@ namespace OwinUtilsTests
     using RouteDict = System.Collections.Generic.Dictionary<string, object>;
 
 
-    public class QueryExtractorTests
+    public class RouteQueryTests
     {
 
         [Test]
@@ -20,7 +20,7 @@ namespace OwinUtilsTests
         {
             var app = TestServer.Create(builder => {
                 var key = "pq";
-                builder.Use<QueryExtractor>(key, null);
+                builder.Use<RouteQuery>(key, null);
                 AppFunc handler = env =>
                 {
                     var ctx = new OwinContext(env);
@@ -43,7 +43,7 @@ namespace OwinUtilsTests
             var app = TestServer.Create(builder =>
             {
                 var key = "pq";
-                builder.Use<QueryExtractor>(key, defaultValue);
+                builder.Use<RouteQuery>(key, defaultValue);
                 AppFunc handler = env =>
                 {
                     var ctx = new OwinContext(env);

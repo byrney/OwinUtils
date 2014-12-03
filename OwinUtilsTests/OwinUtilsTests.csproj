@@ -48,13 +48,14 @@
     <Reference Include="System.Net.Http" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="RouteCookieTests.cs" />
     <Compile Include="EventSourceMessageTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="QueryExtractorTests.cs" />
+    <Compile Include="RouteQueryTests.cs" />
     <Compile Include="RoutesTests.cs" />
     <Compile Include="RouteTemplateTests.cs" />
-    <Compile Include="SessionTests.cs" />
-    <Compile Include="SessionTestApp.cs" />
+    <Compile Include="SessionCookieTests.cs" />
+    <Compile Include="SessionCookieTestApp.cs" />
     <Compile Include="EventTestApp.cs" />
     <Compile Include="MiddlewareTestBase.cs" />
     <Compile Include="EventSourceTests.cs" />

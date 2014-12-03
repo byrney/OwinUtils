@@ -110,33 +110,29 @@ namespace OwinUtils
             return InvokeRoute(env, routeParams);
         }
 
-		public Task InvokeRoute(EnvDict env, RouteDict routeParams)
-		{
-		    var numArgs = this.parameterInfo.Length;
-			var args = new object[numArgs];
-		    for (int i = 0; i < numArgs; i++) 
-            {
-                if (i == 0)
-                {
-                    args[i] = convertEnv(env, this.parameterTypes[i]);
-                }
-                else
-                {
-                    args[i] = tryArgFromDict(this.parameterInfo[i], routeParams);
-                }
-		    }
-		    try {
-		        Task invokeTask = (Task) this.method.Invoke(callee, args);
-		        if (invokeTask.IsFaulted) {
-		            throw invokeTask.Exception.InnerException;
-		        }
-                return invokeTask;
-		    }
-		    catch (System.Reflection.TargetInvocationException en) {
-		        throw en.InnerException;
-		    }
-		   
-		}
+	    public Task InvokeRoute(EnvDict env, RouteDict routeParams)
+	    {
+	        var numArgs = this.parameterInfo.Length;
+	        var args = new object[numArgs];
+	        for (int i = 0; i < numArgs; i++) {
+	            if (i == 0) {
+	                args[i] = convertEnv(env, this.parameterTypes[i]);
+	            }
+	            else {
+	                args[i] = tryArgFromDict(this.parameterInfo[i], routeParams);
+	            }
+	        }
+	        try {
+	            Task invokeTask = (Task) this.method.Invoke(callee, args);
+	            if (invokeTask.IsFaulted) {
+	                throw invokeTask.Exception.InnerException;
+	            }
+	            return invokeTask;
+	        }
+	        catch (System.Reflection.TargetInvocationException en) {
+	            throw en.InnerException;
+	        }
+	    }
 
 	}
 }
