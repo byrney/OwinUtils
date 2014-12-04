@@ -44,8 +44,7 @@ namespace OwinUtilsTests
         {
             bool errorThrown = false;
             Func<Exception, bool> error = e => {
-                errorThrown = true;
-                return true;
+                return errorThrown = true;
             };
             var buffer = new byte[30];
             var ms = new MemoryStream(buffer, true);
@@ -55,8 +54,6 @@ namespace OwinUtilsTests
             var expected = Encoding.UTF8.GetBytes(message1);
             aw.WriteAndFlushAsync(message1);
             aw.WriteAndFlushAsync(message2);
-            aw.Flush().Wait();
-            var result = Encoding.UTF8.GetString(ms.ToArray());
             Assert.AreEqual(true, errorThrown);
         }
 
