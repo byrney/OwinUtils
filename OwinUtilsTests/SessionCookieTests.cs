@@ -79,7 +79,7 @@ namespace OwinUtilsTests
             string passphrase = "a passphrase......";
             var next = new AppFunc(e => new Task(null));
             var subject = new SessionCookie(next, envKey, passphrase);
-            Assert.IsNotNull(subject);
+            Assert.NotNull(subject);
         }
     }
 }

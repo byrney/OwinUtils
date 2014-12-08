@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Net;
 using System.Runtime.ExceptionServices;
 using Owin;
@@ -44,6 +45,7 @@ namespace OwinUtils
             return result;
         }
 
+     
         // Creates a route which calls methodName on instance callee converting any
         // matching entries in env["routeParams"] to arguments of callee.methodName
         private static IAppBuilder Route(this IAppBuilder app, string httpMethod, object callee, string methodName, RouteTemplate[] templates)
@@ -64,11 +66,7 @@ namespace OwinUtils
         // matching entries in env["routeParams"] to arguments of callee.methodName
         private static IAppBuilder Route(this IAppBuilder app, string httpMethod, object callee, string methodName, string[] templates)
         {
-            var rt = new RouteTemplate[templates.Length];
-            for (var i = 0; i < templates.Length; i++)
-            {
-                rt[i] = new RouteTemplate(templates[i], false);
-            }
+            RouteTemplate[] rt = templates.Select(t => new RouteTemplate(t, false)).ToArray();
             return Route(app, httpMethod, callee, methodName, rt);
         }
 

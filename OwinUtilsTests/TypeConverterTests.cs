@@ -6,7 +6,7 @@ using OwinUtils;
 namespace OwinUtilsTests
 {
 
-    [TypeConverter(typeof(ConstructorTypeConverter<XConvert>))]
+    [TypeConverter(typeof(ConstructorTypeConverter<string, XConvert>))]
     public class XConvert
     {
         public string val {

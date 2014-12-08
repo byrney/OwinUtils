@@ -44,12 +44,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CookieConverter.cs" />
+    <Compile Include="JsonBody.cs" />
     <Compile Include="RouteCookie.cs" />
     <Compile Include="EventSourceMessage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="IEventStream.cs" />
     <Compile Include="EventSource.cs" />
     <Compile Include="EventStream.cs" />
+    <Compile Include="RouteBody.cs" />
     <Compile Include="RouteQuery.cs" />
     <Compile Include="Routes.cs">
       <SubType>Code</SubType>

@@ -1,0 +1,27 @@
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace OwinUtils
+{
+    public class JsonBody
+    {
+        public JsonBody(Stream s)
+        {
+            this.Stream = s;
+        }
+
+        public Stream Stream { get; set; }
+
+        public override string ToString()
+        {
+            using (var sr = new StreamReader(this.Stream, Encoding.UTF8))
+            {
+                return sr.ReadToEnd();
+            }
+        }
+    }
+}
