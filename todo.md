@@ -12,4 +12,8 @@ EventSource
 - [ ] Some unit tests!!
 
 
+Routes
+
+- [ ] Use a regexp with named captures in place of all the Tokenising logic
+
 
