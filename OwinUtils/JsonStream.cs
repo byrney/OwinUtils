@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace OwinUtils
 {
-    public class JsonBody
+    public class JsonStream
     {
-        public JsonBody(Stream s)
+        public JsonStream(Stream s)
         {
             this.Stream = s;
         }
