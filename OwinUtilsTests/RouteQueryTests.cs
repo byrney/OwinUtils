@@ -20,7 +20,7 @@ namespace OwinUtilsTests
         {
             var app = TestServer.Create(builder => {
                 var key = "pq";
-                builder.Use<RouteQuery>(key, null);
+                builder.RouteQuery(key, null);
                 AppFunc handler = env =>
                 {
                     var ctx = new OwinContext(env);
@@ -43,7 +43,7 @@ namespace OwinUtilsTests
             var app = TestServer.Create(builder =>
             {
                 var key = "pq";
-                builder.Use<RouteQuery>(key, defaultValue);
+                builder.RouteQuery(key, defaultValue);
                 AppFunc handler = env =>
                 {
                     var ctx = new OwinContext(env);

@@ -61,7 +61,7 @@
     <Compile Include="SignedString.cs" />
     <Compile Include="Wrapper.cs" />
     <Compile Include="AppBuilderRouteExtensions.cs" />
-    <Compile Include="HeaderExtractor.cs" />
+    <Compile Include="RouteHeader.cs" />
     <Compile Include="ConstructorTypeConverter.cs" />
     <Compile Include="AsyncWriter.cs" />
   </ItemGroup>

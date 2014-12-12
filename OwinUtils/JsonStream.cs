@@ -16,7 +16,7 @@ namespace OwinUtils
 
         public Stream Stream { get; set; }
 
-        public override string ToString()
+        public string ReadAsString()
         {
             using (var sr = new StreamReader(this.Stream, Encoding.UTF8))
             {

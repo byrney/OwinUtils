@@ -85,7 +85,7 @@ namespace OwinUtilsTests
                 return ctx.Response.WriteAsync("Some bananas");
             };
             var ts = Microsoft.Owin.Testing.TestServer.Create(app => {
-                app.Use<RouteCookie>("fromCookie", "fromCookie", "outCookie");
+                app.RouteCookie("fromCookie", "fromCookie", "outCookie");
                 app.RouteGet(t1, "/root/<fromUrl>");
             });
             return ts;

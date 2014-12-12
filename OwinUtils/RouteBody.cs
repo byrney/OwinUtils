@@ -18,20 +18,14 @@ namespace OwinUtils
     /// 
     /// 
     /// </summary>
-    public class RouteBody
+    class RouteBody
     {
-        AppFunc next;
-        string routeParamName;
-        private string defaultValue;
-        private string[] methods;
-        private Func<Stream, object> converter;
+        readonly AppFunc next;
+        readonly string routeParamName;
+        private readonly string[] methods;
+        private readonly Func<Stream, object> converter;
 
-        public RouteBody(AppFunc next, string httpMethod, Func<Stream, object> converter, string paramKey)
-        :this(next, new[] {httpMethod}, converter, paramKey)
-        {
-        }
-
-        public RouteBody(AppFunc next, string[] httpMethods, Func<Stream, object> converter, string paramKey)
+        public RouteBody(AppFunc next, string[] httpMethods, string paramKey, Func<Stream, object> converter)
         {
             this.next = next;
             this.routeParamName = paramKey;
@@ -44,7 +38,7 @@ namespace OwinUtils
             var ctx = new OwinContext(env);
             if (this.methods.Contains(ctx.Request.Method)) {
                 var bodyStream = ctx.Request.Body;
-                var v = this.converter(bodyStream);
+                var v = this.converter != null ? this.converter(bodyStream) : bodyStream;
                 if (v != null)
                 {
                     RouteParams.Set(env, this.routeParamName, v);
@@ -52,7 +46,33 @@ namespace OwinUtils
             }
             return next.Invoke(env);
         }
+    }
+
+
+    public static class AppBuilderRouteBodyExtensions
+    {
+        // Extracts a query parameters and injects it into the routeparams to be used downstream
+        // if the httpMethod of the request is one of the ones in httpMethods
+        public static IAppBuilder RouteBody(this IAppBuilder iab, string[] httpMethods, string paramKey, Func<Stream, object> converter)
+        {
+            return iab.Use<RouteBody>(httpMethods, paramKey, converter);
+        }
+
+        // Extracts a query parameters and injects it into the routeparams to be used downstream
+        // the result of passing the body Stream through converter is added to the routeparams
+        public static IAppBuilder RouteBody(this IAppBuilder iab, string httpMethod, string paramKey, Func<Stream, object> converter)
+        {
+            return iab.RouteBody(new[] {httpMethod}, paramKey, converter);
+        }
+
+        // Extracts a query parameters and injects it into the routeparams to be used downstream
+        // the body is passed as a Stream in the routeparams
+        public static IAppBuilder RouteBody(this IAppBuilder iab, string httpMethod, string paramKey)
+        {
+            return iab.RouteBody(new[] { httpMethod }, paramKey, null);
+        }
 
     }
+
 }
 

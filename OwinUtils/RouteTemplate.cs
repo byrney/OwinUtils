@@ -5,7 +5,7 @@ using RouteDict = System.Collections.Generic.Dictionary<string, object>;
 
 namespace OwinUtils
 {
-    public class RouteTemplate
+    class RouteTemplate
     {
         class Token
         {

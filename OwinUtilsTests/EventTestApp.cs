@@ -60,7 +60,7 @@
 
         public void noEvents(IAppBuilder builder)
         {
-            builder.Use<EventSource>(environmentKey);
+            builder.EventSource(environmentKey);
             builder.Run(this.writeContextResponse);
         }
 
@@ -82,27 +82,27 @@
 
         public void openClose(IAppBuilder builder)
         {
-            builder.Use<EventSource>(environmentKey);
+            builder.EventSource(environmentKey);
             builder.Run(this.openClose);
         }
 
 
         public void openStream(IAppBuilder builder)
         {
-            builder.Use<EventSource>(environmentKey);
+            builder.EventSource(environmentKey);
             builder.Run(this.captureStream);
         }
 
         public void openStreamAndWrite(IAppBuilder builder)
         {
-            builder.Use<EventSource>(environmentKey);
+            builder.EventSource(environmentKey);
             builder.Run(this.openStreamAndWrite);
         }
 
 
         public void openStreamReturnAndWrite(IAppBuilder builder)
         {
-            builder.Use<EventSource>(environmentKey);
+            builder.EventSource(environmentKey);
             builder.Run(this.openReturnWrite);
         }
 

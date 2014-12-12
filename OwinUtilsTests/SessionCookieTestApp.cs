@@ -42,13 +42,13 @@
 
         public void CaptureInbound(IAppBuilder builder)
         {
-            builder.Use<SessionCookie>(envKey, passPhrase);
+            builder.SessionCookie(envKey, passPhrase);
             builder.Run(this.captureFunc);
         }
 
         public void SetOutbound(IAppBuilder builder)
         {
-            builder.Use<SessionCookie>(envKey, passPhrase);
+            builder.SessionCookie(envKey, passPhrase);
             builder.Run(this.setFunc);
         }
 

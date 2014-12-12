@@ -20,7 +20,7 @@
     ///     builder.RouteGet(f, "/")
     /// 
     /// </summary>
-    public class RouteQuery
+    class RouteQuery
     {
         AppFunc next;
         string routeParamName;
@@ -42,7 +42,16 @@
             }
             return next.Invoke(env);
         }
-
     }
+
+    public static class AppBuilderRouteQueryExtensions
+    {
+        // Extracts a query parameters and injects it into the routeparams to be used downstream
+        public static IAppBuilder RouteQuery(this IAppBuilder app, string routeParamName, string defaultValue)
+        {
+            return app.Use<RouteQuery>(routeParamName, defaultValue);
+        }
+    }
+
 }
 

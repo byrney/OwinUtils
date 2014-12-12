@@ -1,4 +1,6 @@
-﻿    namespace OwinUtils
+﻿    using Owin;
+
+namespace OwinUtils
 {
     using System;
     using System.IO;
@@ -11,7 +13,7 @@
     /// inserts an EvenStream object into the EnvDict using the key passed 
     /// to the connstructor. See IEventStream for details on use.
     /// </summary>
-    public class EventSource
+    internal class EventSource
     {
         AppFunc downstream;
         string environmentKey;
@@ -42,5 +44,15 @@
             headers["cache-control"] = new string[]{"no-cache"};
         }
     }
+
+    public static class AppBuilderEventSourceExtensions
+    {
+        // Extracts a query parameters and injects it into the routeparams to be used downstream
+        public static IAppBuilder EventSource(this IAppBuilder iab, string environmentKey)
+        {
+            return iab.Use<EventSource>(environmentKey);
+        }
+    }
+
 }
 

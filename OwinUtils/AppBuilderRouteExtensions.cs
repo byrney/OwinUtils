@@ -1,17 +1,21 @@
-﻿using System;
-using System.Linq;
-using System.Net;
-using System.Runtime.ExceptionServices;
+﻿using Microsoft.Owin;
 using Owin;
-using Microsoft.Owin;
-using System.Threading.Tasks;
-using AppFunc = System.Func<System.Collections.Generic.IDictionary<string, object>, System.Threading.Tasks.Task>; 
-using OwinUtils;
+using System;
+using System.Linq;
+using AppFunc = System.Func<System.Collections.Generic.IDictionary<string, object>, System.Threading.Tasks.Task>;
 
 namespace OwinUtils
 {
-    public static class AppBuildRouteExtensions
+    public static class AppBuilderRouteExtensions
     {
+        // creates a route which calls an AppFunc
+        private static IAppBuilder Route(this IAppBuilder app, string httpMethod, AppFunc runAction, RouteTemplate[] templates)
+        {
+            var options = new RouteMiddleware.Options(httpMethod, templates, runAction);
+            IAppBuilder result = app.Use<RouteMiddleware>(options);
+            return result;
+        }
+
         // converts the string to a Template and calls the corresponding overload
         public static IAppBuilder Branch(this IAppBuilder app, string template, Action<IAppBuilder> action)
         {
@@ -27,7 +31,7 @@ namespace OwinUtils
         }
 
         // creates a branch in the routing
-        public static IAppBuilder Branch(this IAppBuilder app, RouteTemplate template, Action<IAppBuilder> branchAction)
+        private static IAppBuilder Branch(this IAppBuilder app, RouteTemplate template, Action<IAppBuilder> branchAction)
         {
             var options = new RouteMiddleware.Options(null, template, null);
             IAppBuilder result = app.Use<RouteMiddleware>(options);
@@ -37,19 +41,17 @@ namespace OwinUtils
             return result;
         }
 
-        // creates a route which calls an AppFunc
-        private static IAppBuilder Route(this IAppBuilder app, string httpMethod, AppFunc runAction, RouteTemplate[] templates)
-        {
-            var options = new RouteMiddleware.Options(httpMethod, templates, runAction);
-            IAppBuilder result = app.Use<RouteMiddleware>(options);
-            return result;
-        }
+
 
      
         // Creates a route which calls methodName on instance callee converting any
         // matching entries in env["routeParams"] to arguments of callee.methodName
         private static IAppBuilder Route(this IAppBuilder app, string httpMethod, object callee, string methodName, RouteTemplate[] templates)
         {
+            if (callee == null) {
+                var msg = string.Format("Null target for route {0} {1}", httpMethod, templates[0]);
+                throw new ArgumentNullException("callee", msg);
+            }
             var wrapper = new Wrapper(callee, methodName);
             return Route(app, httpMethod, wrapper.Invoke, templates);
         }

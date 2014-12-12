@@ -13,7 +13,7 @@ namespace OwinUtils
     using System.ComponentModel;
 
 
-	public class Wrapper
+	class Wrapper
 	{
 		object callee;
 		ParameterInfo[] parameterInfo;
@@ -70,7 +70,7 @@ namespace OwinUtils
 
         static object convertTypes(object input, Type type)
         {
-            if (input == null || input.GetType() == type) {
+            if (input == null || type.IsAssignableFrom(input.GetType())) {
                 return input;
             }
             var cv = TypeDescriptor.GetConverter(type);

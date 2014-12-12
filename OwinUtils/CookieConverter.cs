@@ -11,7 +11,7 @@ namespace OwinUtils
     /// This is reversed on the way back out. The outbound Func extracts the cookie value
     /// from the environment and then this middleware converts it to a cookie
     /// </summary>
-    public class CookieConverter
+    internal class CookieConverter
     {
         private readonly Func<IDictionary<string, object>, Task> nextMiddleware;
         private readonly Action<IOwinRequest, string> inboundFunc;

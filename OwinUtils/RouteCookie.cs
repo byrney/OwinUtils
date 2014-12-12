@@ -1,4 +1,6 @@
 ﻿
+using Owin;
+
 namespace OwinUtils
 {
     using Microsoft.Owin;
@@ -13,12 +15,12 @@ namespace OwinUtils
     /// On the way back out gets the value from the routeparams and returns it to the caller in the
     /// cookies
     /// </summary>
-    public class RouteCookie
+    class RouteCookie
     {
         readonly string _cookieName;
         private readonly CookieConverter converter;
-        private string inRouteParam;
-        private string outRouteParam;
+        private readonly string inRouteParam;
+        private readonly string outRouteParam;
 
         public RouteCookie(AppFunc next, string cookieName, string inRouteParam, string outRouteParam)
         {
@@ -47,5 +49,16 @@ namespace OwinUtils
         }
 
     }
+
+    public static class AppBuilderRouteCookieExtensions
+    {
+        // Extracts a query parameters and injects it into the routeparams to be used downstream
+        public static IAppBuilder RouteCookie(this IAppBuilder iab, string cookieName, string inRouteParam, string outRouteParam)
+        {
+            return iab.Use<RouteCookie>(cookieName, inRouteParam, outRouteParam);
+        }
+    }
+
+
 }
 

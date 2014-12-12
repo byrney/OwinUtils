@@ -11,7 +11,7 @@ namespace OwinUtils
     /// Owin Middleware which converts from a value in the EnvDict to a signed session cookie
     /// and back again. Incorrectly signed cookies are ignored
     /// </summary>
-    public class SessionCookie : SignedString
+    class SessionCookie : SignedString
     {
        
         private byte[] passphrase;
@@ -25,13 +25,11 @@ namespace OwinUtils
             this.environmentKey = environmentKey;
         }
 
-        public SessionCookie(AppFunc next, string passphrase, Action<IOwinRequest, string> inbound, Func<IOwinResponse, string> outbound)
+        private SessionCookie(AppFunc next, string passphrase, Action<IOwinRequest, string> inbound, Func<IOwinResponse, string> outbound)
         {
             this.converter = new CookieConverter(next, cookieName, inbound, outbound);
             this.passphrase = passphraseToBytes(passphrase);
         }
-
-    
 
         public Task Invoke(IDictionary<string, object> env)
         {
@@ -58,4 +56,13 @@ namespace OwinUtils
 
  
     }
+
+    public static class AppBuilderSessionCookieExtensions
+    {
+        public static IAppBuilder SessionCookie(this IAppBuilder iab, string environmentKey, string passphrase)
+        {
+            return iab.Use<SessionCookie>(environmentKey, passphrase);
+        }
+    }
+
 }

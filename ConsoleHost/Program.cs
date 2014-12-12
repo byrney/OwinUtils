@@ -30,7 +30,7 @@ namespace ConsoleHost
             string block = "abcdefghijklmnopqrstuvwxyz";
             string message = string.Format("{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}", block);
             string envKey = "test.eventstream";
-            app.Use<EventSource>(envKey);
+            app.EventSource(envKey);
             app.Run(context => {
                 var eventStream = context.Environment[envKey] as IEventStream;
                 var timer = new System.Threading.Timer(_ => {
@@ -59,7 +59,7 @@ namespace ConsoleHost
         {
             string envKey = "test.session";
             string passPhrase = "a pass phrase that is long";
-            app.Use<SessionCookie>(envKey, passPhrase);
+            app.SessionCookie(envKey, passPhrase);
             app.Run(context => {
                 var inboundSession = context.Environment[envKey];
                 Console.WriteLine("Inbound session: {0}", inboundSession);

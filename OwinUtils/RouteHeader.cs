@@ -8,24 +8,39 @@
     using Owin;
     using Microsoft.Owin;
 
-    public class HeaderExtractor
+    class RouteHeader
     {
         AppFunc next;
         string header;
+        private string paramKey;
 
-        public HeaderExtractor(AppFunc next, string header)
+     
+
+        public RouteHeader(AppFunc next, string header, string routeParamKey)
         {
             this.next = next;
             this.header = header;
+            this.paramKey = routeParamKey;
         }
 
         public Task Invoke(EnvDict env)
         {
             var ctx = new OwinContext(env);
-            env["RouteParams"] = ctx.Request.Headers.Get(this.header);
+            var v = ctx.Request.Headers.Get(this.header);
+            RouteParams.Set(env, this.paramKey, v);
             return next.Invoke(env);
         }
 
     }
+
+    public static class AppBuilderHeaderExtractorExtensions
+    {
+        // Extracts a query parameters and injects it into the routeparams to be used downstream
+        public static IAppBuilder RouteHeader(this IAppBuilder iab, string header, string routeParamKey)
+        {
+            return iab.Use<RouteHeader>(header, routeParamKey);
+        }
+    }
+
 }
 

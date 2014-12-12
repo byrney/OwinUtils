@@ -73,7 +73,7 @@ namespace OwinUtils
         }
     }
 
-    public class RouteMiddleware : OwinMiddleware
+    class RouteMiddleware : OwinMiddleware
     {
         
         public class Options

@@ -30,7 +30,7 @@ namespace OwinUtils
             // it back to the client
             BodyFunc callee = (env, body) => {
                 var ctx = new OwinContext(env);
-                return ctx.Response.WriteAsync(body.ToString());
+                return ctx.Response.WriteAsync(body.ReadAsString());
             };
 
             // Given: A pipeline that inserts a JsonStream into the route parameters
@@ -39,7 +39,7 @@ namespace OwinUtils
             {
                 var key = "body";
                 Func<Stream, object> converter = stream => new JsonStream(stream);
-                builder.Use<RouteBody>("POST", converter, key);
+                builder.RouteBody("POST", key, converter);
                 builder.RoutePost(callee, "/");
             });
 
@@ -60,7 +60,7 @@ namespace OwinUtils
         {
             public ConvertFromJson(JsonStream body)
             {
-                this.s = body.ToString();
+                this.s = body.ReadAsString();
             }
 
             public string s
@@ -87,7 +87,7 @@ namespace OwinUtils
             {
                 var key = "body";
                 Func<Stream, object> converter = stream => new JsonStream(stream);
-                builder.Use<RouteBody>("POST", converter, key);
+                builder.RouteBody("POST", key, converter);
                 builder.RoutePost(callee, "/");
             });
 
@@ -111,7 +111,7 @@ namespace OwinUtils
             BodyFunc callee = (env, body) =>
             {
                 var ctx = new OwinContext(env);
-                var msg = body != null ? body.ToString() : "banana";
+                var msg = body != null ? body.ReadAsString() : "banana";
                 return ctx.Response.WriteAsync(msg);
             };
 
@@ -121,7 +121,7 @@ namespace OwinUtils
             {
                 var key = "body";
                 Func<Stream, object> converter = stream => new JsonStream(stream);
-                builder.Use<RouteBody>("POST", converter, key);
+                builder.RouteBody("POST", key, converter);
                 builder.RoutePost(callee, "/");
             });
 

@@ -52,7 +52,7 @@ namespace OwinUtilsTests
 		public WrapperTests ()
 		{
 			this.name = "Robert";
-			this.address = "22 Inglewood";
+			this.address = "32 Acacia Avenue";
 			this.expected = this.name + this.address;
 			this.dict = new Dictionary<string, object> ();
 			dict ["address"] = address;
