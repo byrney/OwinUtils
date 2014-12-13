@@ -9,7 +9,7 @@ Add the middleware into your Owin pipeline
         public void Configuration(IAppBuilder app)
         {
             string envKey = "test.eventstream";
-            app.Use<OwinUtils.EventSource>(envKey);
+            app.EventSource(envKey);
             //....
         }
 
@@ -48,3 +48,4 @@ Store the event-stream in a member variable/closure and then write to it later o
 
 
 
+See Api Documentation: [Here](doc/index.html)
