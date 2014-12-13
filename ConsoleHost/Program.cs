@@ -8,52 +8,15 @@ using EnvDict = System.Collections.Generic.IDictionary<string, object>;
 using AppFunc = System.Func<System.Collections.Generic.IDictionary<string, object>, System.Threading.Tasks.Task>;
 using System.Threading.Tasks;
 using Microsoft.Owin;
+using OwinUtils.Samples;
 
-static class DictionaryExtensions
-{
-    public static TValue GetValueOrDefault<TKey,TValue>(this IDictionary<TKey, TValue> dictionary, TKey key)
-    {
-        TValue ret;
-        // Ignore return value
-        dictionary.TryGetValue(key, out ret);
-        return ret;
-    }
-}
 
 namespace ConsoleHost
 {
 
     class Program
     {
-        public static void EventConfiguration(IAppBuilder app)
-        {
-            string block = "abcdefghijklmnopqrstuvwxyz";
-            string message = string.Format("{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}", block);
-            string envKey = "test.eventstream";
-            app.EventSource(envKey);
-            app.Run(context => {
-                var eventStream = context.Environment[envKey] as IEventStream;
-                var timer = new System.Threading.Timer(_ => {
-                    var ts = DateTime.UtcNow.ToString("O");
-                    eventStream.WriteAsync(ts + message + "\n");
-                    //        eventStream.Close();
-                }, null, 1,  50);
-                var timer2 = new System.Threading.Timer(_ => {
-                    var ts = DateTime.UtcNow.ToString("O");
-                    eventStream.WriteAsync(ts + "\n");
-                    //        eventStream.Close();
-                }, null, 1,  25);
-                var task =  eventStream.Open(() => {
-                    Console.WriteLine("Closed");
-                    timer.Dispose();
-                    timer2.Dispose();
-                });
-                Console.WriteLine("Got eventstream");
-
-                eventStream.WriteAsync("Started\n");
-                return task;
-            });
-        }
+ 
 
         public static void SessionConfiguration(IAppBuilder app)
         {
@@ -110,7 +73,7 @@ namespace ConsoleHost
 
         static void CombinedConfig(IAppBuilder builder)
         {
-            builder.Map("/events", EventConfiguration);
+            builder.Map("/eventsource", EventSource.BuildSample);
             builder.Map("/session", SessionConfiguration);
         }
 

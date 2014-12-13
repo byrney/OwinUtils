@@ -8,9 +8,22 @@ namespace OwinUtils
     using AppFunc = System.Func<System.Collections.Generic.IDictionary<string, object>, System.Threading.Tasks.Task>;
 
     /// <summary>
-    /// Owin Middleware which converts from a value in the EnvDict to a signed session cookie
-    /// and back again. Incorrectly signed cookies are ignored
+    /// Inbound: Extracts a string from a cookie called "session", checks that it has been signed using passphrase
+    /// and adds it to the owin Environment under "environmentKey". If the cookie has not been signed
+    /// using passphrase it will be rejected  (ignored) an the request will continue
+    /// 
+    /// Outbound: Gets a session string from the owin environment under "environmentKey" signs it using 
+    /// passphrase and returns to the client in a cookie called "session"
     /// </summary>
+    public static class AppBuilderSessionCookieExtensions
+    {
+        public static IAppBuilder SessionCookie(this IAppBuilder iab, string environmentKey, string passphrase)
+        {
+            return iab.Use<SessionCookie>(environmentKey, passphrase);
+        }
+    }
+
+ 
     class SessionCookie : SignedString
     {
        
@@ -52,17 +65,6 @@ namespace OwinUtils
             return signedSession;
         }
         
-
-
- 
-    }
-
-    public static class AppBuilderSessionCookieExtensions
-    {
-        public static IAppBuilder SessionCookie(this IAppBuilder iab, string environmentKey, string passphrase)
-        {
-            return iab.Use<SessionCookie>(environmentKey, passphrase);
-        }
     }
 
 }

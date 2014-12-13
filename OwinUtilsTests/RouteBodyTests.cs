@@ -12,11 +12,12 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using NUnit.Framework;
 using Owin;
+using OwinUtils;
 using AppFunc = System.Func<System.Collections.Generic.IDictionary<string, object>, System.Threading.Tasks.Task>;
 using RouteDict = System.Collections.Generic.Dictionary<string, object>;
 using EnvDict = System.Collections.Generic.IDictionary<string, object>;
 
-namespace OwinUtils
+namespace OwinUtilsTests
 {
     class RouteBodyTests
     {

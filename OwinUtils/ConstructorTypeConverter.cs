@@ -4,6 +4,20 @@ using System.Globalization;
 
 namespace OwinUtils
 {
+    /// <summary>
+    /// Implements System.ComponentModel.ITypeConverter for class T which has a single argument
+    /// constructor from type S. Add an attribute to T to allow
+    /// conversions from S in routes. e.g  
+    /// 
+    /// [TypeConverter(typeof(ConstructorTypeConverter<string, MyParameterType>))]
+    /// class MyParameterType
+    /// {
+    ///     public void MyParameterType(string)
+    ///     {
+    ///         ...
+    ///     }
+    /// }
+    /// </summary>
     public class ConstructorTypeConverter<S, T> : TypeConverter  
     {
 

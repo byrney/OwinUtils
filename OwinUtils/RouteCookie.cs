@@ -1,20 +1,28 @@
-﻿
-using Owin;
+﻿using Owin;
+using Microsoft.Owin;
+using System.Threading.Tasks;
+using AppFunc = System.Func<System.Collections.Generic.IDictionary<string, object>, System.Threading.Tasks.Task>;
+using EnvDict = System.Collections.Generic.IDictionary<string, object>;
 
 namespace OwinUtils
 {
-    using Microsoft.Owin;
-    using System.Threading.Tasks;
-    using AppFunc = System.Func<System.Collections.Generic.IDictionary<string, object>, System.Threading.Tasks.Task>;
-    using EnvDict = System.Collections.Generic.IDictionary<string, object>;
 
-    /// <summary>
-    /// Extracts a cookie from the inbound request and adds to the RouteParam collection
-    /// so that it can be used in a downstream Route/RouteGet etc
-    /// 
-    /// On the way back out gets the value from the routeparams and returns it to the caller in the
-    /// cookies
-    /// </summary>
+    public static class AppBuilderRouteCookieExtensions
+    {
+        /// <summary>
+        /// Extracts a cookie from the inbound request and adds to the RouteParam collection
+        /// (using inRouteParam as the key) making it available for downstream routes
+        /// 
+        /// On the way back out gets the value from the routeparams (using outRouteParam as the key) 
+        /// and returns it to the caller in a cookie called cookieName
+        /// </summary>
+        public static IAppBuilder RouteCookie(this IAppBuilder iab, string cookieName, string inRouteParam, string outRouteParam)
+        {
+            return iab.Use<RouteCookie>(cookieName, inRouteParam, outRouteParam);
+        }
+    }
+
+
     class RouteCookie
     {
         readonly string _cookieName;
@@ -50,14 +58,7 @@ namespace OwinUtils
 
     }
 
-    public static class AppBuilderRouteCookieExtensions
-    {
-        // Extracts a query parameters and injects it into the routeparams to be used downstream
-        public static IAppBuilder RouteCookie(this IAppBuilder iab, string cookieName, string inRouteParam, string outRouteParam)
-        {
-            return iab.Use<RouteCookie>(cookieName, inRouteParam, outRouteParam);
-        }
-    }
+
 
 
 }

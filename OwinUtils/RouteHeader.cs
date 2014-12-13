@@ -1,12 +1,26 @@
-﻿namespace OwinUtils
+﻿using System;
+using System.Threading.Tasks;
+using AppFunc = System.Func<System.Collections.Generic.IDictionary<string, object>, System.Threading.Tasks.Task>; 
+using EnvDict = System.Collections.Generic.IDictionary<string, object>;
+using HeaderDict = System.Collections.Generic.IDictionary<string, string[]>;
+using Owin;
+using Microsoft.Owin;
+
+
+namespace OwinUtils
 {
-    using System;
-    using System.Threading.Tasks;
-    using AppFunc = System.Func<System.Collections.Generic.IDictionary<string, object>, System.Threading.Tasks.Task>; 
-    using EnvDict = System.Collections.Generic.IDictionary<string, object>;
-    using HeaderDict = System.Collections.Generic.IDictionary<string, string[]>;
-    using Owin;
-    using Microsoft.Owin;
+    /// <summary>
+    /// Extracts a header (headerName) from the inbound request and makes it available
+    /// in the RouteParams as routeParamKey
+    /// </summary>
+    public static class AppBuilderHeaderExtractorExtensions
+    {
+
+        public static IAppBuilder RouteHeader(this IAppBuilder iab, string headerName, string routeParamKey)
+        {
+            return iab.Use<RouteHeader>(headerName, routeParamKey);
+        }
+    }
 
     class RouteHeader
     {
@@ -33,14 +47,7 @@
 
     }
 
-    public static class AppBuilderHeaderExtractorExtensions
-    {
-        // Extracts a query parameters and injects it into the routeparams to be used downstream
-        public static IAppBuilder RouteHeader(this IAppBuilder iab, string header, string routeParamKey)
-        {
-            return iab.Use<RouteHeader>(header, routeParamKey);
-        }
-    }
+
 
 }
 

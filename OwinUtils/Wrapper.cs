@@ -1,18 +1,21 @@
 ﻿
-
+using System;
+using System.Linq;
+using System.Reflection;
+using System.Threading.Tasks;
+using EnvDict = System.Collections.Generic.IDictionary<string, object>;
+using RouteDict = System.Collections.Generic.Dictionary<string, object>;
+using System.ComponentModel;
 using Microsoft.Owin;
 
 namespace OwinUtils
 {
-    using System;
-    using System.Linq;
-    using System.Reflection;
-    using System.Threading.Tasks;
-    using EnvDict = System.Collections.Generic.IDictionary<string, object>;
-    using RouteDict = System.Collections.Generic.Dictionary<string, object>;
-    using System.ComponentModel;
-
-
+    /// <summary>
+    /// Middleware class that use reflection to extract the argument names from "callee" and
+    /// then when invoked matches those argument names agains keys in the RouteParams.
+    /// When there is a matching key the value in RouteParams will be used for that argument
+    /// in the method
+    /// </summary>
 	class Wrapper
 	{
 		object callee;

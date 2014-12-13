@@ -1,12 +1,13 @@
-﻿namespace OwinUtils
+﻿using System;
+using System.Threading.Tasks;
+using AppFunc = System.Func<System.Collections.Generic.IDictionary<string, object>, System.Threading.Tasks.Task>;
+using EnvDict = System.Collections.Generic.IDictionary<string, object>;
+using RouteDict = System.Collections.Generic.IDictionary<string, object>;
+using Owin;
+using Microsoft.Owin;
+
+namespace OwinUtils
 {
-    using System;
-    using System.Threading.Tasks;
-    using AppFunc = System.Func<System.Collections.Generic.IDictionary<string, object>, System.Threading.Tasks.Task>;
-    using EnvDict = System.Collections.Generic.IDictionary<string, object>;
-    using RouteDict = System.Collections.Generic.IDictionary<string, object>;
-    using Owin;
-    using Microsoft.Owin;
 
     /// <summary>
     /// Extracts a named query parameter from the inbound request URL
@@ -20,6 +21,15 @@
     ///     builder.RouteGet(f, "/")
     /// 
     /// </summary>
+    public static class AppBuilderRouteQueryExtensions
+    {
+        // Extracts a query parameters and injects it into the routeparams to be used downstream
+        public static IAppBuilder RouteQuery(this IAppBuilder app, string routeParamName, string defaultValue)
+        {
+            return app.Use<RouteQuery>(routeParamName, defaultValue);
+        }
+    }
+
     class RouteQuery
     {
         AppFunc next;
@@ -44,14 +54,8 @@
         }
     }
 
-    public static class AppBuilderRouteQueryExtensions
-    {
-        // Extracts a query parameters and injects it into the routeparams to be used downstream
-        public static IAppBuilder RouteQuery(this IAppBuilder app, string routeParamName, string defaultValue)
-        {
-            return app.Use<RouteQuery>(routeParamName, defaultValue);
-        }
-    }
+
+
 
 }
 

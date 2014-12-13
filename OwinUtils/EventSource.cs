@@ -1,18 +1,30 @@
-﻿    using Owin;
+﻿using Owin;
+using System;
+using System.IO;
+using System.Threading.Tasks;
+using EnvDict = System.Collections.Generic.IDictionary<string, object>;
+using AppFunc = System.Func<System.Collections.Generic.IDictionary<string, object>, System.Threading.Tasks.Task>; 
+using HeaderDict = System.Collections.Generic.IDictionary<string, string[]>;
+
 
 namespace OwinUtils
 {
-    using System;
-    using System.IO;
-    using System.Threading.Tasks;
-    using EnvDict = System.Collections.Generic.IDictionary<string, object>;
-    using AppFunc = System.Func<System.Collections.Generic.IDictionary<string, object>, System.Threading.Tasks.Task>; 
-    using HeaderDict = System.Collections.Generic.IDictionary<string, string[]>;
-
     /// <summary>
-    /// inserts an EvenStream object into the EnvDict using the key passed 
+    /// Inbound: Inserts an IEvenStream object into the Owin Environment using the key passed 
     /// to the connstructor. See IEventStream for details on use.
+    /// 
+    /// Outbound: Sets HTML5 EventSource headers on the response. Whilst the IEventStream is open
+    /// Data written to it will be added to the body.
     /// </summary>
+    public static class AppBuilderEventSourceExtensions
+    {
+        public static IAppBuilder EventSource(this IAppBuilder iab, string environmentKey)
+        {
+            return iab.Use<EventSource>(environmentKey);
+        }
+    }
+
+ 
     internal class EventSource
     {
         AppFunc downstream;
@@ -45,14 +57,7 @@ namespace OwinUtils
         }
     }
 
-    public static class AppBuilderEventSourceExtensions
-    {
-        // Extracts a query parameters and injects it into the routeparams to be used downstream
-        public static IAppBuilder EventSource(this IAppBuilder iab, string environmentKey)
-        {
-            return iab.Use<EventSource>(environmentKey);
-        }
-    }
+
 
 }
 

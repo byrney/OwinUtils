@@ -51,7 +51,7 @@ namespace OwinUtils
 
     public static class AppBuilderRouteBodyExtensions
     {
-        // Extracts a query parameters and injects it into the routeparams to be used downstream
+        // Extracts a query parameter and injects it into the routeparams to be used downstream
         // if the httpMethod of the request is one of the ones in httpMethods
         public static IAppBuilder RouteBody(this IAppBuilder iab, string[] httpMethods, string paramKey, Func<Stream, object> converter)
         {
