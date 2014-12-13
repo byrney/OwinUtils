@@ -16,7 +16,7 @@ namespace OwinUtils
     /// Outbound: Sets HTML5 EventSource headers on the response. Whilst the IEventStream is open
     /// Data written to it will be added to the body.
     /// </summary>
-    public static class AppBuilderEventSourceExtensions
+    public static class EventSourceBuilder
     {
         public static IAppBuilder EventSource(this IAppBuilder iab, string environmentKey)
         {

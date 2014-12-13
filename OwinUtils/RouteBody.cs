@@ -11,13 +11,7 @@ namespace OwinUtils
     using Owin;
     using Microsoft.Owin;
 
-    /// <summary>
-    /// Extracts the body from the inbound request
-    /// and adds it to the RouteParams for use in a Route further down the middleware chain
-    /// The Type of the object added to the routeparams is Stream by default
-    /// 
-    /// 
-    /// </summary>
+
     class RouteBody
     {
         readonly AppFunc next;
@@ -49,30 +43,7 @@ namespace OwinUtils
     }
 
 
-    public static class AppBuilderRouteBodyExtensions
-    {
-        // Extracts a query parameter and injects it into the routeparams to be used downstream
-        // if the httpMethod of the request is one of the ones in httpMethods
-        public static IAppBuilder RouteBody(this IAppBuilder iab, string[] httpMethods, string paramKey, Func<Stream, object> converter)
-        {
-            return iab.Use<RouteBody>(httpMethods, paramKey, converter);
-        }
 
-        // Extracts a query parameters and injects it into the routeparams to be used downstream
-        // the result of passing the body Stream through converter is added to the routeparams
-        public static IAppBuilder RouteBody(this IAppBuilder iab, string httpMethod, string paramKey, Func<Stream, object> converter)
-        {
-            return iab.RouteBody(new[] {httpMethod}, paramKey, converter);
-        }
-
-        // Extracts a query parameters and injects it into the routeparams to be used downstream
-        // the body is passed as a Stream in the routeparams
-        public static IAppBuilder RouteBody(this IAppBuilder iab, string httpMethod, string paramKey)
-        {
-            return iab.RouteBody(new[] { httpMethod }, paramKey, null);
-        }
-
-    }
 
 }
 

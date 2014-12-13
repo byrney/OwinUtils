@@ -7,22 +7,6 @@ using EnvDict = System.Collections.Generic.IDictionary<string, object>;
 namespace OwinUtils
 {
 
-    public static class AppBuilderRouteCookieExtensions
-    {
-        /// <summary>
-        /// Extracts a cookie from the inbound request and adds to the RouteParam collection
-        /// (using inRouteParam as the key) making it available for downstream routes
-        /// 
-        /// On the way back out gets the value from the routeparams (using outRouteParam as the key) 
-        /// and returns it to the caller in a cookie called cookieName
-        /// </summary>
-        public static IAppBuilder RouteCookie(this IAppBuilder iab, string cookieName, string inRouteParam, string outRouteParam)
-        {
-            return iab.Use<RouteCookie>(cookieName, inRouteParam, outRouteParam);
-        }
-    }
-
-
     class RouteCookie
     {
         readonly string _cookieName;

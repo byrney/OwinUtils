@@ -1,0 +1,690 @@
+<html>
+  <head>
+    <title>OwinUtils.AppBuilderRouteExtensions</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <style>
+      a { text-decoration: none }
+
+      div.SideBar {
+        padding-left: 1em;
+        padding-right: 1em;
+        right: 0;
+        float: right;
+        border: thin solid black;
+        background-color: #f2f2f2;
+      }
+    
+      .CollectionTitle { font-weight: bold }
+      .PageTitle { font-size: 150%; font-weight: bold }
+
+      .Summary { }
+      .Signature { }          
+      .Remarks { }
+      .Members { }
+      .Copyright { }
+      
+      .Section { font-size: 125%; font-weight: bold }
+      p.Summary {
+        margin-left: 1em;
+      }
+      .SectionBox { margin-left: 2em }
+      .NamespaceName { font-size: 105%; font-weight: bold }
+      .NamespaceSumary { }
+      .MemberName { font-size: 115%; font-weight: bold; margin-top: 1em }
+      .Subsection { font-size: 105%; font-weight: bold }
+      .SubsectionBox { margin-left: 2em; margin-bottom: 1em }
+
+      .CodeExampleTable { background-color: #f5f5dd; border: thin solid black; padding: .25em; }
+      
+      .TypesListing {
+        border-collapse: collapse;
+      }
+
+      td {
+        vertical-align: top;
+      }
+      th {
+        text-align: left;
+      }
+
+      .TypesListing td { 
+        margin: 0px;  
+        padding: .25em;
+        border: solid gray 1px;
+      }
+
+      .TypesListing th { 
+        margin: 0px;  
+        padding: .25em;
+        background-color: #f2f2f2;
+        border: solid gray 1px;
+      }
+
+      div.Footer {
+        border-top: 1px solid gray;
+        margin-top: 1.5em;
+        padding-top: 0.6em;
+        text-align: center;
+        color: gray;
+      }
+
+      span.NotEntered /* Documentation for this section has not yet been entered */ {
+        font-style: italic;
+        color: red;	
+      }
+
+      div.Header {
+        background: #B0C4DE;
+        border: double;
+        border-color: white;
+        border-width: 7px;
+        padding: 0.5em;
+      }
+
+      div.Header * {
+        font-size: smaller;
+      }
+
+      div.Note {
+      }
+
+      i.ParamRef {
+      }
+
+      i.subtitle {
+      }
+
+      ul.TypeMembersIndex {
+        text-align: left;
+        background: #F8F8F8;
+      }
+
+      ul.TypeMembersIndex li {
+        display: inline;
+        margin:  0.5em;
+      }
+
+      table.HeaderTable {
+      }
+
+      table.SignatureTable {
+      }
+
+      table.Documentation, table.Enumeration, table.TypeDocumentation {
+        border-collapse: collapse;
+        width: 100%;
+      }
+
+      table.Documentation tr th, table.TypeMembers tr th, table.Enumeration tr th, table.TypeDocumentation tr th {
+        background: whitesmoke;
+        padding: 0.8em;
+        border: 1px solid gray;
+        text-align: left;
+        vertical-align: bottom;
+      }
+
+      table.Documentation tr td, table.TypeMembers tr td, table.Enumeration tr td, table.TypeDocumentation tr td {
+        padding: 0.5em;
+        border: 1px solid gray;
+        text-align: left;
+        vertical-align: top;
+      }
+
+      table.TypeMembers {
+        border: 1px solid #C0C0C0;
+        width: 100%;
+      }
+
+      table.TypeMembers tr td {
+        background: #F8F8F8;
+        border: white;
+      }
+
+      table.Documentation {
+      }
+
+      table.TypeMembers {
+      }
+
+      div.CodeExample {
+        width: 100%;
+        border: 1px solid #DDDDDD;
+        background-color: #F8F8F8;
+      }
+
+      div.CodeExample p {
+        margin: 0.5em;
+        border-bottom: 1px solid #DDDDDD;
+      }
+
+      div.CodeExample div {
+        margin: 0.5em;
+      }
+
+      h4 {
+        margin-bottom: 0;
+      }
+
+      div.Signature {
+        border: 1px solid #C0C0C0;
+        background: #F2F2F2;
+        padding: 1em;
+      }
+    </style>
+    <script type="text/JavaScript">
+      function toggle_display (block) {
+        var w = document.getElementById (block);
+        var t = document.getElementById (block + ":toggle");
+        if (w.style.display == "none") {
+          w.style.display = "block";
+          t.innerHTML = "⊟";
+        } else {
+          w.style.display = "none";
+          t.innerHTML = "⊞";
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <div class="CollectionTitle">
+      <a href="../index.html">OwinUtils</a> : <a href="index.html">OwinUtils Namespace</a></div>
+    <div class="SideBar">
+      <p>
+        <a href="#T:OwinUtils.AppBuilderRouteExtensions">Overview</a>
+      </p>
+      <p>
+        <a href="#T:OwinUtils.AppBuilderRouteExtensions:Signature">Signature</a>
+      </p>
+      <p>
+        <a href="#T:OwinUtils.AppBuilderRouteExtensions:Docs">Remarks</a>
+      </p>
+      <p>
+        <a href="#Members">Members</a>
+      </p>
+      <p>
+        <a href="#T:OwinUtils.AppBuilderRouteExtensions:Members">Member Details</a>
+      </p>
+    </div>
+    <h1 class="PageTitle" id="T:OwinUtils.AppBuilderRouteExtensions">AppBuilderRouteExtensions  Class</h1>
+    <p class="Summary" id="T:OwinUtils.AppBuilderRouteExtensions:Summary">
+      <span class="NotEntered">Documentation for this section has not yet been entered.</span>
+    </p>
+    <div>
+      <h2>Syntax</h2>
+      <div class="Signature" id="T:OwinUtils.AppBuilderRouteExtensions:Signature">public static class  <b>AppBuilderRouteExtensions</b></div>
+    </div>
+    <div class="Remarks" id="T:OwinUtils.AppBuilderRouteExtensions:Docs">
+      <h2 class="Section">Remarks</h2>
+      <div class="SectionBox" id="T:OwinUtils.AppBuilderRouteExtensions:Docs:Remarks">
+        <span class="NotEntered">Documentation for this section has not yet been entered.</span>
+      </div>
+      <h2 class="Section">Requirements</h2>
+      <div class="SectionBox" id="T:OwinUtils.AppBuilderRouteExtensions:Docs:Version Information">
+        <b>Namespace: </b>OwinUtils<br /><b>Assembly: </b>OwinUtils (in OwinUtils.dll)<br /><b>Assembly Versions: </b>0.1.5460.39293, 0.1.5460.39387</div>
+      <h2 class="Section" id="Members">Members</h2>
+      <div class="SectionBox" id="_Members">
+        <p>
+								See Also: Inherited members from
+								<a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.Object">object</a>.
+							</p>
+        <h2 class="Section">Public Methods</h2>
+        <div class="SectionBox" id="Public Methods">
+          <div class="SubsectionBox">
+            <table class="TypeMembers">
+              <tr valign="top">
+                <td>
+                  <div>static </div>
+                </td>
+                <td colspan="2">
+                  <b>
+                    <a href="#M:OwinUtils.AppBuilderRouteExtensions.Branch(Owin.IAppBuilder,System.String,System.Action{Owin.IAppBuilder})">Branch</a>
+                  </b>(<i>this</i> <a href="javascript:alert(&quot;Documentation not found.&quot;)">Owin.IAppBuilder</a>, <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.String">string</a>, <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.Action`1">Action&lt;Owin.IAppBuilder&gt;</a>)<nobr> : <a href="javascript:alert(&quot;Documentation not found.&quot;)">Owin.IAppBuilder</a></nobr><blockquote>
+            Creates a branch in the pipeline. If the inbound request matches "template"
+            then the midlewares defined by branchBuilder will be called. Any parameters
+            extracted by the template will be added to RouteParams for use within the branch.
+            The BasePath and Path variables in the owin Environment will be adjusted and then restored
+            when the branch is complete
+            If the template is not matched this does nothing.
+            </blockquote></td>
+              </tr>
+              <tr valign="top">
+                <td>
+                  <div>static </div>
+                </td>
+                <td colspan="2">
+                  <b>
+                    <a href="#M:OwinUtils.AppBuilderRouteExtensions.Route(Owin.IAppBuilder,System.String,System.Delegate,System.String)">Route</a>
+                  </b>(<i>this</i> <a href="javascript:alert(&quot;Documentation not found.&quot;)">Owin.IAppBuilder</a>, <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.String">string</a>, <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.Delegate">Delegate</a>, <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.String">string</a>)<nobr> : <a href="javascript:alert(&quot;Documentation not found.&quot;)">Owin.IAppBuilder</a></nobr><blockquote>
+            If template and httpMethod are matched by the inbound request then "callee" will
+            be invoked. RouteParams will be extracted from template and
+            Any parameters of callee with names that match RouteParams (including those defined by
+            other middleware ahead of this) will be passed when callee is Invoked.
+            </blockquote></td>
+              </tr>
+              <tr valign="top">
+                <td>
+                  <div>static </div>
+                </td>
+                <td colspan="2">
+                  <b>
+                    <a href="#M:OwinUtils.AppBuilderRouteExtensions.Route(Owin.IAppBuilder,System.String,System.Func{System.Collections.Generic.IDictionary{System.String,System.Object},System.Threading.Tasks.Task},System.String)">Route</a>
+                  </b>(<i>this</i> <a href="javascript:alert(&quot;Documentation not found.&quot;)">Owin.IAppBuilder</a>, <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.String">string</a>, <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.Func`2">Func&lt;IDictionary&lt;string, System.Object&gt;,System.Threading.Tasks.Task&gt;</a>, <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.String">string</a>)<nobr> : <a href="javascript:alert(&quot;Documentation not found.&quot;)">Owin.IAppBuilder</a></nobr><blockquote>
+            If the request Path matches "template" and the httpMethod is matched then
+            Any components matched in the template are added to the RouteParams
+            and the middleware function "action" is Invoked
+            </blockquote></td>
+              </tr>
+              <tr valign="top">
+                <td>
+                  <div>static </div>
+                </td>
+                <td colspan="2">
+                  <b>
+                    <a href="#M:OwinUtils.AppBuilderRouteExtensions.Route(Owin.IAppBuilder,System.String,System.Object,System.String,System.String)">Route</a>
+                  </b>(<i>this</i> <a href="javascript:alert(&quot;Documentation not found.&quot;)">Owin.IAppBuilder</a>, <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.String">string</a>, <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.Object">object</a>, <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.String">string</a>, <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.String">string</a>)<nobr> : <a href="javascript:alert(&quot;Documentation not found.&quot;)">Owin.IAppBuilder</a></nobr><blockquote><span class="NotEntered">Documentation for this section has not yet been entered.</span></blockquote></td>
+              </tr>
+              <tr valign="top">
+                <td>
+                  <div>static </div>
+                </td>
+                <td colspan="2">
+                  <b>
+                    <a href="#M:OwinUtils.AppBuilderRouteExtensions.RouteDel(Owin.IAppBuilder,System.Delegate,System.String[])">RouteDel</a>
+                  </b>(<i>this</i> <a href="javascript:alert(&quot;Documentation not found.&quot;)">Owin.IAppBuilder</a>, <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.Delegate">Delegate</a>, <b>params</b> <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.String">string</a>[])<nobr> : <a href="javascript:alert(&quot;Documentation not found.&quot;)">Owin.IAppBuilder</a></nobr><blockquote>
+            Overload for Route which matches a httpMethod of "DELETE"
+            </blockquote></td>
+              </tr>
+              <tr valign="top">
+                <td>
+                  <div>static </div>
+                </td>
+                <td colspan="2">
+                  <b>
+                    <a href="#M:OwinUtils.AppBuilderRouteExtensions.RouteGet(Owin.IAppBuilder,System.Delegate,System.String[])">RouteGet</a>
+                  </b>(<i>this</i> <a href="javascript:alert(&quot;Documentation not found.&quot;)">Owin.IAppBuilder</a>, <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.Delegate">Delegate</a>, <b>params</b> <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.String">string</a>[])<nobr> : <a href="javascript:alert(&quot;Documentation not found.&quot;)">Owin.IAppBuilder</a></nobr><blockquote>
+            Overload for Route which matches a httpMethod of "GET"
+            </blockquote></td>
+              </tr>
+              <tr valign="top">
+                <td>
+                  <div>static </div>
+                </td>
+                <td colspan="2">
+                  <b>
+                    <a href="#M:OwinUtils.AppBuilderRouteExtensions.RoutePost(Owin.IAppBuilder,System.Delegate,System.String[])">RoutePost</a>
+                  </b>(<i>this</i> <a href="javascript:alert(&quot;Documentation not found.&quot;)">Owin.IAppBuilder</a>, <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.Delegate">Delegate</a>, <b>params</b> <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.String">string</a>[])<nobr> : <a href="javascript:alert(&quot;Documentation not found.&quot;)">Owin.IAppBuilder</a></nobr><blockquote>
+            Overload for Route which matches a httpMethod of "POST"
+            </blockquote></td>
+              </tr>
+              <tr valign="top">
+                <td>
+                  <div>static </div>
+                </td>
+                <td colspan="2">
+                  <b>
+                    <a href="#M:OwinUtils.AppBuilderRouteExtensions.Run(Owin.IAppBuilder,System.Func{System.Collections.Generic.IDictionary{System.String,System.Object},System.Threading.Tasks.Task})">Run</a>
+                  </b>(<i>this</i> <a href="javascript:alert(&quot;Documentation not found.&quot;)">Owin.IAppBuilder</a>, <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.Func`2">Func&lt;IDictionary&lt;string, System.Object&gt;,System.Threading.Tasks.Task&gt;</a>)<blockquote>
+            Variant of the Microsoft.Owin method Run which supports a plain middleware Func
+            rather than an IOwinMiddleware
+            </blockquote></td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="Members" id="T:OwinUtils.AppBuilderRouteExtensions:Members">
+      <h2 class="Section" id="MemberDetails">Member Details</h2>
+      <div class="SectionBox" id="_MemberDetails">
+        <h3 id="M:OwinUtils.AppBuilderRouteExtensions.Branch(Owin.IAppBuilder,System.String,System.Action{Owin.IAppBuilder})">Branch Method</h3>
+        <blockquote id="M:OwinUtils.AppBuilderRouteExtensions.Branch(Owin.IAppBuilder,System.String,System.Action{Owin.IAppBuilder}):member">
+          <div class="msummary">
+            Creates a branch in the pipeline. If the inbound request matches "template"
+            then the midlewares defined by branchBuilder will be called. Any parameters
+            extracted by the template will be added to RouteParams for use within the branch.
+            The BasePath and Path variables in the owin Environment will be adjusted and then restored
+            when the branch is complete
+            If the template is not matched this does nothing.
+            </div>
+          <h2>Syntax</h2>
+          <div class="Signature">public static <a href="javascript:alert(&quot;Documentation not found.&quot;)">Owin.IAppBuilder</a> <b>Branch</b> (<i>this</i> <a href="javascript:alert(&quot;Documentation not found.&quot;)">Owin.IAppBuilder</a> app, <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.String">string</a> template, <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.Action`1">Action&lt;Owin.IAppBuilder&gt;</a> branchBuilder)</div>
+          <h4 class="Subsection">Parameters</h4>
+          <blockquote class="SubsectionBox" id="M:OwinUtils.AppBuilderRouteExtensions.Branch(Owin.IAppBuilder,System.String,System.Action{Owin.IAppBuilder}):Parameters">
+            <dl>
+              <dt>
+                <i>app</i>
+              </dt>
+              <dd>
+                <span class="NotEntered">Documentation for this section has not yet been entered.</span>
+              </dd>
+              <dt>
+                <i>template</i>
+              </dt>
+              <dd>A string defining the RouteTeplate to match.</dd>
+              <dt>
+                <i>branchBuilder</i>
+              </dt>
+              <dd>An Action which adds middleware to this branch</dd>
+            </dl>
+          </blockquote>
+          <h4 class="Subsection">Returns</h4>
+          <blockquote class="SubsectionBox" id="M:OwinUtils.AppBuilderRouteExtensions.Branch(Owin.IAppBuilder,System.String,System.Action{Owin.IAppBuilder}):Returns">
+            <span class="NotEntered">Documentation for this section has not yet been entered.</span>
+          </blockquote>
+          <h2 class="Section">Remarks</h2>
+          <div class="SectionBox" id="M:OwinUtils.AppBuilderRouteExtensions.Branch(Owin.IAppBuilder,System.String,System.Action{Owin.IAppBuilder}):Remarks">
+            <span class="NotEntered">Documentation for this section has not yet been entered.</span>
+          </div>
+          <h2 class="Section">Requirements</h2>
+          <div class="SectionBox" id="M:OwinUtils.AppBuilderRouteExtensions.Branch(Owin.IAppBuilder,System.String,System.Action{Owin.IAppBuilder}):Version Information">
+            <b>Namespace: </b>OwinUtils<br /><b>Assembly: </b>OwinUtils (in OwinUtils.dll)<br /><b>Assembly Versions: </b>0.1.5460.39293, 0.1.5460.39387</div>
+          <hr size="1" />
+        </blockquote>
+        <h3 id="M:OwinUtils.AppBuilderRouteExtensions.Route(Owin.IAppBuilder,System.String,System.Delegate,System.String)">Route Method</h3>
+        <blockquote id="M:OwinUtils.AppBuilderRouteExtensions.Route(Owin.IAppBuilder,System.String,System.Delegate,System.String):member">
+          <div class="msummary">
+            If template and httpMethod are matched by the inbound request then "callee" will
+            be invoked. RouteParams will be extracted from template and
+            Any parameters of callee with names that match RouteParams (including those defined by
+            other middleware ahead of this) will be passed when callee is Invoked.
+            </div>
+          <h2>Syntax</h2>
+          <div class="Signature">public static <a href="javascript:alert(&quot;Documentation not found.&quot;)">Owin.IAppBuilder</a> <b>Route</b> (<i>this</i> <a href="javascript:alert(&quot;Documentation not found.&quot;)">Owin.IAppBuilder</a> app, <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.String">string</a> httpMethod, <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.Delegate">Delegate</a> callee, <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.String">string</a> template)</div>
+          <h4 class="Subsection">Parameters</h4>
+          <blockquote class="SubsectionBox" id="M:OwinUtils.AppBuilderRouteExtensions.Route(Owin.IAppBuilder,System.String,System.Delegate,System.String):Parameters">
+            <dl>
+              <dt>
+                <i>app</i>
+              </dt>
+              <dd>
+                <span class="NotEntered">Documentation for this section has not yet been entered.</span>
+              </dd>
+              <dt>
+                <i>httpMethod</i>
+              </dt>
+              <dd>Http method to match (GET, POST, PUT etc)</dd>
+              <dt>
+                <i>callee</i>
+              </dt>
+              <dd>The delegate method to be invoked with the arguments populated from RouteParams</dd>
+              <dt>
+                <i>template</i>
+              </dt>
+              <dd>Used to construct the template to be matched</dd>
+            </dl>
+          </blockquote>
+          <h4 class="Subsection">Returns</h4>
+          <blockquote class="SubsectionBox" id="M:OwinUtils.AppBuilderRouteExtensions.Route(Owin.IAppBuilder,System.String,System.Delegate,System.String):Returns">
+            <span class="NotEntered">Documentation for this section has not yet been entered.</span>
+          </blockquote>
+          <h2 class="Section">Remarks</h2>
+          <div class="SectionBox" id="M:OwinUtils.AppBuilderRouteExtensions.Route(Owin.IAppBuilder,System.String,System.Delegate,System.String):Remarks">
+            <span class="NotEntered">Documentation for this section has not yet been entered.</span>
+          </div>
+          <h2 class="Section">Requirements</h2>
+          <div class="SectionBox" id="M:OwinUtils.AppBuilderRouteExtensions.Route(Owin.IAppBuilder,System.String,System.Delegate,System.String):Version Information">
+            <b>Namespace: </b>OwinUtils<br /><b>Assembly: </b>OwinUtils (in OwinUtils.dll)<br /><b>Assembly Versions: </b>0.1.5460.39293, 0.1.5460.39387</div>
+          <hr size="1" />
+        </blockquote>
+        <h3 id="M:OwinUtils.AppBuilderRouteExtensions.Route(Owin.IAppBuilder,System.String,System.Func{System.Collections.Generic.IDictionary{System.String,System.Object},System.Threading.Tasks.Task},System.String)">Route Method</h3>
+        <blockquote id="M:OwinUtils.AppBuilderRouteExtensions.Route(Owin.IAppBuilder,System.String,System.Func{System.Collections.Generic.IDictionary{System.String,System.Object},System.Threading.Tasks.Task},System.String):member">
+          <div class="msummary">
+            If the request Path matches "template" and the httpMethod is matched then
+            Any components matched in the template are added to the RouteParams
+            and the middleware function "action" is Invoked
+            </div>
+          <h2>Syntax</h2>
+          <div class="Signature">public static <a href="javascript:alert(&quot;Documentation not found.&quot;)">Owin.IAppBuilder</a> <b>Route</b> (<i>this</i> <a href="javascript:alert(&quot;Documentation not found.&quot;)">Owin.IAppBuilder</a> app, <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.String">string</a> template, <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.Func`2">Func&lt;IDictionary&lt;string, System.Object&gt;,System.Threading.Tasks.Task&gt;</a> routeAction, <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.String">string</a> httpMethod)</div>
+          <h4 class="Subsection">Parameters</h4>
+          <blockquote class="SubsectionBox" id="M:OwinUtils.AppBuilderRouteExtensions.Route(Owin.IAppBuilder,System.String,System.Func{System.Collections.Generic.IDictionary{System.String,System.Object},System.Threading.Tasks.Task},System.String):Parameters">
+            <dl>
+              <dt>
+                <i>app</i>
+              </dt>
+              <dd>
+                <span class="NotEntered">Documentation for this section has not yet been entered.</span>
+              </dd>
+              <dt>
+                <i>template</i>
+              </dt>
+              <dd>string used to construct a RouteTemplate</dd>
+              <dt>
+                <i>routeAction</i>
+              </dt>
+              <dd>The middleware function that will be called</dd>
+              <dt>
+                <i>httpMethod</i>
+              </dt>
+              <dd>HTTP method to be matched or all methods if null is passed</dd>
+            </dl>
+          </blockquote>
+          <h4 class="Subsection">Returns</h4>
+          <blockquote class="SubsectionBox" id="M:OwinUtils.AppBuilderRouteExtensions.Route(Owin.IAppBuilder,System.String,System.Func{System.Collections.Generic.IDictionary{System.String,System.Object},System.Threading.Tasks.Task},System.String):Returns">
+            <span class="NotEntered">Documentation for this section has not yet been entered.</span>
+          </blockquote>
+          <h2 class="Section">Remarks</h2>
+          <div class="SectionBox" id="M:OwinUtils.AppBuilderRouteExtensions.Route(Owin.IAppBuilder,System.String,System.Func{System.Collections.Generic.IDictionary{System.String,System.Object},System.Threading.Tasks.Task},System.String):Remarks">
+            <span class="NotEntered">Documentation for this section has not yet been entered.</span>
+          </div>
+          <h2 class="Section">Requirements</h2>
+          <div class="SectionBox" id="M:OwinUtils.AppBuilderRouteExtensions.Route(Owin.IAppBuilder,System.String,System.Func{System.Collections.Generic.IDictionary{System.String,System.Object},System.Threading.Tasks.Task},System.String):Version Information">
+            <b>Namespace: </b>OwinUtils<br /><b>Assembly: </b>OwinUtils (in OwinUtils.dll)<br /><b>Assembly Versions: </b>0.1.5460.39293, 0.1.5460.39387</div>
+          <hr size="1" />
+        </blockquote>
+        <h3 id="M:OwinUtils.AppBuilderRouteExtensions.Route(Owin.IAppBuilder,System.String,System.Object,System.String,System.String)">Route Method</h3>
+        <blockquote id="M:OwinUtils.AppBuilderRouteExtensions.Route(Owin.IAppBuilder,System.String,System.Object,System.String,System.String):member">
+          <div class="msummary">
+            <span class="NotEntered">Documentation for this section has not yet been entered.</span>
+          </div>
+          <h2>Syntax</h2>
+          <div class="Signature">public static <a href="javascript:alert(&quot;Documentation not found.&quot;)">Owin.IAppBuilder</a> <b>Route</b> (<i>this</i> <a href="javascript:alert(&quot;Documentation not found.&quot;)">Owin.IAppBuilder</a> app, <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.String">string</a> httpMethod, <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.Object">object</a> callee, <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.String">string</a> methodName, <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.String">string</a> template)</div>
+          <h4 class="Subsection">Parameters</h4>
+          <blockquote class="SubsectionBox" id="M:OwinUtils.AppBuilderRouteExtensions.Route(Owin.IAppBuilder,System.String,System.Object,System.String,System.String):Parameters">
+            <dl>
+              <dt>
+                <i>app</i>
+              </dt>
+              <dd>
+                <span class="NotEntered">Documentation for this section has not yet been entered.</span>
+              </dd>
+              <dt>
+                <i>httpMethod</i>
+              </dt>
+              <dd>
+                <span class="NotEntered">Documentation for this section has not yet been entered.</span>
+              </dd>
+              <dt>
+                <i>callee</i>
+              </dt>
+              <dd>
+                <span class="NotEntered">Documentation for this section has not yet been entered.</span>
+              </dd>
+              <dt>
+                <i>methodName</i>
+              </dt>
+              <dd>
+                <span class="NotEntered">Documentation for this section has not yet been entered.</span>
+              </dd>
+              <dt>
+                <i>template</i>
+              </dt>
+              <dd>
+                <span class="NotEntered">Documentation for this section has not yet been entered.</span>
+              </dd>
+            </dl>
+          </blockquote>
+          <h4 class="Subsection">Returns</h4>
+          <blockquote class="SubsectionBox" id="M:OwinUtils.AppBuilderRouteExtensions.Route(Owin.IAppBuilder,System.String,System.Object,System.String,System.String):Returns">
+            <span class="NotEntered">Documentation for this section has not yet been entered.</span>
+          </blockquote>
+          <h2 class="Section">Remarks</h2>
+          <div class="SectionBox" id="M:OwinUtils.AppBuilderRouteExtensions.Route(Owin.IAppBuilder,System.String,System.Object,System.String,System.String):Remarks">
+            <span class="NotEntered">Documentation for this section has not yet been entered.</span>
+          </div>
+          <h2 class="Section">Requirements</h2>
+          <div class="SectionBox" id="M:OwinUtils.AppBuilderRouteExtensions.Route(Owin.IAppBuilder,System.String,System.Object,System.String,System.String):Version Information">
+            <b>Namespace: </b>OwinUtils<br /><b>Assembly: </b>OwinUtils (in OwinUtils.dll)<br /><b>Assembly Versions: </b>0.1.5460.39293, 0.1.5460.39387</div>
+          <hr size="1" />
+        </blockquote>
+        <h3 id="M:OwinUtils.AppBuilderRouteExtensions.RouteDel(Owin.IAppBuilder,System.Delegate,System.String[])">RouteDel Method</h3>
+        <blockquote id="M:OwinUtils.AppBuilderRouteExtensions.RouteDel(Owin.IAppBuilder,System.Delegate,System.String[]):member">
+          <div class="msummary">
+            Overload for Route which matches a httpMethod of "DELETE"
+            </div>
+          <h2>Syntax</h2>
+          <div class="Signature">public static <a href="javascript:alert(&quot;Documentation not found.&quot;)">Owin.IAppBuilder</a> <b>RouteDel</b> (<i>this</i> <a href="javascript:alert(&quot;Documentation not found.&quot;)">Owin.IAppBuilder</a> app, <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.Delegate">Delegate</a> callee, <b>params</b> <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.String">string</a>[] templates)</div>
+          <h4 class="Subsection">Parameters</h4>
+          <blockquote class="SubsectionBox" id="M:OwinUtils.AppBuilderRouteExtensions.RouteDel(Owin.IAppBuilder,System.Delegate,System.String[]):Parameters">
+            <dl>
+              <dt>
+                <i>app</i>
+              </dt>
+              <dd>
+                <span class="NotEntered">Documentation for this section has not yet been entered.</span>
+              </dd>
+              <dt>
+                <i>callee</i>
+              </dt>
+              <dd>The delegate method to be invoked with the arguments populated from RouteParams</dd>
+              <dt>
+                <i>templates</i>
+              </dt>
+              <dd>
+                <span class="NotEntered">Documentation for this section has not yet been entered.</span>
+              </dd>
+            </dl>
+          </blockquote>
+          <h4 class="Subsection">Returns</h4>
+          <blockquote class="SubsectionBox" id="M:OwinUtils.AppBuilderRouteExtensions.RouteDel(Owin.IAppBuilder,System.Delegate,System.String[]):Returns">
+            <span class="NotEntered">Documentation for this section has not yet been entered.</span>
+          </blockquote>
+          <h2 class="Section">Remarks</h2>
+          <div class="SectionBox" id="M:OwinUtils.AppBuilderRouteExtensions.RouteDel(Owin.IAppBuilder,System.Delegate,System.String[]):Remarks">
+            <span class="NotEntered">Documentation for this section has not yet been entered.</span>
+          </div>
+          <h2 class="Section">Requirements</h2>
+          <div class="SectionBox" id="M:OwinUtils.AppBuilderRouteExtensions.RouteDel(Owin.IAppBuilder,System.Delegate,System.String[]):Version Information">
+            <b>Namespace: </b>OwinUtils<br /><b>Assembly: </b>OwinUtils (in OwinUtils.dll)<br /><b>Assembly Versions: </b>0.1.5460.39293, 0.1.5460.39387</div>
+          <hr size="1" />
+        </blockquote>
+        <h3 id="M:OwinUtils.AppBuilderRouteExtensions.RouteGet(Owin.IAppBuilder,System.Delegate,System.String[])">RouteGet Method</h3>
+        <blockquote id="M:OwinUtils.AppBuilderRouteExtensions.RouteGet(Owin.IAppBuilder,System.Delegate,System.String[]):member">
+          <div class="msummary">
+            Overload for Route which matches a httpMethod of "GET"
+            </div>
+          <h2>Syntax</h2>
+          <div class="Signature">public static <a href="javascript:alert(&quot;Documentation not found.&quot;)">Owin.IAppBuilder</a> <b>RouteGet</b> (<i>this</i> <a href="javascript:alert(&quot;Documentation not found.&quot;)">Owin.IAppBuilder</a> app, <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.Delegate">Delegate</a> callee, <b>params</b> <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.String">string</a>[] templates)</div>
+          <h4 class="Subsection">Parameters</h4>
+          <blockquote class="SubsectionBox" id="M:OwinUtils.AppBuilderRouteExtensions.RouteGet(Owin.IAppBuilder,System.Delegate,System.String[]):Parameters">
+            <dl>
+              <dt>
+                <i>app</i>
+              </dt>
+              <dd>
+                <span class="NotEntered">Documentation for this section has not yet been entered.</span>
+              </dd>
+              <dt>
+                <i>callee</i>
+              </dt>
+              <dd>The delegate method to be invoked with the arguments populated from RouteParams</dd>
+              <dt>
+                <i>templates</i>
+              </dt>
+              <dd>
+                <span class="NotEntered">Documentation for this section has not yet been entered.</span>
+              </dd>
+            </dl>
+          </blockquote>
+          <h4 class="Subsection">Returns</h4>
+          <blockquote class="SubsectionBox" id="M:OwinUtils.AppBuilderRouteExtensions.RouteGet(Owin.IAppBuilder,System.Delegate,System.String[]):Returns">
+            <span class="NotEntered">Documentation for this section has not yet been entered.</span>
+          </blockquote>
+          <h2 class="Section">Remarks</h2>
+          <div class="SectionBox" id="M:OwinUtils.AppBuilderRouteExtensions.RouteGet(Owin.IAppBuilder,System.Delegate,System.String[]):Remarks">
+            <span class="NotEntered">Documentation for this section has not yet been entered.</span>
+          </div>
+          <h2 class="Section">Requirements</h2>
+          <div class="SectionBox" id="M:OwinUtils.AppBuilderRouteExtensions.RouteGet(Owin.IAppBuilder,System.Delegate,System.String[]):Version Information">
+            <b>Namespace: </b>OwinUtils<br /><b>Assembly: </b>OwinUtils (in OwinUtils.dll)<br /><b>Assembly Versions: </b>0.1.5460.39293, 0.1.5460.39387</div>
+          <hr size="1" />
+        </blockquote>
+        <h3 id="M:OwinUtils.AppBuilderRouteExtensions.RoutePost(Owin.IAppBuilder,System.Delegate,System.String[])">RoutePost Method</h3>
+        <blockquote id="M:OwinUtils.AppBuilderRouteExtensions.RoutePost(Owin.IAppBuilder,System.Delegate,System.String[]):member">
+          <div class="msummary">
+            Overload for Route which matches a httpMethod of "POST"
+            </div>
+          <h2>Syntax</h2>
+          <div class="Signature">public static <a href="javascript:alert(&quot;Documentation not found.&quot;)">Owin.IAppBuilder</a> <b>RoutePost</b> (<i>this</i> <a href="javascript:alert(&quot;Documentation not found.&quot;)">Owin.IAppBuilder</a> app, <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.Delegate">Delegate</a> callee, <b>params</b> <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.String">string</a>[] templates)</div>
+          <h4 class="Subsection">Parameters</h4>
+          <blockquote class="SubsectionBox" id="M:OwinUtils.AppBuilderRouteExtensions.RoutePost(Owin.IAppBuilder,System.Delegate,System.String[]):Parameters">
+            <dl>
+              <dt>
+                <i>app</i>
+              </dt>
+              <dd>
+                <span class="NotEntered">Documentation for this section has not yet been entered.</span>
+              </dd>
+              <dt>
+                <i>callee</i>
+              </dt>
+              <dd>The delegate method to be invoked with the arguments populated from RouteParams</dd>
+              <dt>
+                <i>templates</i>
+              </dt>
+              <dd>
+                <span class="NotEntered">Documentation for this section has not yet been entered.</span>
+              </dd>
+            </dl>
+          </blockquote>
+          <h4 class="Subsection">Returns</h4>
+          <blockquote class="SubsectionBox" id="M:OwinUtils.AppBuilderRouteExtensions.RoutePost(Owin.IAppBuilder,System.Delegate,System.String[]):Returns">
+            <span class="NotEntered">Documentation for this section has not yet been entered.</span>
+          </blockquote>
+          <h2 class="Section">Remarks</h2>
+          <div class="SectionBox" id="M:OwinUtils.AppBuilderRouteExtensions.RoutePost(Owin.IAppBuilder,System.Delegate,System.String[]):Remarks">
+            <span class="NotEntered">Documentation for this section has not yet been entered.</span>
+          </div>
+          <h2 class="Section">Requirements</h2>
+          <div class="SectionBox" id="M:OwinUtils.AppBuilderRouteExtensions.RoutePost(Owin.IAppBuilder,System.Delegate,System.String[]):Version Information">
+            <b>Namespace: </b>OwinUtils<br /><b>Assembly: </b>OwinUtils (in OwinUtils.dll)<br /><b>Assembly Versions: </b>0.1.5460.39293, 0.1.5460.39387</div>
+          <hr size="1" />
+        </blockquote>
+        <h3 id="M:OwinUtils.AppBuilderRouteExtensions.Run(Owin.IAppBuilder,System.Func{System.Collections.Generic.IDictionary{System.String,System.Object},System.Threading.Tasks.Task})">Run Method</h3>
+        <blockquote id="M:OwinUtils.AppBuilderRouteExtensions.Run(Owin.IAppBuilder,System.Func{System.Collections.Generic.IDictionary{System.String,System.Object},System.Threading.Tasks.Task}):member">
+          <div class="msummary">
+            Variant of the Microsoft.Owin method Run which supports a plain middleware Func
+            rather than an IOwinMiddleware
+            </div>
+          <h2>Syntax</h2>
+          <div class="Signature">public static <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.Void">void</a> <b>Run</b> (<i>this</i> <a href="javascript:alert(&quot;Documentation not found.&quot;)">Owin.IAppBuilder</a> app, <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.Func`2">Func&lt;IDictionary&lt;string, System.Object&gt;,System.Threading.Tasks.Task&gt;</a> runAction)</div>
+          <h4 class="Subsection">Parameters</h4>
+          <blockquote class="SubsectionBox" id="M:OwinUtils.AppBuilderRouteExtensions.Run(Owin.IAppBuilder,System.Func{System.Collections.Generic.IDictionary{System.String,System.Object},System.Threading.Tasks.Task}):Parameters">
+            <dl>
+              <dt>
+                <i>app</i>
+              </dt>
+              <dd>
+                <span class="NotEntered">Documentation for this section has not yet been entered.</span>
+              </dd>
+              <dt>
+                <i>runAction</i>
+              </dt>
+              <dd>The middleware to run</dd>
+            </dl>
+          </blockquote>
+          <h2 class="Section">Remarks</h2>
+          <div class="SectionBox" id="M:OwinUtils.AppBuilderRouteExtensions.Run(Owin.IAppBuilder,System.Func{System.Collections.Generic.IDictionary{System.String,System.Object},System.Threading.Tasks.Task}):Remarks">
+            <span class="NotEntered">Documentation for this section has not yet been entered.</span>
+          </div>
+          <h2 class="Section">Requirements</h2>
+          <div class="SectionBox" id="M:OwinUtils.AppBuilderRouteExtensions.Run(Owin.IAppBuilder,System.Func{System.Collections.Generic.IDictionary{System.String,System.Object},System.Threading.Tasks.Task}):Version Information">
+            <b>Namespace: </b>OwinUtils<br /><b>Assembly: </b>OwinUtils (in OwinUtils.dll)<br /><b>Assembly Versions: </b>0.1.5460.39293, 0.1.5460.39387</div>
+          <hr size="1" />
+        </blockquote>
+      </div>
+    </div>
+    <hr size="1" />
+    <div class="Copyright">
+    </div>
+  </body>
+</html>

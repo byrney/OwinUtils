@@ -20,6 +20,12 @@
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
     <DocumentationFile>bin\Debug\OwinUtils.xml</DocumentationFile>
+    <CustomCommands>
+      <CustomCommands>
+        <Command type="AfterBuild" name="Documentation" command="monodocer -pretty --delete -importslashdoc:${TargetDir}/${ProjectName}.xml -assembly:${TargetFile} -path:${TargetDir}/monodoc" externalConsole="True" pauseExternalConsole="True" />
+        <Command type="AfterBuild" command="mdoc export-html -o ${SolutionDir}/doc/   ${TargetDir}/monodoc" externalConsole="True" pauseExternalConsole="True" />
+      </CustomCommands>
+    </CustomCommands>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>full</DebugType>
@@ -58,7 +64,6 @@
     <Compile Include="SessionCookie.cs" />
     <Compile Include="SignedString.cs" />
     <Compile Include="Wrapper.cs" />
-    <Compile Include="AppBuilderRouteExtensions.cs" />
     <Compile Include="RouteHeader.cs" />
     <Compile Include="ConstructorTypeConverter.cs" />
     <Compile Include="AsyncWriter.cs" />
@@ -66,6 +71,7 @@
     <Compile Include="RouteMiddleware.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="RouteBuilder.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

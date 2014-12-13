@@ -15,7 +15,7 @@ namespace OwinUtils
     /// Outbound: Gets a session string from the owin environment under "environmentKey" signs it using 
     /// passphrase and returns to the client in a cookie called "session"
     /// </summary>
-    public static class AppBuilderSessionCookieExtensions
+    public static class SessionCookieBuilder
     {
         public static IAppBuilder SessionCookie(this IAppBuilder iab, string environmentKey, string passphrase)
         {

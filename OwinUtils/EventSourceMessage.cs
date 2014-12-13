@@ -5,6 +5,9 @@ using System.Threading.Tasks;
 
 namespace OwinUtils
 {
+    /// <summary>
+    /// An HTML EventSource message
+    /// </summary>
     public class EventSourceMessage
     {
         private const char _newline = '\n';

@@ -9,26 +9,7 @@ using Microsoft.Owin;
 namespace OwinUtils
 {
 
-    /// <summary>
-    /// Extracts a named query parameter from the inbound request URL
-    /// and adds it to the RouteParams for use in a Route further down the middleware chain
-    /// 
-    /// Use as:
-    ///     delegate Task DelFunc(EnvDict env, string myQueryParam);
-    /// 
-    ///     DelFunc f = (env, qp) => { // implement route func here }
-    ///     builder.Use&lt;RouteQuery&gt;("myQueryParam", "defaultValue")
-    ///     builder.RouteGet(f, "/")
-    /// 
-    /// </summary>
-    public static class AppBuilderRouteQueryExtensions
-    {
-        // Extracts a query parameters and injects it into the routeparams to be used downstream
-        public static IAppBuilder RouteQuery(this IAppBuilder app, string routeParamName, string defaultValue)
-        {
-            return app.Use<RouteQuery>(routeParamName, defaultValue);
-        }
-    }
+
 
     class RouteQuery
     {

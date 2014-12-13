@@ -9,19 +9,6 @@ using Microsoft.Owin;
 
 namespace OwinUtils
 {
-    /// <summary>
-    /// Extracts a header (headerName) from the inbound request and makes it available
-    /// in the RouteParams as routeParamKey
-    /// </summary>
-    public static class AppBuilderHeaderExtractorExtensions
-    {
-
-        public static IAppBuilder RouteHeader(this IAppBuilder iab, string headerName, string routeParamKey)
-        {
-            return iab.Use<RouteHeader>(headerName, routeParamKey);
-        }
-    }
-
     class RouteHeader
     {
         AppFunc next;
