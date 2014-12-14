@@ -22,8 +22,8 @@
     <DocumentationFile>bin\Debug\OwinUtils.xml</DocumentationFile>
     <CustomCommands>
       <CustomCommands>
-        <Command type="AfterBuild" name="Documentation" command="monodocer -pretty --delete -importslashdoc:${TargetDir}/${ProjectName}.xml -assembly:${TargetFile} -path:${TargetDir}/monodoc" externalConsole="True" pauseExternalConsole="True" />
-        <Command type="AfterBuild" command="mdoc export-html -o ${SolutionDir}/doc/   ${TargetDir}/monodoc" externalConsole="True" pauseExternalConsole="True" />
+        <Command type="AfterBuild" name="Documentation" command="monodocer -pretty --delete -importslashdoc:${TargetDir}/${ProjectName}.xml -assembly:${TargetFile} -path:${TargetDir}/monodoc" pauseExternalConsole="True" />
+        <Command type="AfterBuild" command="mdoc export-html -o ${SolutionDir}/doc/   ${TargetDir}/monodoc" pauseExternalConsole="True" />
       </CustomCommands>
     </CustomCommands>
   </PropertyGroup>
