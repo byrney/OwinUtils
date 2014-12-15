@@ -13,24 +13,30 @@ namespace OwinUtils.Samples
 
         public static void BuildSample(IAppBuilder app)
         {
- 
+            // add eventsource middleware
             app.EventSource(envKey);
             app.Run(context => {
+
+                // get the event stream (not captured yet)
                 var eventStream = context.Environment[envKey] as IEventStream;
+
+                // create some timers to send mesages
                 var timer = new System.Threading.Timer(_ => {
                     var ts = DateTime.UtcNow.ToString("O");
-                    eventStream.WriteAsync(ts + message + "\n");
+                    eventStream.WriteAsync("Timer1:" + ts + message + "\n");
                 }, null, 1,  50);
                 var timer2 = new System.Threading.Timer(_ => {
                     var ts = DateTime.UtcNow.ToString("O");
-                    eventStream.WriteAsync(ts + "\n");
+                    eventStream.WriteAsync("Timer 2:" + ts + "\n");
                 }, null, 1,  25);
+
+                // Capture the eventstream by calling Open and pass in the 
+                // clean-up logic for when this client closes the stream
                 var task =  eventStream.Open(() => {
                     Console.WriteLine("Closed");
                     timer.Dispose();
                     timer2.Dispose();
                 });
-                Console.WriteLine("Got eventstream");
 
                 eventStream.WriteAsync("Started\n");
                 return task;
