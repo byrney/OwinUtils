@@ -5,7 +5,7 @@ using Microsoft.Owin;
 
 namespace OwinUtils.Samples
 {
-    public class EventSource
+    public class EventSourceSample
     {
         static string block = "abcdefghijklmnopqrstuvwxyz";
         static string message = string.Format("{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}", block);

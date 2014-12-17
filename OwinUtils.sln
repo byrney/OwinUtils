@@ -47,7 +47,7 @@ Global
 		{8FDA5CCE-468B-4F81-91FB-BEAD17127035}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
-		StartupItem = MarkdownDoc\MarkdownDoc.csproj
+		StartupItem = ConsoleHost\ConsoleHost.csproj
 		Policies = $0
 		$0.TextStylePolicy = $1
 		$1.FileWidth = 120

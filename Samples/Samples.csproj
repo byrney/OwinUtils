@@ -42,7 +42,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="EventSource.cs" />
+    <Compile Include="RouteHeaderSample.cs" />
+    <Compile Include="RouteParamsSample.cs" />
+    <Compile Include="RouteQuerySample.cs" />
+    <Compile Include="EventSourceSample.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

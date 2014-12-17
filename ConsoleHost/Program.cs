@@ -73,8 +73,10 @@ namespace ConsoleHost
 
         static void CombinedConfig(IAppBuilder builder)
         {
-            builder.Map("/eventsource", EventSource.BuildSample);
-            builder.Map("/session", SessionConfiguration);
+            builder.Map("/eventsource", EventSourceSample.BuildSample);
+            builder.Map("/routeheader", RouteHeaderSample.BuildSample);
+            builder.Map("/routequery", RouteQuerySample.BuildSample);
+            builder.Map("/routeparams", RouteParamsSample.BuildSample);
         }
 
         static void Main(string[] args)
@@ -83,6 +85,7 @@ namespace ConsoleHost
             using (WebApp.Start(url, CombinedConfig))
             {
                 Console.WriteLine("Listening on {0}", url);
+                Console.WriteLine("Press return to quit");
                 Console.ReadLine();
             }
         }
