@@ -48,4 +48,4 @@ Store the event-stream in a member variable/closure and then write to it later o
 
 
 
-See Api Documentation: [Here](doc/index.html)
+See Api Documentation: [Here](http://byrney.github.io/OwinUtils/doc/)
