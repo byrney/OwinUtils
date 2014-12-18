@@ -46,6 +46,7 @@
     <Compile Include="RouteParamsSample.cs" />
     <Compile Include="RouteQuerySample.cs" />
     <Compile Include="EventSourceSample.cs" />
+    <Compile Include="RouteBranch.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

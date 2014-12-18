@@ -77,6 +77,7 @@ namespace ConsoleHost
             builder.Map("/routeheader", RouteHeaderSample.BuildSample);
             builder.Map("/routequery", RouteQuerySample.BuildSample);
             builder.Map("/routeparams", RouteParamsSample.BuildSample);
+            builder.Map("/branchsample", RouteBranchSample.BuildSample);
         }
 
         static void Main(string[] args)
