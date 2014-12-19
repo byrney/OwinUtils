@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OwinUtils
+namespace OwinUtilsTests
 {
     public class JsonStream
     {

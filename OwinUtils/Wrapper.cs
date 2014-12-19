@@ -1,12 +1,14 @@
 ﻿
 using System;
+using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using Microsoft.Owin;
 using EnvDict = System.Collections.Generic.IDictionary<string, object>;
 using RouteDict = System.Collections.Generic.Dictionary<string, object>;
-using System.ComponentModel;
-using Microsoft.Owin;
+using System.Text;
 
 namespace OwinUtils
 {
@@ -18,10 +20,11 @@ namespace OwinUtils
     /// </summary>
 	class Wrapper
 	{
-		object callee;
-		ParameterInfo[] parameterInfo;
-		Type[] parameterTypes;
-		MethodInfo method;
+		object callee;                              // the object to be called in the route
+		ParameterInfo[] parameterInfo;              // parameters of the method to be called
+		Type[] parameterTypes;                      // parameter types
+		MethodInfo method;                          // the method on callee to be invoked
+        private Func<EnvDict, object, object[], Task> invokeWrapper;    // invokes the callee and converts return types
 
 		public Wrapper (object callee, string methodName = "Invoke")
 		{
@@ -56,6 +59,32 @@ namespace OwinUtils
 	        }
 	    }
 
+ 
+
+        // invoke callee when it returns a task
+        private Task TaskReturnWrapper(EnvDict env, object callee, object[] args)
+        {
+            return (Task) this.method.Invoke(callee, args);
+        }
+        // invoke callee when it returns a RouteReturn and populate headers etc
+        // appropriately
+        private Task RouteReturnWrapper(EnvDict env, object callee, object[] args)
+        {
+            var responseStream = (Stream)env["owin.ResponseBody"];
+            RouteReturn rr = (RouteReturn)this.method.Invoke(callee, args);
+            if(rr.Status != 0) {
+                env["owin.ResponseStatusCode"] = rr.Status;
+            }
+            if(rr.StringBody != null) {
+                var bytes = Encoding.UTF8.GetBytes(rr.StringBody);
+                return responseStream.WriteAsync(bytes, 0, bytes.Length);
+            }
+            if(rr.StreamBody != null){
+                return rr.StreamBody.CopyToAsync(responseStream);
+            }
+            return Task.FromResult<bool>(true);
+        }
+
 		private void extractMetadata(object callee, string methodName)
 		{
 			MethodInfo method = extractMethodInfo(callee.GetType(), methodName);
@@ -64,6 +93,12 @@ namespace OwinUtils
 		    }
 			ParameterInfo[] parameters = method.GetParameters();
 			Type[] parameterTypes = parameters.Select(p => p.ParameterType).ToArray();
+            Type returns = method.ReturnType;
+            if(returns == typeof(RouteReturn)) {
+                this.invokeWrapper = RouteReturnWrapper;
+            } else {
+                this.invokeWrapper = TaskReturnWrapper;
+            }
             validateParameters(parameters, parameterTypes);
 			this.parameterInfo = parameters;
 			this.parameterTypes = parameterTypes;
@@ -126,7 +161,7 @@ namespace OwinUtils
 	            }
 	        }
 	        try {
-	            Task invokeTask = (Task) this.method.Invoke(callee, args);
+	            Task invokeTask = this.invokeWrapper(env, callee, args);
 	            if (invokeTask.IsFaulted) {
 	                throw invokeTask.Exception.InnerException;
 	            }

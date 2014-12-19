@@ -10,12 +10,15 @@ using HeaderDict = System.Collections.Generic.IDictionary<string, string[]>;
 namespace OwinUtils
 {
     /// <summary>
+    /// Stream events back to the client keeping the connection open (HTML5 EventSource)
+    /// </summary>
+    /// <remarks>
     /// Inbound: Inserts an IEvenStream object into the Owin Environment using the key passed 
     /// to the connstructor. See IEventStream for details on use.
     /// 
     /// Outbound: Sets HTML5 EventSource headers on the response. Whilst the IEventStream is open
     /// Data written to it will be added to the body.
-    /// </summary>
+    /// </remarks>
     public static class EventSourceBuilder
     {
         public static IAppBuilder EventSource(this IAppBuilder iab, string environmentKey)

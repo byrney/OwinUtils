@@ -51,7 +51,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CookieConverter.cs" />
-    <Compile Include="JsonStream.cs" />
     <Compile Include="RouteCookie.cs" />
     <Compile Include="EventSourceMessage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -72,6 +71,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="RouteBuilder.cs" />
+    <Compile Include="RouteReturn.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

@@ -9,11 +9,13 @@ namespace OwinUtils.Samples
 {
     public class RouteHeaderSample
     {
-        public delegate Task WriteHeaderFunc(IOwinContext ctx, string userAgent);
+        public delegate RouteReturn WriteHeaderFunc(IOwinContext ctx, string userAgent);
 
-        public static Task WriteUserAgent(IOwinContext ctx, string agent)
+        public static RouteReturn WriteUserAgent(IOwinContext ctx, string agent)
         {
-            return ctx.Response.WriteAsync("User Agent:" + agent + "\n");
+            return new RouteReturn {
+                StringBody = "User Agent:" + agent + "\n"
+            };
         }
 
         public static void BuildSample(IAppBuilder app)
