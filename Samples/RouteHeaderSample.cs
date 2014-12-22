@@ -13,9 +13,7 @@ namespace OwinUtils.Samples
 
         public static RouteReturn WriteUserAgent(IOwinContext ctx, string agent)
         {
-            return new RouteReturn {
-                StringBody = "User Agent:" + agent + "\n"
-            };
+            return new RouteReturn("User Agent:" + agent + "\n");
         }
 
         public static void BuildSample(IAppBuilder app)

@@ -207,11 +207,7 @@
     </div>
     <h1 class="PageTitle" id="T:OwinUtils.SessionCookieBuilder">SessionCookieBuilder  Class</h1>
     <p class="Summary" id="T:OwinUtils.SessionCookieBuilder:Summary">
-            Inbound: Extracts a string from a cookie called "session", checks that it has been signed using passphrase
-            and adds it to the owin Environment under "environmentKey". If the cookie has not been signed
-            using passphrase it will be rejected  (ignored) an the request will continue
-            Outbound: Gets a session string from the owin environment under "environmentKey" signs it using
-            passphrase and returns to the client in a cookie called "session"
+            Extends IAppBuilder with signed session cookie Middleware
             </p>
     <div>
       <h2>Syntax</h2>
@@ -242,7 +238,7 @@
                 <td colspan="2">
                   <b>
                     <a href="#M:OwinUtils.SessionCookieBuilder.SessionCookie(Owin.IAppBuilder,System.String,System.String)">SessionCookie</a>
-                  </b>(<i>this</i> <a href="javascript:alert(&quot;Documentation not found.&quot;)">Owin.IAppBuilder</a>, <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.String">string</a>, <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.String">string</a>)<nobr> : <a href="javascript:alert(&quot;Documentation not found.&quot;)">Owin.IAppBuilder</a></nobr><blockquote><span class="NotEntered">Documentation for this section has not yet been entered.</span></blockquote></td>
+                  </b>(<i>this</i> <a href="javascript:alert(&quot;Documentation not found.&quot;)">Owin.IAppBuilder</a>, <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.String">string</a>, <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.String">string</a>)<nobr> : <a href="javascript:alert(&quot;Documentation not found.&quot;)">Owin.IAppBuilder</a></nobr><blockquote>Treat part of the Owin Environment as a tamper proof session cookie</blockquote></td>
               </tr>
             </table>
           </div>
@@ -254,9 +250,7 @@
       <div class="SectionBox" id="_MemberDetails">
         <h3 id="M:OwinUtils.SessionCookieBuilder.SessionCookie(Owin.IAppBuilder,System.String,System.String)">SessionCookie Method</h3>
         <blockquote id="M:OwinUtils.SessionCookieBuilder.SessionCookie(Owin.IAppBuilder,System.String,System.String):member">
-          <div class="msummary">
-            <span class="NotEntered">Documentation for this section has not yet been entered.</span>
-          </div>
+          <div class="msummary">Treat part of the Owin Environment as a tamper proof session cookie</div>
           <h2>Syntax</h2>
           <div class="Signature">public static <a href="javascript:alert(&quot;Documentation not found.&quot;)">Owin.IAppBuilder</a> <b>SessionCookie</b> (<i>this</i> <a href="javascript:alert(&quot;Documentation not found.&quot;)">Owin.IAppBuilder</a> iab, <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.String">string</a> environmentKey, <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.String">string</a> passphrase)</div>
           <h4 class="Subsection">Parameters</h4>
@@ -265,21 +259,15 @@
               <dt>
                 <i>iab</i>
               </dt>
-              <dd>
-                <span class="NotEntered">Documentation for this section has not yet been entered.</span>
-              </dd>
+              <dd>The this being extended</dd>
               <dt>
                 <i>environmentKey</i>
               </dt>
-              <dd>
-                <span class="NotEntered">Documentation for this section has not yet been entered.</span>
-              </dd>
+              <dd>Where the read/write the cookie in the Owin Environment</dd>
               <dt>
                 <i>passphrase</i>
               </dt>
-              <dd>
-                <span class="NotEntered">Documentation for this section has not yet been entered.</span>
-              </dd>
+              <dd>Passphrase to use when signing the cookie</dd>
             </dl>
           </blockquote>
           <h4 class="Subsection">Returns</h4>
@@ -288,8 +276,12 @@
           </blockquote>
           <h2 class="Section">Remarks</h2>
           <div class="SectionBox" id="M:OwinUtils.SessionCookieBuilder.SessionCookie(Owin.IAppBuilder,System.String,System.String):Remarks">
-            <span class="NotEntered">Documentation for this section has not yet been entered.</span>
-          </div>
+            Inbound: Extracts a string from a cookie called "session", checks that it has been signed using passphrase
+            and adds it to the owin Environment under "environmentKey". If the cookie has not been signed
+            using passphrase it will be rejected  (ignored) an the request will continue
+            Outbound: Gets a session string from the owin environment under "environmentKey" signs it using
+            passphrase and returns to the client in a cookie called "session"
+            </div>
           <h2 class="Section">Requirements</h2>
           <div class="SectionBox" id="M:OwinUtils.SessionCookieBuilder.SessionCookie(Owin.IAppBuilder,System.String,System.String):Version Information">
             <b>Namespace: </b>OwinUtils<br /><b>Assembly: </b>OwinUtils (in OwinUtils.dll)<br /><b>Assembly Versions: </b>0.1.0.0</div>

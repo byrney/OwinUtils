@@ -8,13 +8,15 @@ namespace OwinUtils
 
     /// <summary>
     /// Interface to write HTML5 EventSource style messages back to the caller
+    /// </summary>
+    /// <remarks>
     /// Use The EventSourceBuilder methods to set up the middleware and inject an IEventStream
     /// into the Owin Environment. Capture  (IEventStream.Open) the stream in a downstream method
     /// and then use it to send messages to the client while the connection is kept open.
     /// 
     /// The onClose Action passed to the Open method can be used to clean up any state when the client drops
     /// the connection
-    /// </summary>
+    /// </remarks>
     public interface IEventStream
     {
         /// <summary>

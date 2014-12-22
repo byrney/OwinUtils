@@ -19,7 +19,8 @@ namespace OwinUtils
         /// <summary>
         /// Extracts a named query parameter from the inbound request URL
         /// and adds it to the RouteParams for use in a Route further down the middleware chain
-        /// 
+        /// </summary>
+        /// <remarks>
         /// <example>
         /// Use as:
         /// <code>
@@ -36,7 +37,11 @@ namespace OwinUtils
         ///     builder.RouteGet(routeFunc, "/")
         /// </code>
         /// </example>
-        /// </summary>
+        /// </remarks>
+        /// <param name="app">The appbuilder being extended (this)</param>
+        /// <param name="routeParamName">Key to use when adding this to RouteParams</param>
+        /// <param name="defaultValue">value to use as default if the query parameter is not present. If NULL is passed as the default
+        /// and the parameter is not in the URL no entry will be added to the route params</param>
         public static IAppBuilder RouteQuery(this IAppBuilder app, string routeParamName, string defaultValue)
         {
             return app.Use<RouteQuery>(routeParamName, defaultValue);
@@ -49,6 +54,9 @@ namespace OwinUtils
         /// On the way back out gets the value from the routeparams (using <paramref name="outRouteParam"/> as the key) 
         /// and returns it to the caller in a cookie called <paramref name="cookieName"/>
         /// </summary>
+        /// <param name="iab">The appbuilder being extended (this)</param>
+        /// <param name="inRouteParam">Key in route params to place the cookie value during the request</param>
+        /// <param name="outRouteParam">Key in route Params which, if set, will set the cookie in the reponse</param>
         public static IAppBuilder RouteCookie(this IAppBuilder iab, string cookieName, string inRouteParam, string outRouteParam)
         {
             return iab.Use<RouteCookie>(cookieName, inRouteParam, outRouteParam);
@@ -60,6 +68,7 @@ namespace OwinUtils
         /// </summary>
         /// <param name="headerName">Name of the HTTP header to inject</param>
         /// <param name="routeParamKey">Key to use for the result in RouteParams</param>
+        /// <param name="iab">The appbuilder being extended (this)</param>
         public static IAppBuilder RouteHeader(this IAppBuilder iab, string headerName, string routeParamKey)
         {
             return iab.Use<RouteHeader>(headerName, routeParamKey);
@@ -76,10 +85,11 @@ namespace OwinUtils
         /// </summary>
         /// <param name="template">A string defining the RouteTemplate to match.</param>
         /// <param name="branchBuilder">An Action which adds middleware to this branch</param>
-        public static IAppBuilder Branch(this IAppBuilder app, string template, Action<IAppBuilder> branchBuilder)
+        /// <param name="iab">The appbuilder being extended (this)</param>
+        public static IAppBuilder Branch(this IAppBuilder iab, string template, Action<IAppBuilder> branchBuilder)
         {
             var rt = new RouteTemplate(template, true);
-            return Branch(app, rt, branchBuilder);
+            return Branch(iab, rt, branchBuilder);
         }
 
         /// <summary>
@@ -90,10 +100,11 @@ namespace OwinUtils
         /// <param name="template">string used to construct a RouteTemplate</param>
         /// <param name="routeAction">The middleware function that will be called</param>
         /// <param name="httpMethod">HTTP method to be matched or all methods if null is passed</param>
-        public static IAppBuilder Route(this IAppBuilder app, string template, AppFunc routeAction, string httpMethod = null)
+        /// <param name="iab">The appbuilder being extended (this)</param>
+        public static IAppBuilder Route(this IAppBuilder iab, string template, AppFunc routeAction, string httpMethod = null)
         {
             var rt = new[] { new RouteTemplate(template, false) };
-            return Route(app, httpMethod, routeAction, rt);
+            return Route(iab, httpMethod, routeAction, rt);
         }
 
         /// <summary>
@@ -105,10 +116,11 @@ namespace OwinUtils
         /// <param name="httpMethod">Http method to match (GET, POST, PUT etc)</param>
         /// <param name="callee">The delegate method to be invoked with the arguments populated from RouteParams</param>
         /// <param name="template">Used to construct the template to be matched</param>
-        public static IAppBuilder Route(this IAppBuilder app, string httpMethod, Delegate callee, string template)
+        /// <param name="iab">The appbuilder being extended (this)</param>
+        public static IAppBuilder Route(this IAppBuilder iab, string httpMethod, Delegate callee, string template)
         {
             var rt = new[] { new RouteTemplate(template, false) };
-            return Route(app, httpMethod, callee, "Invoke", rt);
+            return Route(iab, httpMethod, callee, "Invoke", rt);
         }
 
         /// <summary>
@@ -116,9 +128,10 @@ namespace OwinUtils
         /// </summary>
         /// <param name="callee">The delegate method to be invoked with the arguments populated from RouteParams</param>
         /// <param name="template">Used to construct the template to be matched</param>
-        public static IAppBuilder RouteGet(this IAppBuilder app, Delegate callee, params string[] templates)
+        /// <param name="iab">The appbuilder being extended (this)</param>
+        public static IAppBuilder RouteGet(this IAppBuilder iab, Delegate callee, params string[] templates)
         {
-            return Route(app, "GET", callee, "Invoke", templates);
+            return Route(iab, "GET", callee, "Invoke", templates);
         }
 
         /// <summary>
@@ -126,9 +139,10 @@ namespace OwinUtils
         /// </summary>
         /// <param name="callee">The delegate method to be invoked with the arguments populated from RouteParams</param>
         /// <param name="template">Used to construct the template to be matched</param>
-        public static IAppBuilder RoutePost(this IAppBuilder app, Delegate callee, params string[] templates)
+        /// <param name="iab">The appbuilder being extended (this)</param>
+        public static IAppBuilder RoutePost(this IAppBuilder iab, Delegate callee, params string[] templates)
         {
-            return Route(app, "POST", callee, "Invoke", templates);
+            return Route(iab, "POST", callee, "Invoke", templates);
         }
 
         /// <summary>
@@ -136,9 +150,10 @@ namespace OwinUtils
         /// </summary>
         /// <param name="callee">The delegate method to be invoked with the arguments populated from RouteParams</param>
         /// <param name="template">Used to construct the template to be matched</param>
-        public static IAppBuilder RouteDel(this IAppBuilder app, Delegate callee, params string[] templates)
+        /// <param name="iab">The appbuilder being extended (this)</param>
+        public static IAppBuilder RouteDel(this IAppBuilder iab, Delegate callee, params string[] templates)
         {
-            return Route(app, "DELETE", callee, "Invoke", templates);
+            return Route(iab, "DELETE", callee, "Invoke", templates);
         }
 
         /// <summary>
@@ -146,6 +161,7 @@ namespace OwinUtils
         /// rather than an IOwinMiddleware
         /// </summary>
         /// <param name="runAction">The middleware to run</param>
+        /// <param name="app">The appbuilder being extended (this)</param>
         public static void Run(this IAppBuilder app, AppFunc runAction)
         {
             app.Run(ctx => runAction(ctx.Environment));
@@ -160,10 +176,11 @@ namespace OwinUtils
         /// <param name="callee">An object implmenting <paramref name="methodName"/> which will be called when the route is matched</param>
         /// <param name="methodName">The method to call on <paramref name="callee"/></param>
         /// <param name="template">A string defining the template</param>
-        public static IAppBuilder Route(this IAppBuilder app, string httpMethod, object callee, string methodName, string template)
+        /// <param name="iab">The appbuilder being extended (this)</param>
+        public static IAppBuilder Route(this IAppBuilder iab, string httpMethod, object callee, string methodName, string template)
         {
             var rt = new[]{ new RouteTemplate(template, false)} ;
-            return Route(app, httpMethod, callee, methodName, rt);
+            return Route(iab, httpMethod, callee, methodName, rt);
         }
 
        
@@ -174,6 +191,7 @@ namespace OwinUtils
         /// <param name="httpMethods">Http methods to be matched  (eg. {"PUT", "POST"} )</param>
         /// <param name="routeParamKey">Key in the RouteParams which will hold the output of converter</param>
         /// <param name="converter">Function which will be passed the body of the request and can convert it.</param>
+        /// <param name="iab">The appbuilder being extended (this)</param>
         public static IAppBuilder RouteBody(this IAppBuilder iab, string[] httpMethods, string routeParamKey, Func<Stream, object> converter)
         {
             return iab.Use<RouteBody>(httpMethods, routeParamKey, converter);
@@ -186,6 +204,7 @@ namespace OwinUtils
         /// <param name="httpMethods">Http methods.</param>
         /// <param name="routeParamKey">Parameter key.</param>
         /// <param name="converter">Converter.</param>
+        /// <param name="iab">The appbuilder being extended (this)</param>
         public static IAppBuilder RouteBody(this IAppBuilder iab, string httpMethod, string routeParamKey, Func<Stream, object> converter)
         {
             return iab.RouteBody(new[] {httpMethod}, routeParamKey, converter);
@@ -198,6 +217,7 @@ namespace OwinUtils
         /// <param name="httpMethod">Http methods to match</param>
         /// <param name="routeParamKey">Parameter key.</param>
         /// <param name="converter">Converter.</param>
+        /// <param name="iab">The appbuilder being extended (this)</param>
         public static IAppBuilder RouteBody(this IAppBuilder iab, string httpMethod, string routeParamKey)
         {
             return iab.RouteBody(new[] { httpMethod }, routeParamKey, null);

@@ -6,9 +6,12 @@ namespace OwinUtils
 {
     /// <summary>
     /// Implements System.ComponentModel.ITypeConverter for class T which has a single argument
-    /// constructor from type S. Add an attribute to T to allow
+    /// constructor from type S. 
+    /// </summary>
+    /// <remarks>Add an attribute to T to allow
     /// conversions from S in routes. e.g  
-    /// 
+    /// </remarks>
+    /// <example>>
     /// [TypeConverter(typeof(ConstructorTypeConverter<string, MyParameterType>))]
     /// class MyParameterType
     /// {
@@ -17,7 +20,7 @@ namespace OwinUtils
     ///         ...
     ///     }
     /// }
-    /// </summary>
+    /// </example
     public class ConstructorTypeConverter<S, T> : TypeConverter  
     {
 

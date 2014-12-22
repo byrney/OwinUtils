@@ -10,17 +10,23 @@ using HeaderDict = System.Collections.Generic.IDictionary<string, string[]>;
 namespace OwinUtils
 {
     /// <summary>
-    /// Stream events back to the client keeping the connection open (HTML5 EventSource)
+    /// Extends IAppBuild with EvenSource Middleware
     /// </summary>
-    /// <remarks>
-    /// Inbound: Inserts an IEvenStream object into the Owin Environment using the key passed 
-    /// to the connstructor. See IEventStream for details on use.
-    /// 
-    /// Outbound: Sets HTML5 EventSource headers on the response. Whilst the IEventStream is open
-    /// Data written to it will be added to the body.
-    /// </remarks>
     public static class EventSourceBuilder
     {
+        /// <summary>
+        /// Stream events back to the client keeping the connection open (HTML5 EventSource)
+        /// </summary>
+        /// <remarks>
+        /// Inbound: Inserts an IEvenStream object into the Owin Environment using the key passed 
+        /// to the connstructor. See IEventStream for details on use.
+        /// 
+        /// Outbound: Sets HTML5 EventSource headers on the response. Whilst the IEventStream is open
+        /// Data written to it will be added to the body.
+        /// </remarks>
+        /// <returns>this</returns>
+        /// <param name="iab">The app builder being extended</param>
+        /// <param name="environmentKey">The Key to use when adding the IEventStream to the Owin Environment</param>
         public static IAppBuilder EventSource(this IAppBuilder iab, string environmentKey)
         {
             return iab.Use<EventSource>(environmentKey);

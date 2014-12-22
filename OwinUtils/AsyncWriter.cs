@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace OwinUtils
 {
-    public class AsyncWriter
+    class AsyncWriter
     {
         Task currentWrite;
         Object currentLock = new object();

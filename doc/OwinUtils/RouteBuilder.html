@@ -391,18 +391,7 @@
                   </b>(<i>this</i> <a href="javascript:alert(&quot;Documentation not found.&quot;)">Owin.IAppBuilder</a>, <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.String">string</a>, <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.String">string</a>)<nobr> : <a href="javascript:alert(&quot;Documentation not found.&quot;)">Owin.IAppBuilder</a></nobr><blockquote>
             Extracts a named query parameter from the inbound request URL
             and adds it to the RouteParams for use in a Route further down the middleware chain
-            
-            Use as:
-            <table class="CodeExampleTable"><tr><td><b><font size="-1"> Example</font></b></td></tr><tr><td><pre class="">
-            // declare a delegate with parameter names matching the RouteParam keys
-            delegate Task RouteFunc(EnvDict env, string myQueryParam);
-            // create an instance of the delegate. The parameter names don't matter here
-            RouteFunc routeFunc = (env, qp) =&gt; { // implement route func here }
-            // Use RouteQuery to extract the query parameters
-            builder.Use&lt;RouteQuery&gt;("myQueryParam", "defaultValue")
-            // Add a route method which will be passed the myQueryParam from the inbound request
-            builder.RouteGet(routeFunc, "/")
-            </pre></td></tr></table></blockquote></td>
+            </blockquote></td>
               </tr>
               <tr valign="top">
                 <td>
@@ -440,11 +429,9 @@
           <blockquote class="SubsectionBox" id="M:OwinUtils.RouteBuilder.Branch(Owin.IAppBuilder,System.String,System.Action{Owin.IAppBuilder}):Parameters">
             <dl>
               <dt>
-                <i>app</i>
+                <i>iab</i>
               </dt>
-              <dd>
-                <span class="NotEntered">Documentation for this section has not yet been entered.</span>
-              </dd>
+              <dd>The appbuilder being extended (this)</dd>
               <dt>
                 <i>template</i>
               </dt>
@@ -482,11 +469,9 @@
           <blockquote class="SubsectionBox" id="M:OwinUtils.RouteBuilder.Route(Owin.IAppBuilder,System.String,System.Delegate,System.String):Parameters">
             <dl>
               <dt>
-                <i>app</i>
+                <i>iab</i>
               </dt>
-              <dd>
-                <span class="NotEntered">Documentation for this section has not yet been entered.</span>
-              </dd>
+              <dd>The appbuilder being extended (this)</dd>
               <dt>
                 <i>httpMethod</i>
               </dt>
@@ -527,11 +512,9 @@
           <blockquote class="SubsectionBox" id="M:OwinUtils.RouteBuilder.Route(Owin.IAppBuilder,System.String,System.Func{System.Collections.Generic.IDictionary{System.String,System.Object},System.Threading.Tasks.Task},System.String):Parameters">
             <dl>
               <dt>
-                <i>app</i>
+                <i>iab</i>
               </dt>
-              <dd>
-                <span class="NotEntered">Documentation for this section has not yet been entered.</span>
-              </dd>
+              <dd>The appbuilder being extended (this)</dd>
               <dt>
                 <i>template</i>
               </dt>
@@ -570,9 +553,9 @@
           <blockquote class="SubsectionBox" id="M:OwinUtils.RouteBuilder.Route(Owin.IAppBuilder,System.String,System.Object,System.String,System.String):Parameters">
             <dl>
               <dt>
-                <i>app</i>
+                <i>iab</i>
               </dt>
-              <dd>The IAppBuilder instance</dd>
+              <dd>The appbuilder being extended (this)</dd>
               <dt>
                 <i>httpMethod</i>
               </dt>
@@ -618,9 +601,7 @@
               <dt>
                 <i>iab</i>
               </dt>
-              <dd>
-                <span class="NotEntered">Documentation for this section has not yet been entered.</span>
-              </dd>
+              <dd>The appbuilder being extended (this)</dd>
               <dt>
                 <i>httpMethod</i>
               </dt>
@@ -658,9 +639,7 @@
               <dt>
                 <i>iab</i>
               </dt>
-              <dd>
-                <span class="NotEntered">Documentation for this section has not yet been entered.</span>
-              </dd>
+              <dd>The appbuilder being extended (this)</dd>
               <dt>
                 <i>httpMethod</i>
               </dt>
@@ -704,9 +683,7 @@
               <dt>
                 <i>iab</i>
               </dt>
-              <dd>
-                <span class="NotEntered">Documentation for this section has not yet been entered.</span>
-              </dd>
+              <dd>The appbuilder being extended (this)</dd>
               <dt>
                 <i>httpMethods</i>
               </dt>
@@ -749,9 +726,7 @@
               <dt>
                 <i>iab</i>
               </dt>
-              <dd>
-                <span class="NotEntered">Documentation for this section has not yet been entered.</span>
-              </dd>
+              <dd>The appbuilder being extended (this)</dd>
               <dt>
                 <i>cookieName</i>
               </dt>
@@ -761,15 +736,11 @@
               <dt>
                 <i>inRouteParam</i>
               </dt>
-              <dd>
-                <span class="NotEntered">Documentation for this section has not yet been entered.</span>
-              </dd>
+              <dd>Key in route params to place the cookie value during the request</dd>
               <dt>
                 <i>outRouteParam</i>
               </dt>
-              <dd>
-                <span class="NotEntered">Documentation for this section has not yet been entered.</span>
-              </dd>
+              <dd>Key in route Params which, if set, will set the cookie in the reponse</dd>
             </dl>
           </blockquote>
           <h4 class="Subsection">Returns</h4>
@@ -796,11 +767,9 @@
           <blockquote class="SubsectionBox" id="M:OwinUtils.RouteBuilder.RouteDel(Owin.IAppBuilder,System.Delegate,System.String[]):Parameters">
             <dl>
               <dt>
-                <i>app</i>
+                <i>iab</i>
               </dt>
-              <dd>
-                <span class="NotEntered">Documentation for this section has not yet been entered.</span>
-              </dd>
+              <dd>The appbuilder being extended (this)</dd>
               <dt>
                 <i>callee</i>
               </dt>
@@ -837,11 +806,9 @@
           <blockquote class="SubsectionBox" id="M:OwinUtils.RouteBuilder.RouteGet(Owin.IAppBuilder,System.Delegate,System.String[]):Parameters">
             <dl>
               <dt>
-                <i>app</i>
+                <i>iab</i>
               </dt>
-              <dd>
-                <span class="NotEntered">Documentation for this section has not yet been entered.</span>
-              </dd>
+              <dd>The appbuilder being extended (this)</dd>
               <dt>
                 <i>callee</i>
               </dt>
@@ -880,9 +847,7 @@
               <dt>
                 <i>iab</i>
               </dt>
-              <dd>
-                <span class="NotEntered">Documentation for this section has not yet been entered.</span>
-              </dd>
+              <dd>The appbuilder being extended (this)</dd>
               <dt>
                 <i>headerName</i>
               </dt>
@@ -917,11 +882,9 @@
           <blockquote class="SubsectionBox" id="M:OwinUtils.RouteBuilder.RoutePost(Owin.IAppBuilder,System.Delegate,System.String[]):Parameters">
             <dl>
               <dt>
-                <i>app</i>
+                <i>iab</i>
               </dt>
-              <dd>
-                <span class="NotEntered">Documentation for this section has not yet been entered.</span>
-              </dd>
+              <dd>The appbuilder being extended (this)</dd>
               <dt>
                 <i>callee</i>
               </dt>
@@ -952,7 +915,33 @@
           <div class="msummary">
             Extracts a named query parameter from the inbound request URL
             and adds it to the RouteParams for use in a Route further down the middleware chain
-            
+            </div>
+          <h2>Syntax</h2>
+          <div class="Signature">public static <a href="javascript:alert(&quot;Documentation not found.&quot;)">Owin.IAppBuilder</a> <b>RouteQuery</b> (<i>this</i> <a href="javascript:alert(&quot;Documentation not found.&quot;)">Owin.IAppBuilder</a> app, <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.String">string</a> routeParamName, <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.String">string</a> defaultValue)</div>
+          <h4 class="Subsection">Parameters</h4>
+          <blockquote class="SubsectionBox" id="M:OwinUtils.RouteBuilder.RouteQuery(Owin.IAppBuilder,System.String,System.String):Parameters">
+            <dl>
+              <dt>
+                <i>app</i>
+              </dt>
+              <dd>The appbuilder being extended (this)</dd>
+              <dt>
+                <i>routeParamName</i>
+              </dt>
+              <dd>Key to use when adding this to RouteParams</dd>
+              <dt>
+                <i>defaultValue</i>
+              </dt>
+              <dd>value to use as default if the query parameter is not present. If NULL is passed as the default
+            and the parameter is not in the URL no entry will be added to the route params</dd>
+            </dl>
+          </blockquote>
+          <h4 class="Subsection">Returns</h4>
+          <blockquote class="SubsectionBox" id="M:OwinUtils.RouteBuilder.RouteQuery(Owin.IAppBuilder,System.String,System.String):Returns">
+            <span class="NotEntered">Documentation for this section has not yet been entered.</span>
+          </blockquote>
+          <h2 class="Section">Remarks</h2>
+          <div class="SectionBox" id="M:OwinUtils.RouteBuilder.RouteQuery(Owin.IAppBuilder,System.String,System.String):Remarks">
             Use as:
             <table class="CodeExampleTable"><tr><td><b><font size="-1"> Example</font></b></td></tr><tr><td><pre class="">
             // declare a delegate with parameter names matching the RouteParam keys
@@ -964,39 +953,6 @@
             // Add a route method which will be passed the myQueryParam from the inbound request
             builder.RouteGet(routeFunc, "/")
             </pre></td></tr></table></div>
-          <h2>Syntax</h2>
-          <div class="Signature">public static <a href="javascript:alert(&quot;Documentation not found.&quot;)">Owin.IAppBuilder</a> <b>RouteQuery</b> (<i>this</i> <a href="javascript:alert(&quot;Documentation not found.&quot;)">Owin.IAppBuilder</a> app, <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.String">string</a> routeParamName, <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.String">string</a> defaultValue)</div>
-          <h4 class="Subsection">Parameters</h4>
-          <blockquote class="SubsectionBox" id="M:OwinUtils.RouteBuilder.RouteQuery(Owin.IAppBuilder,System.String,System.String):Parameters">
-            <dl>
-              <dt>
-                <i>app</i>
-              </dt>
-              <dd>
-                <span class="NotEntered">Documentation for this section has not yet been entered.</span>
-              </dd>
-              <dt>
-                <i>routeParamName</i>
-              </dt>
-              <dd>
-                <span class="NotEntered">Documentation for this section has not yet been entered.</span>
-              </dd>
-              <dt>
-                <i>defaultValue</i>
-              </dt>
-              <dd>
-                <span class="NotEntered">Documentation for this section has not yet been entered.</span>
-              </dd>
-            </dl>
-          </blockquote>
-          <h4 class="Subsection">Returns</h4>
-          <blockquote class="SubsectionBox" id="M:OwinUtils.RouteBuilder.RouteQuery(Owin.IAppBuilder,System.String,System.String):Returns">
-            <span class="NotEntered">Documentation for this section has not yet been entered.</span>
-          </blockquote>
-          <h2 class="Section">Remarks</h2>
-          <div class="SectionBox" id="M:OwinUtils.RouteBuilder.RouteQuery(Owin.IAppBuilder,System.String,System.String):Remarks">
-            <span class="NotEntered">Documentation for this section has not yet been entered.</span>
-          </div>
           <h2 class="Section">Requirements</h2>
           <div class="SectionBox" id="M:OwinUtils.RouteBuilder.RouteQuery(Owin.IAppBuilder,System.String,System.String):Version Information">
             <b>Namespace: </b>OwinUtils<br /><b>Assembly: </b>OwinUtils (in OwinUtils.dll)<br /><b>Assembly Versions: </b>0.1.0.0</div>
@@ -1016,9 +972,7 @@
               <dt>
                 <i>app</i>
               </dt>
-              <dd>
-                <span class="NotEntered">Documentation for this section has not yet been entered.</span>
-              </dd>
+              <dd>The appbuilder being extended (this)</dd>
               <dt>
                 <i>runAction</i>
               </dt>

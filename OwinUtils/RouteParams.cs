@@ -8,7 +8,10 @@ using EnvDict = System.Collections.Generic.IDictionary<string, object>;
 
 namespace OwinUtils
 {
-
+    /// <summary>
+    /// Manage access to the paremeters injected/extracted from the Owin Environment
+    /// as part of other RouteXXX functions
+    /// </summary>
     public static class RouteParams
     {
         private const string routeKey = "RouteParams";

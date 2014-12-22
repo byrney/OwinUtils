@@ -20,12 +20,6 @@
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
     <DocumentationFile>bin\Debug\OwinUtils.xml</DocumentationFile>
-    <CustomCommands>
-      <CustomCommands>
-        <Command type="AfterBuild" name="Documentation" command="monodocer -pretty --delete -importslashdoc:${TargetDir}/${ProjectName}.xml -assembly:${TargetFile} -path:${TargetDir}/monodoc" pauseExternalConsole="True" />
-        <Command type="AfterBuild" command="mdoc export-html -o ${SolutionDir}/doc/   ${TargetDir}/monodoc" pauseExternalConsole="True" />
-      </CustomCommands>
-    </CustomCommands>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <Optimize>true</Optimize>
@@ -35,7 +29,9 @@
     <ConsolePause>false</ConsolePause>
     <CustomCommands>
       <CustomCommands>
-        <Command type="AfterBuild" name="NugetPack" command="nuget pack OwinUtils.nuspec" workingdir="${ProjectDir}" externalConsole="True" pauseExternalConsole="True" />
+        <Command type="AfterBuild" command="monodocer -pretty --delete -importslashdoc:${TargetDir}/${ProjectName}.xml -assembly:${TargetFile} -path:${TargetDir}/monodoc" pauseExternalConsole="True" />
+        <Command type="AfterBuild" command="mdoc export-html -o ${SolutionDir}/doc/   ${TargetDir}/monodoc" pauseExternalConsole="True" />
+        <Command type="AfterBuild" command="nuget pack OwinUtils.nuspec" workingdir="${ProjectDir}" />
       </CustomCommands>
     </CustomCommands>
     <DocumentationFile>bin\Release\OwinUtils.xml</DocumentationFile>

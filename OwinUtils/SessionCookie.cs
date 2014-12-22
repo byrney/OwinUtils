@@ -8,15 +8,22 @@ namespace OwinUtils
     using AppFunc = System.Func<System.Collections.Generic.IDictionary<string, object>, System.Threading.Tasks.Task>;
 
     /// <summary>
-    /// Inbound: Extracts a string from a cookie called "session", checks that it has been signed using passphrase
-    /// and adds it to the owin Environment under "environmentKey". If the cookie has not been signed
-    /// using passphrase it will be rejected  (ignored) an the request will continue
-    /// 
-    /// Outbound: Gets a session string from the owin environment under "environmentKey" signs it using 
-    /// passphrase and returns to the client in a cookie called "session"
+    /// Extends IAppBuilder with signed session cookie Middleware
     /// </summary>
     public static class SessionCookieBuilder
     {
+        /// <summary>Treat part of the Owin Environment as a tamper proof session cookie</summary>
+        /// <remarks>
+        /// Inbound: Extracts a string from a cookie called "session", checks that it has been signed using passphrase
+        /// and adds it to the owin Environment under "environmentKey". If the cookie has not been signed
+        /// using passphrase it will be rejected  (ignored) an the request will continue
+        /// 
+        /// Outbound: Gets a session string from the owin environment under "environmentKey" signs it using 
+        /// passphrase and returns to the client in a cookie called "session"
+        /// </remarks>
+        /// <param name="iab">The this being extended</param>
+        /// <param name="environmentKey">Where the read/write the cookie in the Owin Environment</param>
+        /// <param name="passphrase">Passphrase to use when signing the cookie</param>
         public static IAppBuilder SessionCookie(this IAppBuilder iab, string environmentKey, string passphrase)
         {
             return iab.Use<SessionCookie>(environmentKey, passphrase);
