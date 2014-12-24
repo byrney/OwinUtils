@@ -75,8 +75,14 @@ namespace OwinUtils
         }
 
         /// <summary>
-        /// Creates a branch in the pipeline. If the inbound request matches "template"
-        /// then the midlewares defined by <paramref name="branchBuilder"/> will be called. Any parameters
+        /// Creates a branch in the pipeline. 
+        /// </summary>
+        /// <remarks>If the inbound request matches "template"
+        /// then the middlewares defined by <paramref name="branchBuilder"/> will be called. 
+        /// If the template is not matched then the middleware attatched to the return value will
+        /// be called. 
+        /// 
+        /// Any parameters
         /// extracted by the template will be added to RouteParams for use within the branch.
         /// The BasePath and Path variables in the owin Environment will be adjusted and then restored
         /// when the branch is complete
