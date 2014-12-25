@@ -207,10 +207,7 @@
     </div>
     <h1 class="PageTitle" id="T:OwinUtils.EventSourceBuilder">EventSourceBuilder  Class</h1>
     <p class="Summary" id="T:OwinUtils.EventSourceBuilder:Summary">
-            Inbound: Inserts an IEvenStream object into the Owin Environment using the key passed
-            to the connstructor. See IEventStream for details on use.
-            Outbound: Sets HTML5 EventSource headers on the response. Whilst the IEventStream is open
-            Data written to it will be added to the body.
+            Extends IAppBuild with EvenSource Middleware
             </p>
     <div>
       <h2>Syntax</h2>
@@ -219,11 +216,14 @@
     <div class="Remarks" id="T:OwinUtils.EventSourceBuilder:Docs">
       <h2 class="Section">Remarks</h2>
       <div class="SectionBox" id="T:OwinUtils.EventSourceBuilder:Docs:Remarks">
-        <span class="NotEntered">Documentation for this section has not yet been entered.</span>
-      </div>
+            Inbound: Inserts an IEvenStream object into the Owin Environment using the key passed
+            to the connstructor. See IEventStream for details on use.
+            Outbound: Sets HTML5 EventSource headers on the response. Whilst the IEventStream is open
+            Data written to it will be added to the body.
+            </div>
       <h2 class="Section">Requirements</h2>
       <div class="SectionBox" id="T:OwinUtils.EventSourceBuilder:Docs:Version Information">
-        <b>Namespace: </b>OwinUtils<br /><b>Assembly: </b>OwinUtils (in OwinUtils.dll)<br /><b>Assembly Versions: </b>0.1.5460.39984, 0.1.5460.40938, 0.1.5460.40958, 0.1.5460.41009, 0.1.5460.41157, 0.1.5460.42807, 0.1.5460.43149, 0.1.5461.25419</div>
+        <b>Namespace: </b>OwinUtils<br /><b>Assembly: </b>OwinUtils (in OwinUtils.dll)<br /><b>Assembly Versions: </b>0.1.0.0</div>
       <h2 class="Section" id="Members">Members</h2>
       <div class="SectionBox" id="_Members">
         <p>
@@ -241,7 +241,9 @@
                 <td colspan="2">
                   <b>
                     <a href="#M:OwinUtils.EventSourceBuilder.EventSource(Owin.IAppBuilder,System.String)">EventSource</a>
-                  </b>(<i>this</i> <a href="javascript:alert(&quot;Documentation not found.&quot;)">Owin.IAppBuilder</a>, <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.String">string</a>)<nobr> : <a href="javascript:alert(&quot;Documentation not found.&quot;)">Owin.IAppBuilder</a></nobr><blockquote><span class="NotEntered">Documentation for this section has not yet been entered.</span></blockquote></td>
+                  </b>(<i>this</i> <a href="javascript:alert(&quot;Documentation not found.&quot;)">Owin.IAppBuilder</a>, <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.String">string</a>)<nobr> : <a href="javascript:alert(&quot;Documentation not found.&quot;)">Owin.IAppBuilder</a></nobr><blockquote>
+            Stream events back to the client keeping the connection open (HTML5 EventSource)
+            </blockquote></td>
               </tr>
             </table>
           </div>
@@ -254,8 +256,8 @@
         <h3 id="M:OwinUtils.EventSourceBuilder.EventSource(Owin.IAppBuilder,System.String)">EventSource Method</h3>
         <blockquote id="M:OwinUtils.EventSourceBuilder.EventSource(Owin.IAppBuilder,System.String):member">
           <div class="msummary">
-            <span class="NotEntered">Documentation for this section has not yet been entered.</span>
-          </div>
+            Stream events back to the client keeping the connection open (HTML5 EventSource)
+            </div>
           <h2>Syntax</h2>
           <div class="Signature">public static <a href="javascript:alert(&quot;Documentation not found.&quot;)">Owin.IAppBuilder</a> <b>EventSource</b> (<i>this</i> <a href="javascript:alert(&quot;Documentation not found.&quot;)">Owin.IAppBuilder</a> iab, <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.String">string</a> environmentKey)</div>
           <h4 class="Subsection">Parameters</h4>
@@ -264,28 +266,25 @@
               <dt>
                 <i>iab</i>
               </dt>
-              <dd>
-                <span class="NotEntered">Documentation for this section has not yet been entered.</span>
-              </dd>
+              <dd>The app builder being extended</dd>
               <dt>
                 <i>environmentKey</i>
               </dt>
-              <dd>
-                <span class="NotEntered">Documentation for this section has not yet been entered.</span>
-              </dd>
+              <dd>The Key to use when adding the IEventStream to the Owin Environment</dd>
             </dl>
           </blockquote>
           <h4 class="Subsection">Returns</h4>
-          <blockquote class="SubsectionBox" id="M:OwinUtils.EventSourceBuilder.EventSource(Owin.IAppBuilder,System.String):Returns">
-            <span class="NotEntered">Documentation for this section has not yet been entered.</span>
-          </blockquote>
+          <blockquote class="SubsectionBox" id="M:OwinUtils.EventSourceBuilder.EventSource(Owin.IAppBuilder,System.String):Returns">this</blockquote>
           <h2 class="Section">Remarks</h2>
           <div class="SectionBox" id="M:OwinUtils.EventSourceBuilder.EventSource(Owin.IAppBuilder,System.String):Remarks">
-            <span class="NotEntered">Documentation for this section has not yet been entered.</span>
-          </div>
+            Inbound: Inserts an IEvenStream object into the Owin Environment using the key passed
+            to the connstructor. See IEventStream for details on use.
+            Outbound: Sets HTML5 EventSource headers on the response. Whilst the IEventStream is open
+            Data written to it will be added to the body.
+            </div>
           <h2 class="Section">Requirements</h2>
           <div class="SectionBox" id="M:OwinUtils.EventSourceBuilder.EventSource(Owin.IAppBuilder,System.String):Version Information">
-            <b>Namespace: </b>OwinUtils<br /><b>Assembly: </b>OwinUtils (in OwinUtils.dll)<br /><b>Assembly Versions: </b>0.1.5460.39984, 0.1.5460.40938, 0.1.5460.40958, 0.1.5460.41009, 0.1.5460.41157, 0.1.5460.42807, 0.1.5460.43149, 0.1.5461.25419</div>
+            <b>Namespace: </b>OwinUtils<br /><b>Assembly: </b>OwinUtils (in OwinUtils.dll)<br /><b>Assembly Versions: </b>0.1.0.0</div>
           <hr size="1" />
         </blockquote>
       </div>
