@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using OwinUtils;
 using Owin;
 using Microsoft.Owin;
