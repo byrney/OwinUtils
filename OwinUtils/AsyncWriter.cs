@@ -1,10 +1,11 @@
-﻿using System;
+﻿
+using System;
 using System.IO;
 using System.Threading.Tasks;
 
 namespace OwinUtils
 {
-    class AsyncWriter
+    public class AsyncWriter
     {
         Task currentWrite;
         Object currentLock = new object();
@@ -61,7 +62,7 @@ namespace OwinUtils
             }
         }
 
-        public Task WriteAndFlushAsync(string message)
+        public Task WriteAsync(string message)
         {
             Func<Task, Task> writeFunc = t => writer.WriteAsync(message);
             lock (currentLock) {
@@ -70,6 +71,14 @@ namespace OwinUtils
                 } else {
                     currentWrite = currentWrite.ContinueWith(writeFunc, OnSuccess);
                 }
+                return currentWrite;
+            }
+        }
+
+        public Task WriteAndFlushAsync(string message)
+        {
+            lock (currentLock) {
+                currentWrite = WriteAsync(message);
                 currentWrite.ContinueWith(OnError, OnFaulted).ContinueWith(FlushFunc, OnSuccess);
                 return currentWrite;
             }

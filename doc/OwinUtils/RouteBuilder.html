@@ -241,14 +241,7 @@
                 <td colspan="2">
                   <b>
                     <a href="#M:OwinUtils.RouteBuilder.Branch(Owin.IAppBuilder,System.String,System.Action{Owin.IAppBuilder})">Branch</a>
-                  </b>(<i>this</i> <a href="javascript:alert(&quot;Documentation not found.&quot;)">Owin.IAppBuilder</a>, <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.String">string</a>, <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.Action`1">Action&lt;Owin.IAppBuilder&gt;</a>)<nobr> : <a href="javascript:alert(&quot;Documentation not found.&quot;)">Owin.IAppBuilder</a></nobr><blockquote>
-            Creates a branch in the pipeline. If the inbound request matches "template"
-            then the midlewares defined by <i>branchBuilder</i> will be called. Any parameters
-            extracted by the template will be added to RouteParams for use within the branch.
-            The BasePath and Path variables in the owin Environment will be adjusted and then restored
-            when the branch is complete
-            If the template is not matched this does nothing and the middleware after this branch will be called
-            </blockquote></td>
+                  </b>(<i>this</i> <a href="javascript:alert(&quot;Documentation not found.&quot;)">Owin.IAppBuilder</a>, <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.String">string</a>, <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.Action`1">Action&lt;Owin.IAppBuilder&gt;</a>)<nobr> : <a href="javascript:alert(&quot;Documentation not found.&quot;)">Owin.IAppBuilder</a></nobr><blockquote><span class="NotEntered">Documentation for this section has not yet been entered.</span></blockquote></td>
               </tr>
               <tr valign="top">
                 <td>
@@ -416,30 +409,31 @@
         <h3 id="M:OwinUtils.RouteBuilder.Branch(Owin.IAppBuilder,System.String,System.Action{Owin.IAppBuilder})">Branch Method</h3>
         <blockquote id="M:OwinUtils.RouteBuilder.Branch(Owin.IAppBuilder,System.String,System.Action{Owin.IAppBuilder}):member">
           <div class="msummary">
-            Creates a branch in the pipeline. If the inbound request matches "template"
-            then the midlewares defined by <i>branchBuilder</i> will be called. Any parameters
-            extracted by the template will be added to RouteParams for use within the branch.
-            The BasePath and Path variables in the owin Environment will be adjusted and then restored
-            when the branch is complete
-            If the template is not matched this does nothing and the middleware after this branch will be called
-            </div>
+            <span class="NotEntered">Documentation for this section has not yet been entered.</span>
+          </div>
           <h2>Syntax</h2>
-          <div class="Signature">public static <a href="javascript:alert(&quot;Documentation not found.&quot;)">Owin.IAppBuilder</a> <b>Branch</b> (<i>this</i> <a href="javascript:alert(&quot;Documentation not found.&quot;)">Owin.IAppBuilder</a> app, <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.String">string</a> template, <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.Action`1">Action&lt;Owin.IAppBuilder&gt;</a> branchBuilder)</div>
+          <div class="Signature">public static <a href="javascript:alert(&quot;Documentation not found.&quot;)">Owin.IAppBuilder</a> <b>Branch</b> (<i>this</i> <a href="javascript:alert(&quot;Documentation not found.&quot;)">Owin.IAppBuilder</a> iab, <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.String">string</a> template, <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.Action`1">Action&lt;Owin.IAppBuilder&gt;</a> branchBuilder)</div>
           <h4 class="Subsection">Parameters</h4>
           <blockquote class="SubsectionBox" id="M:OwinUtils.RouteBuilder.Branch(Owin.IAppBuilder,System.String,System.Action{Owin.IAppBuilder}):Parameters">
             <dl>
               <dt>
                 <i>iab</i>
               </dt>
-              <dd>The appbuilder being extended (this)</dd>
+              <dd>
+                <span class="NotEntered">Documentation for this section has not yet been entered.</span>
+              </dd>
               <dt>
                 <i>template</i>
               </dt>
-              <dd>A string defining the RouteTemplate to match.</dd>
+              <dd>
+                <span class="NotEntered">Documentation for this section has not yet been entered.</span>
+              </dd>
               <dt>
                 <i>branchBuilder</i>
               </dt>
-              <dd>An Action which adds middleware to this branch</dd>
+              <dd>
+                <span class="NotEntered">Documentation for this section has not yet been entered.</span>
+              </dd>
             </dl>
           </blockquote>
           <h4 class="Subsection">Returns</h4>
@@ -464,7 +458,7 @@
             other middleware ahead of this) will be passed when callee is Invoked.
             </div>
           <h2>Syntax</h2>
-          <div class="Signature">public static <a href="javascript:alert(&quot;Documentation not found.&quot;)">Owin.IAppBuilder</a> <b>Route</b> (<i>this</i> <a href="javascript:alert(&quot;Documentation not found.&quot;)">Owin.IAppBuilder</a> app, <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.String">string</a> httpMethod, <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.Delegate">Delegate</a> callee, <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.String">string</a> template)</div>
+          <div class="Signature">public static <a href="javascript:alert(&quot;Documentation not found.&quot;)">Owin.IAppBuilder</a> <b>Route</b> (<i>this</i> <a href="javascript:alert(&quot;Documentation not found.&quot;)">Owin.IAppBuilder</a> iab, <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.String">string</a> httpMethod, <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.Delegate">Delegate</a> callee, <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.String">string</a> template)</div>
           <h4 class="Subsection">Parameters</h4>
           <blockquote class="SubsectionBox" id="M:OwinUtils.RouteBuilder.Route(Owin.IAppBuilder,System.String,System.Delegate,System.String):Parameters">
             <dl>
@@ -507,7 +501,7 @@
             and the middleware function <i>routeAction</i> is Invoked
             </div>
           <h2>Syntax</h2>
-          <div class="Signature">public static <a href="javascript:alert(&quot;Documentation not found.&quot;)">Owin.IAppBuilder</a> <b>Route</b> (<i>this</i> <a href="javascript:alert(&quot;Documentation not found.&quot;)">Owin.IAppBuilder</a> app, <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.String">string</a> template, <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.Func`2">Func&lt;IDictionary&lt;string, System.Object&gt;,System.Threading.Tasks.Task&gt;</a> routeAction, <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.String">string</a> httpMethod)</div>
+          <div class="Signature">public static <a href="javascript:alert(&quot;Documentation not found.&quot;)">Owin.IAppBuilder</a> <b>Route</b> (<i>this</i> <a href="javascript:alert(&quot;Documentation not found.&quot;)">Owin.IAppBuilder</a> iab, <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.String">string</a> template, <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.Func`2">Func&lt;IDictionary&lt;string, System.Object&gt;,System.Threading.Tasks.Task&gt;</a> routeAction, <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.String">string</a> httpMethod)</div>
           <h4 class="Subsection">Parameters</h4>
           <blockquote class="SubsectionBox" id="M:OwinUtils.RouteBuilder.Route(Owin.IAppBuilder,System.String,System.Func{System.Collections.Generic.IDictionary{System.String,System.Object},System.Threading.Tasks.Task},System.String):Parameters">
             <dl>
@@ -548,7 +542,7 @@
             The most general for of Route to call a method on an object when the route is matched
             </div>
           <h2>Syntax</h2>
-          <div class="Signature">public static <a href="javascript:alert(&quot;Documentation not found.&quot;)">Owin.IAppBuilder</a> <b>Route</b> (<i>this</i> <a href="javascript:alert(&quot;Documentation not found.&quot;)">Owin.IAppBuilder</a> app, <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.String">string</a> httpMethod, <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.Object">object</a> callee, <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.String">string</a> methodName, <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.String">string</a> template)</div>
+          <div class="Signature">public static <a href="javascript:alert(&quot;Documentation not found.&quot;)">Owin.IAppBuilder</a> <b>Route</b> (<i>this</i> <a href="javascript:alert(&quot;Documentation not found.&quot;)">Owin.IAppBuilder</a> iab, <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.String">string</a> httpMethod, <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.Object">object</a> callee, <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.String">string</a> methodName, <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.String">string</a> template)</div>
           <h4 class="Subsection">Parameters</h4>
           <blockquote class="SubsectionBox" id="M:OwinUtils.RouteBuilder.Route(Owin.IAppBuilder,System.String,System.Object,System.String,System.String):Parameters">
             <dl>
@@ -762,7 +756,7 @@
             Overload for Route which matches a httpMethod of "DELETE"
             </div>
           <h2>Syntax</h2>
-          <div class="Signature">public static <a href="javascript:alert(&quot;Documentation not found.&quot;)">Owin.IAppBuilder</a> <b>RouteDel</b> (<i>this</i> <a href="javascript:alert(&quot;Documentation not found.&quot;)">Owin.IAppBuilder</a> app, <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.Delegate">Delegate</a> callee, <b>params</b> <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.String">string</a>[] templates)</div>
+          <div class="Signature">public static <a href="javascript:alert(&quot;Documentation not found.&quot;)">Owin.IAppBuilder</a> <b>RouteDel</b> (<i>this</i> <a href="javascript:alert(&quot;Documentation not found.&quot;)">Owin.IAppBuilder</a> iab, <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.Delegate">Delegate</a> callee, <b>params</b> <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.String">string</a>[] templates)</div>
           <h4 class="Subsection">Parameters</h4>
           <blockquote class="SubsectionBox" id="M:OwinUtils.RouteBuilder.RouteDel(Owin.IAppBuilder,System.Delegate,System.String[]):Parameters">
             <dl>
@@ -801,7 +795,7 @@
             Overload for Route which matches a httpMethod of "GET"
             </div>
           <h2>Syntax</h2>
-          <div class="Signature">public static <a href="javascript:alert(&quot;Documentation not found.&quot;)">Owin.IAppBuilder</a> <b>RouteGet</b> (<i>this</i> <a href="javascript:alert(&quot;Documentation not found.&quot;)">Owin.IAppBuilder</a> app, <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.Delegate">Delegate</a> callee, <b>params</b> <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.String">string</a>[] templates)</div>
+          <div class="Signature">public static <a href="javascript:alert(&quot;Documentation not found.&quot;)">Owin.IAppBuilder</a> <b>RouteGet</b> (<i>this</i> <a href="javascript:alert(&quot;Documentation not found.&quot;)">Owin.IAppBuilder</a> iab, <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.Delegate">Delegate</a> callee, <b>params</b> <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.String">string</a>[] templates)</div>
           <h4 class="Subsection">Parameters</h4>
           <blockquote class="SubsectionBox" id="M:OwinUtils.RouteBuilder.RouteGet(Owin.IAppBuilder,System.Delegate,System.String[]):Parameters">
             <dl>
@@ -877,7 +871,7 @@
             Overload for Route which matches a httpMethod of "POST"
             </div>
           <h2>Syntax</h2>
-          <div class="Signature">public static <a href="javascript:alert(&quot;Documentation not found.&quot;)">Owin.IAppBuilder</a> <b>RoutePost</b> (<i>this</i> <a href="javascript:alert(&quot;Documentation not found.&quot;)">Owin.IAppBuilder</a> app, <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.Delegate">Delegate</a> callee, <b>params</b> <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.String">string</a>[] templates)</div>
+          <div class="Signature">public static <a href="javascript:alert(&quot;Documentation not found.&quot;)">Owin.IAppBuilder</a> <b>RoutePost</b> (<i>this</i> <a href="javascript:alert(&quot;Documentation not found.&quot;)">Owin.IAppBuilder</a> iab, <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.Delegate">Delegate</a> callee, <b>params</b> <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.String">string</a>[] templates)</div>
           <h4 class="Subsection">Parameters</h4>
           <blockquote class="SubsectionBox" id="M:OwinUtils.RouteBuilder.RoutePost(Owin.IAppBuilder,System.Delegate,System.String[]):Parameters">
             <dl>
