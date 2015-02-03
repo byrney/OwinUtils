@@ -68,6 +68,7 @@
     </Compile>
     <Compile Include="RouteBuilder.cs" />
     <Compile Include="RouteReturn.cs" />
+    <Compile Include="BatchAsyncWriter.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

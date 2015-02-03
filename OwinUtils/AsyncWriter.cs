@@ -49,6 +49,11 @@ namespace OwinUtils
             }
         }
 
+        public Task Finished()
+        {
+            return currentWrite;
+        }
+
         public Task Flush()
         {
             lock(currentLock) {

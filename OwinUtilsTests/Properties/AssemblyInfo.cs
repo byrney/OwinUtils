@@ -3,12 +3,12 @@ using System.Runtime.CompilerServices;
 
 // Information about this assembly is defined by the following attributes. 
 // Change them to the values specific to your project.
-[assembly: AssemblyTitle ("OwinSession.Unit")]
+[assembly: AssemblyTitle ("OwinUtils.UnitTest")]
 [assembly: AssemblyDescription ("")]
 [assembly: AssemblyConfiguration ("")]
-[assembly: AssemblyCompany ("")]
+[assembly: AssemblyCompany ("TPWC Ltd")]
 [assembly: AssemblyProduct ("")]
-[assembly: AssemblyCopyright ("vagrant")]
+[assembly: AssemblyCopyright ("TPWC Ltd")]
 [assembly: AssemblyTrademark ("")]
 [assembly: AssemblyCulture ("")]
 // The assembly version has the format "{Major}.{Minor}.{Build}.{Revision}".

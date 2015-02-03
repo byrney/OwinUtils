@@ -73,6 +73,7 @@
     <Compile Include="TypeConverterTests.cs" />
     <Compile Include="AsyncWriterTests.cs" />
     <Compile Include="JsonStream.cs" />
+    <Compile Include="BatchAsyncWriterTests.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
