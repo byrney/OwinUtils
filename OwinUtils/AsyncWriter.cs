@@ -12,10 +12,13 @@ namespace OwinUtils
         StreamWriter writer;
         Func<Task, Task> FlushFunc;
         Func<Exception, bool> errorHandler;
+        int pending = 0;
+        int maxPending = 10;
 
         public AsyncWriter(Stream dest, Func<Exception, bool> errorHandler)
         {
             this.writer = new StreamWriter(dest);
+          //  this.writer.AutoFlush = true;
             this.currentWrite = null;
             this.FlushFunc = FlushIfNoWritesPending;
             this.errorHandler = errorHandler;
@@ -54,6 +57,30 @@ namespace OwinUtils
             return currentWrite;
         }
 
+        public static Task Then(Task first, Func<Task> next)
+        {
+            var tcs = new TaskCompletionSource<object>();
+            first.ContinueWith(_ =>
+            {
+                if (first.IsFaulted) tcs.TrySetException(first.Exception.InnerExceptions);
+                else if (first.IsCanceled) tcs.TrySetCanceled();
+                else
+                {
+                    try
+                    {
+                        next().ContinueWith(t =>
+                        {
+                            if (t.IsFaulted) tcs.TrySetException(t.Exception.InnerExceptions);
+                            else if (t.IsCanceled) tcs.TrySetCanceled();
+                            else tcs.TrySetResult(null);
+                        }, TaskContinuationOptions.ExecuteSynchronously);
+                    }
+                    catch (Exception exc) { tcs.TrySetException(exc); }
+                }
+            }, TaskContinuationOptions.ExecuteSynchronously);
+            return tcs.Task;
+        }
+
         public Task Flush()
         {
             lock(currentLock) {
@@ -67,14 +94,24 @@ namespace OwinUtils
             }
         }
 
+        private Task WriteMore(Task prev, object state)
+        {
+            return writer.WriteAsync((string)state);
+        }
+
         public Task WriteAsync(string message)
         {
+            Func<Task> more = () => writer.WriteAsync(message);
             lock (currentLock) {
+                if(this.pending > this.maxPending) {
+                    currentWrite.Wait();
+                }
                 if(currentWrite == null || currentWrite.IsCompleted) {
+                    pending = 0;
                     currentWrite = writer.WriteAsync(message);
                 } else {
-                    var nextWrite = currentWrite.ContinueWith(_ => writer.WriteAsync(message), OnSuccess);
-                    currentWrite = nextWrite;
+                    pending += 1;
+                    currentWrite = Then(currentWrite, more);
                 }
                 return currentWrite;
             }
