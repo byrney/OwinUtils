@@ -42,7 +42,7 @@ namespace OwinUtils
                         .ContinueWith(OnError, OnFaulted)
                         ;
                 } else {
-                    currentWrite.ContinueWith(FlushFunc, OnSuccess);
+                    currentWrite = currentWrite.ContinueWith(FlushFunc, OnSuccess);
                 }
                 return currentWrite;
 
@@ -60,7 +60,7 @@ namespace OwinUtils
                 if(currentWrite == null || currentWrite.IsCompleted) {
                     currentWrite = writer.FlushAsync();
                 } else {
-                    currentWrite.ContinueWith(_ => writer.Flush());
+                    currentWrite = currentWrite.ContinueWith(_ => writer.Flush());
                 }
                 currentWrite.ContinueWith(OnError, OnFaulted);
                 return currentWrite;
@@ -69,12 +69,12 @@ namespace OwinUtils
 
         public Task WriteAsync(string message)
         {
-            Func<Task, Task> writeFunc = t => writer.WriteAsync(message);
             lock (currentLock) {
                 if(currentWrite == null || currentWrite.IsCompleted) {
-                    currentWrite = writeFunc(null);
+                    currentWrite = writer.WriteAsync(message);
                 } else {
-                    currentWrite = currentWrite.ContinueWith(writeFunc, OnSuccess);
+                    var nextWrite = currentWrite.ContinueWith(_ => writer.WriteAsync(message), OnSuccess);
+                    currentWrite = nextWrite;
                 }
                 return currentWrite;
             }
@@ -84,7 +84,7 @@ namespace OwinUtils
         {
             lock (currentLock) {
                 currentWrite = WriteAsync(message);
-                currentWrite.ContinueWith(OnError, OnFaulted).ContinueWith(FlushFunc, OnSuccess);
+                currentWrite = currentWrite.ContinueWith(OnError, OnFaulted).ContinueWith(FlushFunc, OnSuccess);
                 return currentWrite;
             }
         }
