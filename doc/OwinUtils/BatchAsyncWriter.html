@@ -1,6 +1,6 @@
 <html>
   <head>
-    <title>OwinUtils.AsyncWriter</title>
+    <title>OwinUtils.BatchAsyncWriter</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <style>
       a { text-decoration: none }
@@ -190,36 +190,36 @@
       <a href="../index.html">OwinUtils</a> : <a href="index.html">OwinUtils Namespace</a></div>
     <div class="SideBar">
       <p>
-        <a href="#T:OwinUtils.AsyncWriter">Overview</a>
+        <a href="#T:OwinUtils.BatchAsyncWriter">Overview</a>
       </p>
       <p>
-        <a href="#T:OwinUtils.AsyncWriter:Signature">Signature</a>
+        <a href="#T:OwinUtils.BatchAsyncWriter:Signature">Signature</a>
       </p>
       <p>
-        <a href="#T:OwinUtils.AsyncWriter:Docs">Remarks</a>
+        <a href="#T:OwinUtils.BatchAsyncWriter:Docs">Remarks</a>
       </p>
       <p>
         <a href="#Members">Members</a>
       </p>
       <p>
-        <a href="#T:OwinUtils.AsyncWriter:Members">Member Details</a>
+        <a href="#T:OwinUtils.BatchAsyncWriter:Members">Member Details</a>
       </p>
     </div>
-    <h1 class="PageTitle" id="T:OwinUtils.AsyncWriter">AsyncWriter  Class</h1>
-    <p class="Summary" id="T:OwinUtils.AsyncWriter:Summary">
+    <h1 class="PageTitle" id="T:OwinUtils.BatchAsyncWriter">BatchAsyncWriter  Class</h1>
+    <p class="Summary" id="T:OwinUtils.BatchAsyncWriter:Summary">
       <span class="NotEntered">Documentation for this section has not yet been entered.</span>
     </p>
     <div>
       <h2>Syntax</h2>
-      <div class="Signature" id="T:OwinUtils.AsyncWriter:Signature">public class  <b>AsyncWriter</b></div>
+      <div class="Signature" id="T:OwinUtils.BatchAsyncWriter:Signature">public class  <b>BatchAsyncWriter</b></div>
     </div>
-    <div class="Remarks" id="T:OwinUtils.AsyncWriter:Docs">
+    <div class="Remarks" id="T:OwinUtils.BatchAsyncWriter:Docs">
       <h2 class="Section">Remarks</h2>
-      <div class="SectionBox" id="T:OwinUtils.AsyncWriter:Docs:Remarks">
+      <div class="SectionBox" id="T:OwinUtils.BatchAsyncWriter:Docs:Remarks">
         <span class="NotEntered">Documentation for this section has not yet been entered.</span>
       </div>
       <h2 class="Section">Requirements</h2>
-      <div class="SectionBox" id="T:OwinUtils.AsyncWriter:Docs:Version Information">
+      <div class="SectionBox" id="T:OwinUtils.BatchAsyncWriter:Docs:Version Information">
         <b>Namespace: </b>OwinUtils<br /><b>Assembly: </b>OwinUtils (in OwinUtils.dll)<br /><b>Assembly Versions: </b>0.1.0.0</div>
       <h2 class="Section" id="Members">Members</h2>
       <div class="SectionBox" id="_Members">
@@ -239,12 +239,31 @@
                 <td>
                   <div>
                     <b>
-                      <a href="#C:OwinUtils.AsyncWriter(System.IO.Stream,System.Func{System.Exception,System.Boolean})">AsyncWriter</a>
-                    </b>(<a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.IO.Stream">System.IO.Stream</a>, <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.Func`2">Func&lt;Exception, bool&gt;</a>)</div>
+                      <a href="#C:OwinUtils.BatchAsyncWriter(System.IO.Stream,System.Func{System.Exception,System.Boolean},System.Int32)">BatchAsyncWriter</a>
+                    </b>(<a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.IO.Stream">System.IO.Stream</a>, <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.Func`2">Func&lt;Exception, bool&gt;</a>, <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.Int32">int</a>)</div>
                 </td>
                 <td>
                   <span class="NotEntered">Documentation for this section has not yet been entered.</span>
                 </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <h2 class="Section">Public Properties</h2>
+        <div class="SectionBox" id="Public Properties">
+          <div class="SubsectionBox">
+            <table class="TypeMembers">
+              <tr valign="top">
+                <td>[read-only]<div></div></td>
+                <td>
+                  <b>
+                    <a href="#P:OwinUtils.BatchAsyncWriter.Remaining">Remaining</a>
+                  </b>
+                </td>
+                <td>
+                  <i>
+                    <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.Int32">int</a>
+                  </i>. <span class="NotEntered">Documentation for this section has not yet been entered.</span></td>
               </tr>
             </table>
           </div>
@@ -260,7 +279,7 @@
                 </td>
                 <td colspan="2">
                   <b>
-                    <a href="#M:OwinUtils.AsyncWriter.Finished()">Finished</a>
+                    <a href="#M:OwinUtils.BatchAsyncWriter.Finished()">Finished</a>
                   </b>()<nobr> : <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.Threading.Tasks.Task">System.Threading.Tasks.Task</a></nobr><blockquote><span class="NotEntered">Documentation for this section has not yet been entered.</span></blockquote></td>
               </tr>
               <tr valign="top">
@@ -270,7 +289,7 @@
                 </td>
                 <td colspan="2">
                   <b>
-                    <a href="#M:OwinUtils.AsyncWriter.Flush()">Flush</a>
+                    <a href="#M:OwinUtils.BatchAsyncWriter.Flush()">Flush</a>
                   </b>()<nobr> : <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.Threading.Tasks.Task">System.Threading.Tasks.Task</a></nobr><blockquote><span class="NotEntered">Documentation for this section has not yet been entered.</span></blockquote></td>
               </tr>
               <tr valign="top">
@@ -280,27 +299,7 @@
                 </td>
                 <td colspan="2">
                   <b>
-                    <a href="#M:OwinUtils.AsyncWriter.FlushIfNoWritesPending(System.Threading.Tasks.Task)">FlushIfNoWritesPending</a>
-                  </b>(<a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.Threading.Tasks.Task">System.Threading.Tasks.Task</a>)<nobr> : <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.Threading.Tasks.Task">System.Threading.Tasks.Task</a></nobr><blockquote><span class="NotEntered">Documentation for this section has not yet been entered.</span></blockquote></td>
-              </tr>
-              <tr valign="top">
-                <td>
-                  <div>
-                  </div>
-                </td>
-                <td colspan="2">
-                  <b>
-                    <a href="#M:OwinUtils.AsyncWriter.WriteAndFlushAsync(System.String)">WriteAndFlushAsync</a>
-                  </b>(<a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.String">string</a>)<nobr> : <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.Threading.Tasks.Task">System.Threading.Tasks.Task</a></nobr><blockquote><span class="NotEntered">Documentation for this section has not yet been entered.</span></blockquote></td>
-              </tr>
-              <tr valign="top">
-                <td>
-                  <div>
-                  </div>
-                </td>
-                <td colspan="2">
-                  <b>
-                    <a href="#M:OwinUtils.AsyncWriter.WriteAsync(System.String)">WriteAsync</a>
+                    <a href="#M:OwinUtils.BatchAsyncWriter.WriteAsync(System.String)">WriteAsync</a>
                   </b>(<a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.String">string</a>)<nobr> : <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.Threading.Tasks.Task">System.Threading.Tasks.Task</a></nobr><blockquote><span class="NotEntered">Documentation for this section has not yet been entered.</span></blockquote></td>
               </tr>
             </table>
@@ -308,18 +307,18 @@
         </div>
       </div>
     </div>
-    <div class="Members" id="T:OwinUtils.AsyncWriter:Members">
+    <div class="Members" id="T:OwinUtils.BatchAsyncWriter:Members">
       <h2 class="Section" id="MemberDetails">Member Details</h2>
       <div class="SectionBox" id="_MemberDetails">
-        <h3 id="C:OwinUtils.AsyncWriter(System.IO.Stream,System.Func{System.Exception,System.Boolean})">AsyncWriter Constructor</h3>
-        <blockquote id="C:OwinUtils.AsyncWriter(System.IO.Stream,System.Func{System.Exception,System.Boolean}):member">
+        <h3 id="C:OwinUtils.BatchAsyncWriter(System.IO.Stream,System.Func{System.Exception,System.Boolean},System.Int32)">BatchAsyncWriter Constructor</h3>
+        <blockquote id="C:OwinUtils.BatchAsyncWriter(System.IO.Stream,System.Func{System.Exception,System.Boolean},System.Int32):member">
           <div class="msummary">
             <span class="NotEntered">Documentation for this section has not yet been entered.</span>
           </div>
           <h2>Syntax</h2>
-          <div class="Signature">public  <b>AsyncWriter</b> (<a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.IO.Stream">System.IO.Stream</a> dest, <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.Func`2">Func&lt;Exception, bool&gt;</a> errorHandler)</div>
+          <div class="Signature">public  <b>BatchAsyncWriter</b> (<a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.IO.Stream">System.IO.Stream</a> dest, <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.Func`2">Func&lt;Exception, bool&gt;</a> errorHandler, <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.Int32">int</a> batchSize)</div>
           <h4 class="Subsection">Parameters</h4>
-          <blockquote class="SubsectionBox" id="C:OwinUtils.AsyncWriter(System.IO.Stream,System.Func{System.Exception,System.Boolean}):Parameters">
+          <blockquote class="SubsectionBox" id="C:OwinUtils.BatchAsyncWriter(System.IO.Stream,System.Func{System.Exception,System.Boolean},System.Int32):Parameters">
             <dl>
               <dt>
                 <i>dest</i>
@@ -333,128 +332,92 @@
               <dd>
                 <span class="NotEntered">Documentation for this section has not yet been entered.</span>
               </dd>
+              <dt>
+                <i>batchSize</i>
+              </dt>
+              <dd>
+                <span class="NotEntered">Documentation for this section has not yet been entered.</span>
+              </dd>
             </dl>
           </blockquote>
           <h2 class="Section">Remarks</h2>
-          <div class="SectionBox" id="C:OwinUtils.AsyncWriter(System.IO.Stream,System.Func{System.Exception,System.Boolean}):Remarks">
+          <div class="SectionBox" id="C:OwinUtils.BatchAsyncWriter(System.IO.Stream,System.Func{System.Exception,System.Boolean},System.Int32):Remarks">
             <span class="NotEntered">Documentation for this section has not yet been entered.</span>
           </div>
           <h2 class="Section">Requirements</h2>
-          <div class="SectionBox" id="C:OwinUtils.AsyncWriter(System.IO.Stream,System.Func{System.Exception,System.Boolean}):Version Information">
+          <div class="SectionBox" id="C:OwinUtils.BatchAsyncWriter(System.IO.Stream,System.Func{System.Exception,System.Boolean},System.Int32):Version Information">
             <b>Namespace: </b>OwinUtils<br /><b>Assembly: </b>OwinUtils (in OwinUtils.dll)<br /><b>Assembly Versions: </b>0.1.0.0</div>
           <hr size="1" />
         </blockquote>
-        <h3 id="M:OwinUtils.AsyncWriter.Finished()">Finished Method</h3>
-        <blockquote id="M:OwinUtils.AsyncWriter.Finished():member">
+        <h3 id="M:OwinUtils.BatchAsyncWriter.Finished()">Finished Method</h3>
+        <blockquote id="M:OwinUtils.BatchAsyncWriter.Finished():member">
           <div class="msummary">
             <span class="NotEntered">Documentation for this section has not yet been entered.</span>
           </div>
           <h2>Syntax</h2>
           <div class="Signature">public <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.Threading.Tasks.Task">System.Threading.Tasks.Task</a> <b>Finished</b> ()</div>
           <h4 class="Subsection">Returns</h4>
-          <blockquote class="SubsectionBox" id="M:OwinUtils.AsyncWriter.Finished():Returns">
+          <blockquote class="SubsectionBox" id="M:OwinUtils.BatchAsyncWriter.Finished():Returns">
             <span class="NotEntered">Documentation for this section has not yet been entered.</span>
           </blockquote>
           <h2 class="Section">Remarks</h2>
-          <div class="SectionBox" id="M:OwinUtils.AsyncWriter.Finished():Remarks">
+          <div class="SectionBox" id="M:OwinUtils.BatchAsyncWriter.Finished():Remarks">
             <span class="NotEntered">Documentation for this section has not yet been entered.</span>
           </div>
           <h2 class="Section">Requirements</h2>
-          <div class="SectionBox" id="M:OwinUtils.AsyncWriter.Finished():Version Information">
+          <div class="SectionBox" id="M:OwinUtils.BatchAsyncWriter.Finished():Version Information">
             <b>Namespace: </b>OwinUtils<br /><b>Assembly: </b>OwinUtils (in OwinUtils.dll)<br /><b>Assembly Versions: </b>0.1.0.0</div>
           <hr size="1" />
         </blockquote>
-        <h3 id="M:OwinUtils.AsyncWriter.Flush()">Flush Method</h3>
-        <blockquote id="M:OwinUtils.AsyncWriter.Flush():member">
+        <h3 id="M:OwinUtils.BatchAsyncWriter.Flush()">Flush Method</h3>
+        <blockquote id="M:OwinUtils.BatchAsyncWriter.Flush():member">
           <div class="msummary">
             <span class="NotEntered">Documentation for this section has not yet been entered.</span>
           </div>
           <h2>Syntax</h2>
           <div class="Signature">public <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.Threading.Tasks.Task">System.Threading.Tasks.Task</a> <b>Flush</b> ()</div>
           <h4 class="Subsection">Returns</h4>
-          <blockquote class="SubsectionBox" id="M:OwinUtils.AsyncWriter.Flush():Returns">
+          <blockquote class="SubsectionBox" id="M:OwinUtils.BatchAsyncWriter.Flush():Returns">
             <span class="NotEntered">Documentation for this section has not yet been entered.</span>
           </blockquote>
           <h2 class="Section">Remarks</h2>
-          <div class="SectionBox" id="M:OwinUtils.AsyncWriter.Flush():Remarks">
+          <div class="SectionBox" id="M:OwinUtils.BatchAsyncWriter.Flush():Remarks">
             <span class="NotEntered">Documentation for this section has not yet been entered.</span>
           </div>
           <h2 class="Section">Requirements</h2>
-          <div class="SectionBox" id="M:OwinUtils.AsyncWriter.Flush():Version Information">
+          <div class="SectionBox" id="M:OwinUtils.BatchAsyncWriter.Flush():Version Information">
             <b>Namespace: </b>OwinUtils<br /><b>Assembly: </b>OwinUtils (in OwinUtils.dll)<br /><b>Assembly Versions: </b>0.1.0.0</div>
           <hr size="1" />
         </blockquote>
-        <h3 id="M:OwinUtils.AsyncWriter.FlushIfNoWritesPending(System.Threading.Tasks.Task)">FlushIfNoWritesPending Method</h3>
-        <blockquote id="M:OwinUtils.AsyncWriter.FlushIfNoWritesPending(System.Threading.Tasks.Task):member">
+        <h3 id="P:OwinUtils.BatchAsyncWriter.Remaining">Remaining Property</h3>
+        <blockquote id="P:OwinUtils.BatchAsyncWriter.Remaining:member">
           <div class="msummary">
             <span class="NotEntered">Documentation for this section has not yet been entered.</span>
           </div>
           <h2>Syntax</h2>
-          <div class="Signature">public <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.Threading.Tasks.Task">System.Threading.Tasks.Task</a> <b>FlushIfNoWritesPending</b> (<a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.Threading.Tasks.Task">System.Threading.Tasks.Task</a> ignored)</div>
-          <h4 class="Subsection">Parameters</h4>
-          <blockquote class="SubsectionBox" id="M:OwinUtils.AsyncWriter.FlushIfNoWritesPending(System.Threading.Tasks.Task):Parameters">
-            <dl>
-              <dt>
-                <i>ignored</i>
-              </dt>
-              <dd>
-                <span class="NotEntered">Documentation for this section has not yet been entered.</span>
-              </dd>
-            </dl>
-          </blockquote>
-          <h4 class="Subsection">Returns</h4>
-          <blockquote class="SubsectionBox" id="M:OwinUtils.AsyncWriter.FlushIfNoWritesPending(System.Threading.Tasks.Task):Returns">
+          <div class="Signature">public <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.Int32">int</a> <b>Remaining</b>  { get; }</div>
+          <h4 class="Subsection">Value</h4>
+          <blockquote class="SubsectionBox" id="P:OwinUtils.BatchAsyncWriter.Remaining:Value">
             <span class="NotEntered">Documentation for this section has not yet been entered.</span>
           </blockquote>
           <h2 class="Section">Remarks</h2>
-          <div class="SectionBox" id="M:OwinUtils.AsyncWriter.FlushIfNoWritesPending(System.Threading.Tasks.Task):Remarks">
+          <div class="SectionBox" id="P:OwinUtils.BatchAsyncWriter.Remaining:Remarks">
             <span class="NotEntered">Documentation for this section has not yet been entered.</span>
           </div>
           <h2 class="Section">Requirements</h2>
-          <div class="SectionBox" id="M:OwinUtils.AsyncWriter.FlushIfNoWritesPending(System.Threading.Tasks.Task):Version Information">
+          <div class="SectionBox" id="P:OwinUtils.BatchAsyncWriter.Remaining:Version Information">
             <b>Namespace: </b>OwinUtils<br /><b>Assembly: </b>OwinUtils (in OwinUtils.dll)<br /><b>Assembly Versions: </b>0.1.0.0</div>
           <hr size="1" />
         </blockquote>
-        <h3 id="M:OwinUtils.AsyncWriter.WriteAndFlushAsync(System.String)">WriteAndFlushAsync Method</h3>
-        <blockquote id="M:OwinUtils.AsyncWriter.WriteAndFlushAsync(System.String):member">
-          <div class="msummary">
-            <span class="NotEntered">Documentation for this section has not yet been entered.</span>
-          </div>
-          <h2>Syntax</h2>
-          <div class="Signature">public <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.Threading.Tasks.Task">System.Threading.Tasks.Task</a> <b>WriteAndFlushAsync</b> (<a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.String">string</a> message)</div>
-          <h4 class="Subsection">Parameters</h4>
-          <blockquote class="SubsectionBox" id="M:OwinUtils.AsyncWriter.WriteAndFlushAsync(System.String):Parameters">
-            <dl>
-              <dt>
-                <i>message</i>
-              </dt>
-              <dd>
-                <span class="NotEntered">Documentation for this section has not yet been entered.</span>
-              </dd>
-            </dl>
-          </blockquote>
-          <h4 class="Subsection">Returns</h4>
-          <blockquote class="SubsectionBox" id="M:OwinUtils.AsyncWriter.WriteAndFlushAsync(System.String):Returns">
-            <span class="NotEntered">Documentation for this section has not yet been entered.</span>
-          </blockquote>
-          <h2 class="Section">Remarks</h2>
-          <div class="SectionBox" id="M:OwinUtils.AsyncWriter.WriteAndFlushAsync(System.String):Remarks">
-            <span class="NotEntered">Documentation for this section has not yet been entered.</span>
-          </div>
-          <h2 class="Section">Requirements</h2>
-          <div class="SectionBox" id="M:OwinUtils.AsyncWriter.WriteAndFlushAsync(System.String):Version Information">
-            <b>Namespace: </b>OwinUtils<br /><b>Assembly: </b>OwinUtils (in OwinUtils.dll)<br /><b>Assembly Versions: </b>0.1.0.0</div>
-          <hr size="1" />
-        </blockquote>
-        <h3 id="M:OwinUtils.AsyncWriter.WriteAsync(System.String)">WriteAsync Method</h3>
-        <blockquote id="M:OwinUtils.AsyncWriter.WriteAsync(System.String):member">
+        <h3 id="M:OwinUtils.BatchAsyncWriter.WriteAsync(System.String)">WriteAsync Method</h3>
+        <blockquote id="M:OwinUtils.BatchAsyncWriter.WriteAsync(System.String):member">
           <div class="msummary">
             <span class="NotEntered">Documentation for this section has not yet been entered.</span>
           </div>
           <h2>Syntax</h2>
           <div class="Signature">public <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.Threading.Tasks.Task">System.Threading.Tasks.Task</a> <b>WriteAsync</b> (<a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.String">string</a> message)</div>
           <h4 class="Subsection">Parameters</h4>
-          <blockquote class="SubsectionBox" id="M:OwinUtils.AsyncWriter.WriteAsync(System.String):Parameters">
+          <blockquote class="SubsectionBox" id="M:OwinUtils.BatchAsyncWriter.WriteAsync(System.String):Parameters">
             <dl>
               <dt>
                 <i>message</i>
@@ -465,15 +428,15 @@
             </dl>
           </blockquote>
           <h4 class="Subsection">Returns</h4>
-          <blockquote class="SubsectionBox" id="M:OwinUtils.AsyncWriter.WriteAsync(System.String):Returns">
+          <blockquote class="SubsectionBox" id="M:OwinUtils.BatchAsyncWriter.WriteAsync(System.String):Returns">
             <span class="NotEntered">Documentation for this section has not yet been entered.</span>
           </blockquote>
           <h2 class="Section">Remarks</h2>
-          <div class="SectionBox" id="M:OwinUtils.AsyncWriter.WriteAsync(System.String):Remarks">
+          <div class="SectionBox" id="M:OwinUtils.BatchAsyncWriter.WriteAsync(System.String):Remarks">
             <span class="NotEntered">Documentation for this section has not yet been entered.</span>
           </div>
           <h2 class="Section">Requirements</h2>
-          <div class="SectionBox" id="M:OwinUtils.AsyncWriter.WriteAsync(System.String):Version Information">
+          <div class="SectionBox" id="M:OwinUtils.BatchAsyncWriter.WriteAsync(System.String):Version Information">
             <b>Namespace: </b>OwinUtils<br /><b>Assembly: </b>OwinUtils (in OwinUtils.dll)<br /><b>Assembly Versions: </b>0.1.0.0</div>
           <hr size="1" />
         </blockquote>

@@ -68,6 +68,26 @@ namespace OwinUtilsTests
             error.Invoke(new InvalidCastException());
             Assert.AreEqual(true, errorThrown);
         }
+
+        [Test]
+        public void TestLotsOfWrites()
+        {
+            Func<Exception, bool> error = e => {
+                Assert.Fail("Should not reach this.");
+                return false;
+            };
+            var ms = new FileStream("./BigFile.txt", FileMode.Append);
+            var aw = new AsyncWriter(ms, error);
+            var message1 = "A message";
+            var message2 = "Another message";
+            var expected = Encoding.UTF8.GetBytes(message1);
+            string chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            for (int i = 50000; i > 0; i -= 1) {
+                string repeating = new string(chars[i % chars.Length], i);
+                aw.WriteAsync(repeating);
+            }
+
+        }
     }
 }
 
