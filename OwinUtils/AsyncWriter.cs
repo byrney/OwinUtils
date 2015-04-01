@@ -2,23 +2,24 @@
 using System;
 using System.IO;
 using System.Threading.Tasks;
+using System.Text;
 
 namespace OwinUtils
 {
-    public class AsyncWriter
+    public class AsyncWriter : IDisposable
     {
         Task currentWrite;
         Object currentLock = new object();
         StreamWriter writer;
-        Func<Task, Task> FlushFunc;
+        Func<Task> FlushFunc;
         Func<Exception, bool> errorHandler;
         int pending = 0;
         int maxPending = 10;
+        static Encoding utf8unmarked = new UTF8Encoding(false, true);
 
-        public AsyncWriter(Stream dest, Func<Exception, bool> errorHandler)
+        public AsyncWriter(Stream dest, Func<Exception, bool> errorHandler, int bufferSize = 4096)
         {
-            this.writer = new StreamWriter(dest);
-          //  this.writer.AutoFlush = true;
+            this.writer = new StreamWriter(dest, utf8unmarked, bufferSize);
             this.currentWrite = null;
             this.FlushFunc = FlushIfNoWritesPending;
             this.errorHandler = errorHandler;
@@ -29,12 +30,17 @@ namespace OwinUtils
             t.Exception.Handle(errorHandler);
         }
 
+        public void Dispose()
+        {
+            this.writer.Dispose();
+        }
+
         private  const TaskContinuationOptions OnFaulted =
             TaskContinuationOptions.OnlyOnFaulted | TaskContinuationOptions.ExecuteSynchronously;
         private const TaskContinuationOptions OnSuccess =
             TaskContinuationOptions.NotOnFaulted | TaskContinuationOptions.ExecuteSynchronously;
 
-        public Task FlushIfNoWritesPending(Task ignored)
+        public Task FlushIfNoWritesPending()
         {
             lock (currentLock) {
                 if(currentWrite == null) {
@@ -45,10 +51,9 @@ namespace OwinUtils
                         .ContinueWith(OnError, OnFaulted)
                         ;
                 } else {
-                    currentWrite = currentWrite.ContinueWith(FlushFunc, OnSuccess);
+                    currentWrite = Then(currentWrite, FlushFunc);
                 }
                 return currentWrite;
-
             }
         }
 
@@ -62,17 +67,26 @@ namespace OwinUtils
             var tcs = new TaskCompletionSource<object>();
             first.ContinueWith(_ =>
             {
-                if (first.IsFaulted) tcs.TrySetException(first.Exception.InnerExceptions);
-                else if (first.IsCanceled) tcs.TrySetCanceled();
+                if (first.IsFaulted){
+                    tcs.TrySetException(first.Exception.InnerExceptions);
+                }
+                else if (first.IsCanceled){
+                    tcs.TrySetCanceled();
+                }
                 else
                 {
                     try
                     {
-                        next().ContinueWith(t =>
-                        {
-                            if (t.IsFaulted) tcs.TrySetException(t.Exception.InnerExceptions);
-                            else if (t.IsCanceled) tcs.TrySetCanceled();
-                            else tcs.TrySetResult(null);
+                        next().ContinueWith(t =>  {
+                            if (t.IsFaulted) {
+                                tcs.TrySetException(t.Exception.InnerExceptions);
+                            }
+                            else if (t.IsCanceled) {
+                                tcs.TrySetCanceled();
+                            }
+                            else {
+                                tcs.TrySetResult(null);
+                            }
                         }, TaskContinuationOptions.ExecuteSynchronously);
                     }
                     catch (Exception exc) { tcs.TrySetException(exc); }
@@ -121,7 +135,7 @@ namespace OwinUtils
         {
             lock (currentLock) {
                 currentWrite = WriteAsync(message);
-                currentWrite = currentWrite.ContinueWith(OnError, OnFaulted).ContinueWith(FlushFunc, OnSuccess);
+                currentWrite = Then(currentWrite, FlushFunc);
                 return currentWrite;
             }
         }

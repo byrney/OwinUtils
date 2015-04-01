@@ -2,7 +2,7 @@
 <package >
 	<metadata>
 		<id>OwinUtils</id>
-		<version>0.1.13</version>
+		<version>0.1.15</version>
 		<title>Utilities and Middleware components for Owin</title>
 		<authors>Robert Byrne</authors>
 		<owners>Robert Byrne</owners>
@@ -16,7 +16,7 @@
 			Route: Build routes which map headers, cookies, url segments to function
             parameters
 		</summary>
-		<releaseNotes>Add Batch Write Async</releaseNotes>
+		<releaseNotes>Expose StreamWriter buffer size in AsyncWriter</releaseNotes>
 		<copyright>Copyright TPWC Ltd 2014</copyright>
 		<dependencies>
 			<dependency id="Owin" version="1.0" />

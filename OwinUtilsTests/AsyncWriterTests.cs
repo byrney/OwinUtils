@@ -30,6 +30,7 @@ namespace OwinUtilsTests
             var aw = new AsyncWriter(ms, error);
             var message1 = "A message";
             var message2 = "Another message";
+
             var expected = Encoding.UTF8.GetBytes(message1);
             aw.WriteAndFlushAsync(message1);
             aw.WriteAndFlushAsync(message2);
