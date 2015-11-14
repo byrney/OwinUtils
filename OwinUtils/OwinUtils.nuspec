@@ -2,7 +2,7 @@
 <package >
 	<metadata>
 		<id>OwinUtils</id>
-		<version>0.1.15</version>
+		<version>0.1.21</version>
 		<title>Utilities and Middleware components for Owin</title>
 		<authors>Robert Byrne</authors>
 		<owners>Robert Byrne</owners>
@@ -16,11 +16,11 @@
 			Route: Build routes which map headers, cookies, url segments to function
             parameters
 		</summary>
-		<releaseNotes>Expose StreamWriter buffer size in AsyncWriter</releaseNotes>
+		<releaseNotes>Upgrade nuget packages</releaseNotes>
 		<copyright>Copyright TPWC Ltd 2014</copyright>
 		<dependencies>
 			<dependency id="Owin" version="1.0" />
-			<dependency id="Microsoft.Owin" version="3.0.0" />
+			<dependency id="Microsoft.Owin" version="3.0.1" />
 		</dependencies>
 		<references>
 			<reference file='OwinUtils.dll' />
