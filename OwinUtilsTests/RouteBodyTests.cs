@@ -48,7 +48,10 @@ namespace OwinUtilsTests
             var bodyIn = "some text";
             var po = new JObject();
             po["v"] = bodyIn;
-            var t1 = app.HttpClient.PostAsJsonAsync("http://xyz.com/", po);
+            //            var t1 = app.HttpClient.PostAsJsonAsync("http://xyz.com/", po);
+            HttpContent contentPost = new StringContent(po.ToString(), Encoding.UTF8,
+"application/json");
+            var t1 = app.HttpClient.PostAsync("http://xyz.com/", contentPost);
             var response = t1.Result;
 
             // Then: The call succeeds and we get the same data back as we sent
@@ -96,7 +99,9 @@ namespace OwinUtilsTests
             var bodyIn = "some text";
             var po = new JObject();
             po["v"] = bodyIn;
-            var t1 = app.HttpClient.PostAsJsonAsync("http://xyz.com/", po);
+            HttpContent contentPost = new StringContent(po.ToString(), Encoding.UTF8,
+"application/json");
+            var t1 = app.HttpClient.PostAsync("http://xyz.com/", contentPost);
             var response = t1.Result;
 
             // Then: The call succeeds and we get the same data back as we sent
@@ -130,7 +135,9 @@ namespace OwinUtilsTests
             var bodyIn = "some text";
             var po = new JObject();
             po["v"] = bodyIn;
-            var t1 = app.HttpClient.PostAsJsonAsync("http://xyz.com/", po);
+            HttpContent contentPost = new StringContent(po.ToString(), Encoding.UTF8,
+"application/json");
+            var t1 = app.HttpClient.PostAsync("http://xyz.com/", contentPost);
             var response = t1.Result;
 
             // Then: The call succeeds and we get the same data back as we sent

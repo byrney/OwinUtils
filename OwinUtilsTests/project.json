@@ -1,0 +1,27 @@
+{
+    "version": "1.0.0-*",
+    "compilationOptions": {
+        "emitEntryPoint": false
+    },
+
+  "dependencies": {
+    "Newtonsoft.Json": "7.0.1",
+    "Microsoft.AspNet.Http.Abstractions": "1.0.0-rc1-final",
+    "Microsoft.Owin": "3.0.1",
+    "OwinUtils": "1.0.0-*",
+    "NUnit": "2.6.4",
+    "Microsoft.Owin.Testing": "3.0.1",
+  },
+
+    "frameworks": {
+      "net451": {
+        "frameworkAssemblies": {
+          "System.ComponentModel": "",
+          "System.Net.Http.WebRequest": "",
+            "System.Net.Http": ""
+        } 
+      }
+    },
+
+    "runtimes": { "win-anycpu": { } }
+}

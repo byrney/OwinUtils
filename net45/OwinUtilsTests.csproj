@@ -14,7 +14,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug</OutputPath>
+    <OutputPath>OwinUtilsTests\bin\Debug</OutputPath>
     <DefineConstants>DEBUG;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -23,7 +23,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>full</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release</OutputPath>
+    <OutputPath>OwinUtilsTests\bin\Release</OutputPath>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
@@ -56,28 +56,28 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="RouteBodyTests.cs" />
-    <Compile Include="RouteCookieTests.cs" />
-    <Compile Include="EventSourceMessageTests.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RouteQueryTests.cs" />
-    <Compile Include="RoutesTests.cs" />
-    <Compile Include="RouteTemplateTests.cs" />
-    <Compile Include="SessionCookieTests.cs" />
-    <Compile Include="SessionCookieTestApp.cs" />
-    <Compile Include="EventTestApp.cs" />
-    <Compile Include="MiddlewareTestBase.cs" />
-    <Compile Include="EventSourceTests.cs" />
-    <Compile Include="WrapperTests.cs" />
-    <Compile Include="RouteHeaderTests.cs" />
-    <Compile Include="TypeConverterTests.cs" />
-    <Compile Include="AsyncWriterTests.cs" />
-    <Compile Include="JsonStream.cs" />
-    <Compile Include="BatchAsyncWriterTests.cs" />
+    <Compile Include="..\OwinUtilsTests\RouteBodyTests.cs" />
+    <Compile Include="..\OwinUtilsTests\RouteCookieTests.cs" />
+    <Compile Include="..\OwinUtilsTests\EventSourceMessageTests.cs" />
+    <Compile Include="..\OwinUtilsTests\Properties\AssemblyInfo.cs" />
+    <Compile Include="..\OwinUtilsTests\RouteQueryTests.cs" />
+    <Compile Include="..\OwinUtilsTests\RoutesTests.cs" />
+    <Compile Include="..\OwinUtilsTests\RouteTemplateTests.cs" />
+    <Compile Include="..\OwinUtilsTests\SessionCookieTests.cs" />
+    <Compile Include="..\OwinUtilsTests\SessionCookieTestApp.cs" />
+    <Compile Include="..\OwinUtilsTests\EventTestApp.cs" />
+    <Compile Include="..\OwinUtilsTests\MiddlewareTestBase.cs" />
+    <Compile Include="..\OwinUtilsTests\EventSourceTests.cs" />
+    <Compile Include="..\OwinUtilsTests\WrapperTests.cs" />
+    <Compile Include="..\OwinUtilsTests\RouteHeaderTests.cs" />
+    <Compile Include="..\OwinUtilsTests\TypeConverterTests.cs" />
+    <Compile Include="..\OwinUtilsTests\AsyncWriterTests.cs" />
+    <Compile Include="..\OwinUtilsTests\JsonStream.cs" />
+    <Compile Include="..\OwinUtilsTests\BatchAsyncWriterTests.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
-    <ProjectReference Include="..\OwinUtils\OwinUtils.csproj">
+    <ProjectReference Include="OwinUtils.csproj">
       <Project>{5AEB6F49-2D13-4E9E-9717-708D4C4F6AA0}</Project>
       <Name>OwinUtils</Name>
     </ProjectReference>

@@ -22,3 +22,4 @@ using System.Runtime.CompilerServices;
 
 
 [assembly:InternalsVisibleTo("OwinUtils.UnitTest")]
+[assembly: InternalsVisibleTo("OwinUtilsTests")]

@@ -14,7 +14,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug</OutputPath>
+    <OutputPath>OwinUtils\bin\Debug</OutputPath>
     <DefineConstants>DEBUG;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -23,7 +23,7 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release</OutputPath>
+    <OutputPath>OwinUtils\bin\Release</OutputPath>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
@@ -46,29 +46,29 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CookieConverter.cs" />
-    <Compile Include="RouteCookie.cs" />
-    <Compile Include="EventSourceMessage.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="IEventStream.cs" />
-    <Compile Include="EventSource.cs" />
-    <Compile Include="EventStream.cs" />
-    <Compile Include="RouteBody.cs" />
-    <Compile Include="RouteQuery.cs" />
-    <Compile Include="RouteTemplate.cs" />
-    <Compile Include="SessionCookie.cs" />
-    <Compile Include="SignedString.cs" />
-    <Compile Include="Wrapper.cs" />
-    <Compile Include="RouteHeader.cs" />
-    <Compile Include="ConstructorTypeConverter.cs" />
-    <Compile Include="AsyncWriter.cs" />
-    <Compile Include="RouteParams.cs" />
-    <Compile Include="RouteMiddleware.cs">
+    <Compile Include="..\OwinUtils\CookieConverter.cs" />
+    <Compile Include="..\OwinUtils\RouteCookie.cs" />
+    <Compile Include="..\OwinUtils\EventSourceMessage.cs" />
+    <Compile Include="..\OwinUtils\Properties\AssemblyInfo.cs" />
+    <Compile Include="..\OwinUtils\IEventStream.cs" />
+    <Compile Include="..\OwinUtils\EventSource.cs" />
+    <Compile Include="..\OwinUtils\EventStream.cs" />
+    <Compile Include="..\OwinUtils\RouteBody.cs" />
+    <Compile Include="..\OwinUtils\RouteQuery.cs" />
+    <Compile Include="..\OwinUtils\RouteTemplate.cs" />
+    <Compile Include="..\OwinUtils\SessionCookie.cs" />
+    <Compile Include="..\OwinUtils\SignedString.cs" />
+    <Compile Include="..\OwinUtils\Wrapper.cs" />
+    <Compile Include="..\OwinUtils\RouteHeader.cs" />
+    <Compile Include="..\OwinUtils\ConstructorTypeConverter.cs" />
+    <Compile Include="..\OwinUtils\AsyncWriter.cs" />
+    <Compile Include="..\OwinUtils\RouteParams.cs" />
+    <Compile Include="..\OwinUtils\RouteMiddleware.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="RouteBuilder.cs" />
-    <Compile Include="RouteReturn.cs" />
-    <Compile Include="BatchAsyncWriter.cs" />
+    <Compile Include="..\OwinUtils\RouteBuilder.cs" />
+    <Compile Include="..\OwinUtils\RouteReturn.cs" />
+    <Compile Include="..\OwinUtils\BatchAsyncWriter.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

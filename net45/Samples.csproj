@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -14,7 +14,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug</OutputPath>
+    <OutputPath>Samples\bin\Debug</OutputPath>
     <DefineConstants>DEBUG;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -23,7 +23,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>full</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release</OutputPath>
+    <OutputPath>Samples\bin\Release</OutputPath>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
@@ -41,19 +41,19 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RouteHeaderSample.cs" />
-    <Compile Include="RouteParamsSample.cs" />
-    <Compile Include="RouteQuerySample.cs" />
-    <Compile Include="EventSourceSample.cs" />
-    <Compile Include="RouteBranch.cs" />
+      <Compile Include="..\Samples\Properties\AssemblyInfo.cs" />
+      <Compile Include="..\Samples\RouteHeaderSample.cs" />
+      <Compile Include="..\Samples\RouteParamsSample.cs" />
+      <Compile Include="..\Samples\RouteQuerySample.cs" />
+      <Compile Include="..\Samples\EventSourceSample.cs" />
+      <Compile Include="..\Samples\RouteBranch.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\OwinUtils\OwinUtils.csproj">
+    <ProjectReference Include="OwinUtils.csproj">
       <Project>{5AEB6F49-2D13-4E9E-9717-708D4C4F6AA0}</Project>
       <Name>OwinUtils</Name>
     </ProjectReference>
