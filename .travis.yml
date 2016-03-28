@@ -1,2 +1,5 @@
 language: csharp
 solution: OwinUtilsNet45.sln
+install:
+  - nuget # lets get version number
+  - nuget restore OwinUtilsNet45.sln -Verbosity detailed
