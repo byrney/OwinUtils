@@ -1,2 +1,2 @@
 language: csharp
-solution: OwinUtils.sln
+solution: OwinUtilsNet45.sln
