@@ -59,7 +59,7 @@
       <Project>{5AEB6F49-2D13-4E9E-9717-708D4C4F6AA0}</Project>
       <Name>OwinUtils</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Samples\Samples.csproj">
+    <ProjectReference Include="Samples.csproj">
       <Project>{1B35336F-F065-4C0D-8354-C2A714F2DB40}</Project>
       <Name>Samples</Name>
     </ProjectReference>

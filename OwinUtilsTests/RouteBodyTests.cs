@@ -49,14 +49,13 @@ namespace OwinUtilsTests
             var po = new JObject();
             po["v"] = bodyIn;
             //            var t1 = app.HttpClient.PostAsJsonAsync("http://xyz.com/", po);
-            HttpContent contentPost = new StringContent(po.ToString(), Encoding.UTF8,
-"application/json");
+            HttpContent contentPost = new StringContent(po.ToString(), Encoding.UTF8, "application/json");
             var t1 = app.HttpClient.PostAsync("http://xyz.com/", contentPost);
             var response = t1.Result;
 
             // Then: The call succeeds and we get the same data back as we sent
             Assert.IsTrue(response.IsSuccessStatusCode);
-            Assert.AreEqual(JsonConvert.SerializeObject(po), response.Content.ReadAsStringAsync().Result);
+            Assert.AreEqual(po.ToString(), response.Content.ReadAsStringAsync().Result);
         }
 
         [TypeConverter(typeof(ConstructorTypeConverter<JsonStream, ConvertFromJson>))]
@@ -99,14 +98,13 @@ namespace OwinUtilsTests
             var bodyIn = "some text";
             var po = new JObject();
             po["v"] = bodyIn;
-            HttpContent contentPost = new StringContent(po.ToString(), Encoding.UTF8,
-"application/json");
+            HttpContent contentPost = new StringContent(po.ToString(), Encoding.UTF8, "application/json");
             var t1 = app.HttpClient.PostAsync("http://xyz.com/", contentPost);
             var response = t1.Result;
 
             // Then: The call succeeds and we get the same data back as we sent
             Assert.IsTrue(response.IsSuccessStatusCode);
-            Assert.AreEqual(JsonConvert.SerializeObject(po), response.Content.ReadAsStringAsync().Result);
+            Assert.AreEqual(po.ToString(), response.Content.ReadAsStringAsync().Result);
         }
 
         [Test]
@@ -135,14 +133,13 @@ namespace OwinUtilsTests
             var bodyIn = "some text";
             var po = new JObject();
             po["v"] = bodyIn;
-            HttpContent contentPost = new StringContent(po.ToString(), Encoding.UTF8,
-"application/json");
+            HttpContent contentPost = new StringContent(po.ToString(), Encoding.UTF8, "application/json");
             var t1 = app.HttpClient.PostAsync("http://xyz.com/", contentPost);
             var response = t1.Result;
 
             // Then: The call succeeds and we get the same data back as we sent
             Assert.IsTrue(response.IsSuccessStatusCode);
-            Assert.AreEqual(JsonConvert.SerializeObject(po), response.Content.ReadAsStringAsync().Result);
+            Assert.AreEqual(po.ToString(), response.Content.ReadAsStringAsync().Result);
         }
 
 

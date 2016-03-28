@@ -10,3 +10,4 @@ test-results
 *.nupkg
 *.userprefs
 *.user
+*.xproj

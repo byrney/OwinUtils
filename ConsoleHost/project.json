@@ -1,0 +1,23 @@
+{
+    "version": "1.0.0-*",
+    "compilationOptions": {
+      "emitEntryPoint": true,
+    },
+
+  "dependencies": {
+    "Newtonsoft.Json": "7.0.1",
+    "Microsoft.Owin": "3.0.1",
+    "Microsoft.Owin.Hosting": "3.0.1",
+    "Microsoft.Owin.SelfHost": "3.0.1",
+    "Microsoft.Owin.Diagnostics": "3.0.1",
+    "Microsoft.Owin.Host.HttpListener": "3.0.1",
+    "OwinUtils": "",
+    "Samples": ""
+  },
+
+    "frameworks": {
+      "net451" : { "frameworkAssemblies": {"System.ComponentModel":  ""}}
+    },
+
+    "runtimes": { "win-anycpu": { } }
+}
